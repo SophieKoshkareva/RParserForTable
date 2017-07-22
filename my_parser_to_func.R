@@ -1,8 +1,8 @@
 #install.packages("xlsx")
 require(xlsx)
 
-file_in <- "C:/Users/Софья/Desktop/Диплом/Пример/data_in/data_CABG_PCI_2.csv"
-file_out <- "C:/Users/Софья/Desktop/Диплом/Пример/data_in/data_CABG_PCI_2_coloring.xlsx"
+file_in <- "D:/Diploma/r_project/data_CABG_PCI_2.csv"
+file_out <- "D:/Diploma/r_project/data_CABG_PCI_2_coloring.xlsx"
 sheet_out_name <- "data_CABG_PCI_2"
 
 xlsx.createBook <- function(x, sheetName, file, missing_value = FALSE, mis_ind, startR = 1){
