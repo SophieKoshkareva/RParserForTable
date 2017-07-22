@@ -6,6 +6,7 @@ file_out <- "D:/Diploma/r_project/data_CABG_PCI_2_coloring.xlsx"
 sheet_out_name <- "data_CABG_PCI_2"
 
 xlsx.createBook <- function(x, sheetName, file, missing_value = FALSE, mis_ind, outliers = FALSE, outliers_ind, startR = 1){
+  
   wb <- createWorkbook(type = "xlsx")
   sheet1 <- createSheet(wb, sheetName)
  
@@ -18,27 +19,25 @@ xlsx.createBook <- function(x, sheetName, file, missing_value = FALSE, mis_ind, 
                          Fill(foregroundColor = "lightgray") +
                          Border(position = c("BOTTOM", "LEFT", "TOP", "RIGHT"))
   OUTLIERS_STYLE <- CellStyle(wb) +
-                    Font(wb, isBold = TRUE) +
-                    Fill(foregroundColor = "tomato3") +
+                    Font(wb, isItalic = TRUE) +
+                    Fill(foregroundColor = "red") +
                     Border(position = c("BOTTOM", "LEFT", "TOP", "RIGHT"))
   
   addDataFrame(x, sheet1,  row.names = FALSE, startRow = startR, startColumn = 1, colnamesStyle = TABLE_COLNAMES_STYLE)
   
+  rows <- getRows(sheet1, rowIndex = 1:nrow(x) + 2)    
+  cells <- getCells(rows, colIndex = 1:ncol(x)) 
+  
   if (missing_value == TRUE){
-    rows <- getRows(sheet1, rowIndex = 1:nrow(x) + 2)    
-    cells <- getCells(rows, colIndex = 1:ncol(x)) 
     lapply(names(cells[mis_ind]), function(i) setCellStyle(cells[[i]], MISSING_VALUE_STYLE))
     xlsx.addSymbol(wb, tytle = "Пропущенные значения", style = MISSING_VALUE_STYLE)
   }
    
-  # if (outliers == TRUE){
-  #   print("HELOOOOO")
-  #   rows <- getRows(sheet1, rowIndex = 1:nrow(x) + 2)    
-  #   cells <- getCells(rows, colIndex = 1:ncol(x))   
-  #   
-  #   lapply(names(cells[outliers_ind]), function(i) setCellStyle(cells[[i]], OUTLIERS_STYLE))
-  #   #xlsx.addSymbol(wb, colIndex = 2, tytle = "Выбросы", style = OUTLIERS_STYLE)    
-  # }
+   if (outliers == TRUE){
+    print("HELOOOOO")
+     lapply(names(cells[outliers_ind]), function(i) setCellStyle(cells[[i]], OUTLIERS_STYLE))
+    #xlsx.addSymbol(wb, colIndex = 2, tytle = "Выбросы", style = OUTLIERS_STYLE)    
+   }
     autoSizeColumn(sheet1, colIndex = c(1:ncol(x)))
 # закрепляем строку/строки и 1й столбец
     createFreezePane(sheet1, rowSplit = startR + 1, colSplit = 2, startRow = startR, startColumn = 1)
