@@ -1,0 +1,93 @@
+#install.packages("xlsx")
+require(xlsx)
+
+file_in <- "C:/Users/Софья/Desktop/Диплом/Пример/data_in/data_CABG_PCI_2.csv"
+file_out <- "C:/Users/Софья/Desktop/Диплом/Пример/data_in/data_CABG_PCI_2_coloring.xlsx"
+sheet_out_name <- "data_CABG_PCI_2"
+
+xlsx.createBook <- function(x, sheetName, file, missing_value = FALSE, mis_ind, startR = 1){
+  wb <- createWorkbook(type = "xlsx")
+  sheet1 <- createSheet(wb, sheetName)
+ 
+  TABLE_COLNAMES_STYLE <- CellStyle(wb) +
+    Font(wb, isBold = TRUE) +
+    Alignment(wrapText = TRUE, horizontal = "ALIGN_CENTER") +
+    Border(position = c("BOTTOM", "LEFT", "TOP", "RIGHT")) 
+  MISSING_VALUE_STYLE <- CellStyle(wb) +
+        Font(wb, isItalic = TRUE) +
+        Fill(foregroundColor = "lightgray") +
+        Border(position = c("BOTTOM", "LEFT", "TOP", "RIGHT"))
+  
+  addDataFrame(x, sheet1,  row.names = FALSE, startRow = startR, startColumn = 1, colnamesStyle = TABLE_COLNAMES_STYLE)
+  
+  if (missing_value == TRUE){
+    rows <- getRows(sheet1, rowIndex = 1:nrow(x) + 2)    
+    cells <- getCells(rows, colIndex = 1:ncol(x))     
+    lapply(names(cells[mis_ind]), function(i) setCellStyle(cells[[i]], MISSING_VALUE_STYLE))
+    xlsx.addSymbol(wb, tytle = "Пропущенные значения", style = MISSING_VALUE_STYLE)
+  }
+    autoSizeColumn(sheet1, colIndex = c(1:ncol(x)))
+# закрепляем строку/строки и 1й столбец
+    createFreezePane(sheet1, rowSplit = startR + 1, colSplit = 2, startRow = startR, startColumn = 1)
+    saveWorkbook(wb, file)
+    print("New workbook was created")
+}
+
+xlsx.findMissingValue <- function(x){
+  ind <- which(is.na(x), arr.ind = TRUE, useNames = FALSE)
+# чтобы проверить работоспособность кода для таблицы без пропусков, измените в след.условии TRUE на FALSE
+  if (is.null(ind) == TRUE) {
+    xlsx.createBook(x, sheet_out_name, file_out)
+  } else {
+    ind[,1] <- ind[,1] + 2
+    mis_ind <- apply(ind, 1, paste, collapse = ".")
+    xlsx.createBook(x, sheet_out_name, file_out, TRUE, mis_ind, startR = 2)
+    
+  }  
+}
+
+xlsx.addSymbol <- function(wb, rowIndex = 1, colIndex = 1, tytle, style){
+  sheets <- getSheets(wb)
+  rows <- createRow(sheets[[1]], rowIndex)
+  CellSymbol <- createCell(rows, colIndex)
+  setCellValue(CellSymbol[[1]], tytle)
+  setCellStyle(CellSymbol[[1]], style) 
+}
+
+source_table <- read.csv2(file_in, na.strings = c("", "NA"), stringsAsFactors = FALSE, check.names = FALSE)
+xlsx.findMissingValue(source_table)
+
+#it's works
+#a <- source_table[source_table$вес %in% outlier_weight,] 
+#it's works
+#a <- which(source_table$вес %in% outlier_weight, arr.ind = TRUE, useNames = FALSE) 
+
+#outliers <- list()
+for (i in names(source_table)){
+  if (is.numeric(source_table[[i]]) & length(unique(source_table[[i]])) > 5) {
+    print(i)
+    print(boxplot.stats(source_table[[i]])$out)
+    print(outliers <- (which(boxplot.stats(source_table[[i]])$out %in% source_table[[i]], arr.ind = T, useNames = F)))
+    print(is.vector(outliers))
+    #print(apply(outliers, 1, paste, collapse = "."))
+     #outliers[[i]] <- boxplot.stats(source_table[[i]])$out
+    #print(grepl(boxplot.stats(source_table[[i]])$out, source_table[[i]]))
+  }
+} 
+
+for (i in 1:ncol(source_table)){
+  if (is.numeric(source_table[[i]]) & length(unique(source_table[[i]])) > 5) {
+    print(i)
+    print(boxplot.stats(source_table[[i]])$out)
+    print(outliers <- (which(boxplot.stats(source_table[[i]])$out %in% source_table[[i]], arr.ind = T, useNames = F)))
+    print(is.vector(outliers))
+    print(apply(outliers, 1, paste, collapse = "."))
+    #outliers[[i]] <- boxplot.stats(source_table[[i]])$out
+    #print(grepl(boxplot.stats(source_table[[i]])$out, source_table[[i]]))
+  }
+} 
+
+outliers
+#which(source_table[][names(outliers)] %in% outliers, arr.ind = TRUE, useNames = FALSE)
+#a <- which(source_table[names(outliers)] %in% outliers, arr.ind = TRUE, useNames = FALSE) 
+#a
