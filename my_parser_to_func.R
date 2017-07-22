@@ -62,26 +62,28 @@ xlsx.findMissingValue(source_table)
 #it's works
 #a <- which(source_table$вес %in% outlier_weight, arr.ind = TRUE, useNames = FALSE) 
 
-#outliers <- list()
-for (i in names(source_table)){
-  if (is.numeric(source_table[[i]]) & length(unique(source_table[[i]])) > 5) {
-    print(i)
-    print(boxplot.stats(source_table[[i]])$out)
-    print(outliers <- (which(boxplot.stats(source_table[[i]])$out %in% source_table[[i]], arr.ind = T, useNames = F)))
-    print(is.vector(outliers))
-    #print(apply(outliers, 1, paste, collapse = "."))
-     #outliers[[i]] <- boxplot.stats(source_table[[i]])$out
-    #print(grepl(boxplot.stats(source_table[[i]])$out, source_table[[i]]))
+outliers <- list()
+outliers_row_ind <- list()
+  for (i in names(source_table)){
+    if (is.numeric(source_table[[i]]) & length(unique(source_table[[i]])) > 5) {
+      print(i)
+      print(outliers[[i]] <- boxplot.stats(source_table[[i]])$out)
+      print(outliers_row_ind[[i]] <- which(source_table[[i]] %in% outliers[[i]], arr.ind = T, useNames = F))
+#     print(is.vector(outliers))
+#     #print(apply(outliers, 1, paste, collapse = "."))
+      #outliers[[i]] <- boxplot.stats(source_table[[i]])$out
+#     #print(grepl(boxplot.stats(source_table[[i]])$out, source_table[[i]]))
   }
-} 
+ } 
 
 for (i in 1:ncol(source_table)){
   if (is.numeric(source_table[[i]]) & length(unique(source_table[[i]])) > 5) {
     print(i)
-    print(boxplot.stats(source_table[[i]])$out)
-    print(outliers <- (which(boxplot.stats(source_table[[i]])$out %in% source_table[[i]], arr.ind = T, useNames = F)))
-    print(is.vector(outliers))
-    print(apply(outliers, 1, paste, collapse = "."))
+    print(which(boxplot.stats(source_table[[i]])$out %in% source_table[[i]], arr.ind = T, useNames = F))
+    print(outer(which(boxplot.stats(source_table[[i]])$out %in% source_table[[i]], arr.ind = T, useNames = F), i, paste, sep ="."))
+    #print(outer(outliers_row_ind, i, paste, sep="."))
+     #print(is.vector(outliers))
+    #print(apply(outliers, 1, paste, collapse = "."))
     #outliers[[i]] <- boxplot.stats(source_table[[i]])$out
     #print(grepl(boxplot.stats(source_table[[i]])$out, source_table[[i]]))
   }
