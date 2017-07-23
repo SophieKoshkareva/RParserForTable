@@ -32,9 +32,9 @@ xlsx.createBook <- function(x, sheetName, file, missing_value = FALSE, mis_ind, 
     #print(mis_ind)
     #print(names(cells[mis_ind])[1])
     #print(mis_ind)
-    print("---")
-    print(names(cells[mis_ind])[1])
-    print("/---")
+   # print("---")
+   # print(names(cells[mis_ind])[1])
+   # print("/---")
     #print(cells[["53.29"]])
     tmp1 <- names(cells[mis_ind])[[1]]
     tmp2 <- cells[[mis_ind[1]]]
@@ -43,17 +43,21 @@ xlsx.createBook <- function(x, sheetName, file, missing_value = FALSE, mis_ind, 
     xlsx.addSymbol(wb, tytle = "Пропущенные значения", style = MISSING_VALUE_STYLE)
   }
 
-   # if (outliers == TRUE){
-   #    print("HELOOOOO")
-   #    print(mis_ind)
-   #    
-      # for (i in length(outliers_ind)){
-      #    setCellStyle(names(cells[outliers_ind]), OUTLIERS_STYLE)
-      # }
+   if (outliers == TRUE){
+      print("HELOOOOO")
+     
+     # for (i in length(outliers_ind)){
+     #      setCellStyle(names(cells[outliers_ind]), OUTLIERS_STYLE)
+     #   }
+     #print(is.na(cells[outliers_ind]))
+     print(outliers_ind)
+     print(cells[outliers_ind])
+    
+    
      
      #lapply(names(cells[outliers_ind]), function(i) setCellStyle(cells[[i]], MISSING_VALUE_STYLE))
-    # xlsx.addSymbol(wb, colIndex = 2, tytle = "Выбросы", style = OUTLIERS_STYLE)
-   # }
+     #xlsx.addSymbol(wb, colIndex = 2, tytle = "Выбросы", style = OUTLIERS_STYLE)
+    }
     autoSizeColumn(sheet1, colIndex = c(1:ncol(x)))
 # закрепляем строку/строки и 1й столбец
     createFreezePane(sheet1, rowSplit = startR + 1, colSplit = 2, startRow = startR, startColumn = 1)
@@ -92,7 +96,8 @@ xlsx.findOutliers <- function(x, mis_ind){
     if (is.numeric(x[[i]]) & length(unique(x[[i]])) > 5){
       outliers <- boxplot.stats(x[[i]])$out
       outliers_row_ind <- which(x[[i]] %in% outliers, arr.ind = T, useNames = F)
-      outliers_ind <- append(outliers_ind, values = outer(outliers_row_ind, i, paste, sep = "."))
+      outliers_ind <- append(outliers_ind, values = outer(outliers_row_ind, i+2, paste, sep = "."))
+      
     }
   }
   xlsx.createBook(x, sheet_out_name, file_out, missing_value = TRUE, mis_ind, outliers = TRUE, outliers_ind, startR = 2)
