@@ -29,17 +29,31 @@ xlsx.createBook <- function(x, sheetName, file, missing_value = FALSE, mis_ind, 
   cells <- getCells(rows, colIndex = 1:ncol(x)) 
   
   if (missing_value == TRUE){
-    print(mis_ind)
+    #print(mis_ind)
+    #print(names(cells[mis_ind])[1])
+    #print(mis_ind)
+    print("---")
+    print(names(cells[mis_ind])[1])
+    print("/---")
+    #print(cells[["53.29"]])
+    tmp1 <- names(cells[mis_ind])[[1]]
+    tmp2 <- cells[[mis_ind[1]]]
+    setCellStyle(tmp2, MISSING_VALUE_STYLE)
     lapply(names(cells[mis_ind]), function(i) setCellStyle(cells[[i]], MISSING_VALUE_STYLE))
     xlsx.addSymbol(wb, tytle = "Пропущенные значения", style = MISSING_VALUE_STYLE)
   }
-   
-  if (outliers == TRUE){
-    print("HELOOOOO")
-    print(outliers_ind)
-    #lapply(names(cells[outliers_ind]), function(i) setCellStyle(cells[[i]], OUTLIERS_STYLE))
-    #xlsx.addSymbol(wb, colIndex = 2, tytle = "Выбросы", style = OUTLIERS_STYLE)    
-   }
+
+   # if (outliers == TRUE){
+   #    print("HELOOOOO")
+   #    print(mis_ind)
+   #    
+      # for (i in length(outliers_ind)){
+      #    setCellStyle(names(cells[outliers_ind]), OUTLIERS_STYLE)
+      # }
+     
+     #lapply(names(cells[outliers_ind]), function(i) setCellStyle(cells[[i]], MISSING_VALUE_STYLE))
+    # xlsx.addSymbol(wb, colIndex = 2, tytle = "Выбросы", style = OUTLIERS_STYLE)
+   # }
     autoSizeColumn(sheet1, colIndex = c(1:ncol(x)))
 # закрепляем строку/строки и 1й столбец
     createFreezePane(sheet1, rowSplit = startR + 1, colSplit = 2, startRow = startR, startColumn = 1)
@@ -84,34 +98,5 @@ xlsx.findOutliers <- function(x, mis_ind){
   xlsx.createBook(x, sheet_out_name, file_out, missing_value = TRUE, mis_ind, outliers = TRUE, outliers_ind, startR = 2)
 }
 
-
 source_table <- read.csv2(file_in, na.strings = c("", "NA"), stringsAsFactors = FALSE, check.names = FALSE)
 xlsx.findMissingValue(source_table)
-
-#it's works
-#a <- source_table[source_table$вес %in% outlier_weight,] 
-#it's works
-#a <- which(source_table$вес %in% outlier_weight, arr.ind = TRUE, useNames = FALSE) 
-
-# outliers <- list()
-# outliers_row_ind <- list()
-# outliers_ind <- list()
-#   for (i in names(source_table)){
-#     if (is.numeric(source_table[[i]]) & length(unique(source_table[[i]])) > 5) {
-#       print(i)
-#       print(outliers[[i]] <- boxplot.stats(source_table[[i]])$out)
-#       print(outliers_row_ind[[i]] <- which(source_table[[i]] %in% outliers[[i]], arr.ind = T, useNames = F))
-#       print(outer(outliers_row_ind[[i]], i, paste, sep = "."))
-# #     print(is.vector(outliers))
-# #     #print(apply(outliers, 1, paste, collapse = "."))
-#       #outliers[[i]] <- boxplot.stats(source_table[[i]])$out
-# #     #print(grepl(boxplot.stats(source_table[[i]])$out, source_table[[i]]))
-#   }
-#  } 
-
-
-
-
-#which(source_table[][names(outliers)] %in% outliers, arr.ind = TRUE, useNames = FALSE)
-#a <- which(source_table[names(outliers)] %in% outliers, arr.ind = TRUE, useNames = FALSE) 
-#a
