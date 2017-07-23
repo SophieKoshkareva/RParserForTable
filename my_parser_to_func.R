@@ -29,13 +29,15 @@ xlsx.createBook <- function(x, sheetName, file, missing_value = FALSE, mis_ind, 
   cells <- getCells(rows, colIndex = 1:ncol(x)) 
   
   if (missing_value == TRUE){
+    print(mis_ind)
     lapply(names(cells[mis_ind]), function(i) setCellStyle(cells[[i]], MISSING_VALUE_STYLE))
     xlsx.addSymbol(wb, tytle = "Пропущенные значения", style = MISSING_VALUE_STYLE)
   }
    
-   if (outliers == TRUE){
+  if (outliers == TRUE){
     print("HELOOOOO")
-     lapply(names(cells[outliers_ind]), function(i) setCellStyle(cells[[i]], OUTLIERS_STYLE))
+    print(outliers_ind)
+    #lapply(names(cells[outliers_ind]), function(i) setCellStyle(cells[[i]], OUTLIERS_STYLE))
     #xlsx.addSymbol(wb, colIndex = 2, tytle = "Выбросы", style = OUTLIERS_STYLE)    
    }
     autoSizeColumn(sheet1, colIndex = c(1:ncol(x)))
