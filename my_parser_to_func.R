@@ -43,7 +43,7 @@ xlsx.createBook <- function(x, sheetName, file, missing_value = FALSE, mis_ind, 
     
   autoSizeColumn(sheet, colIndex = c(1:ncol(x)))
 # закрепляем строку/строки и 1й столбец
-    createFreezePane(sheet, rowSplit = 2, colSplit = 2, startRow = 2, startColumn = 1)
+    createFreezePane(sheet, rowSplit = 2, colSplit = 2, startRow = 1, startColumn = 1)
     saveWorkbook(wb, file)
     print("New workbook was created")
 }
@@ -78,7 +78,7 @@ xlsx.findOutliers <- function(x, mis_ind){
     if (is.numeric(x[[i]]) & length(unique(x[[i]])) > num_levels_defaul){
       outliers <- boxplot.stats(x[[i]])$out
       if (is.null(outliers) == TRUE) {
-        xlsx.createBook(x, sheet_out_name, file_out)
+      xlsx.createBook(x, sheet_out_name, file_out)
       } else {
         outliers_row_ind <- which(x[[i]] %in% outliers, arr.ind = T, useNames = F)
         outliers_row_ind <- outliers_row_ind + row_header + row_symbol
