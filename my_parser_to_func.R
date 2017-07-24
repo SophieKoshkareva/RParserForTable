@@ -30,21 +30,11 @@ xlsx.createBook <- function(x, sheetName, file, missing_value = FALSE, mis_ind, 
   #print(title_values <- getCellValue(cells[["1.1"]]))
   
   if (missing_value == TRUE){
-    #print(mis_ind)
-    #print(names(cells[mis_ind])[1])
-    #print(mis_ind)
-   # print("---")
-   # print(names(cells[mis_ind])[1])
-   # print("/---")
-    #print(cells[["53.29"]])
-    #tmp1 <- names(cells[mis_ind])[[1]]
-    #tmp2 <- cells[[mis_ind[1]]]
     print(mis_ind[1])
     print(cells[1][1])
-    #setCellStyle(tmp2, MISSING_VALUE_STYLE)
     lapply(names(cells[mis_ind]), function(i) setCellStyle(cells[[i]], MISSING_VALUE_STYLE))
     #xlsx.addSymbol(wb, tytle = "Пропущенные значения", style = MISSING_VALUE_STYLE)
-   # xlsx.addTitle(cells, i = "1.1", title = "Пропущенные значения", titleStyle = MISSING_VALUE_STYLE)
+    xlsx.addTitle(sheet1, 1, title = "Пропущенные значения", titleStyle = MISSING_VALUE_STYLE)
   }
 
    if (outliers == TRUE){
@@ -61,7 +51,7 @@ xlsx.createBook <- function(x, sheetName, file, missing_value = FALSE, mis_ind, 
      
      lapply(names(cells[outliers_ind]), function(i) setCellStyle(cells[[i]], OUTLIERS_STYLE))
      #xlsx.addSymbol(wb, colIndex = 2, tytle = "Выбросы", style = OUTLIERS_STYLE)
-     #xlsx.addTitle(sheet1, rowIndex = 1, colIndex = 2, title = "Выбросы", titleStyle = OUTLIERS_STYLE)
+     xlsx.addTitle(sheet1, 2, title = "Выбросы", titleStyle = OUTLIERS_STYLE)
     }
     autoSizeColumn(sheet1, colIndex = c(1:ncol(x)))
 # закрепляем строку/строки и 1й столбец
@@ -95,10 +85,11 @@ xlsx.findMissingValue <- function(x){
 #   setCellStyle(CellSymbol[[1]], style) 
 # }
 
-xlsx.addTitle <- function(cells, i, title, titleStyle){
-  #sheetTitle <- createCell(rows, colIndex)
-  setCellValue(cells[[i]], title)
-  #setCellStyle(cells[[1]], titleStyle)
+xlsx.addTitle <- function(sheet, colIndex, title, titleStyle){
+  rows <-getRows(sheet,rowIndex = 1)
+  sheetTitle <-createCell(rows, colIndex)
+  setCellValue(sheetTitle[[1,1]], title)
+  setCellStyle(sheetTitle[[1,1]], titleStyle)
 }
 
 xlsx.findOutliers <- function(x, mis_ind){
