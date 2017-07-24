@@ -36,9 +36,9 @@ xlsx.createBook <- function(x, sheetName, file, missing_value = FALSE, mis_ind, 
    # print(names(cells[mis_ind])[1])
    # print("/---")
     #print(cells[["53.29"]])
-    tmp1 <- names(cells[mis_ind])[[1]]
-    tmp2 <- cells[[mis_ind[1]]]
-    setCellStyle(tmp2, MISSING_VALUE_STYLE)
+    #tmp1 <- names(cells[mis_ind])[[1]]
+    #tmp2 <- cells[[mis_ind[1]]]
+    #setCellStyle(tmp2, MISSING_VALUE_STYLE)
     lapply(names(cells[mis_ind]), function(i) setCellStyle(cells[[i]], MISSING_VALUE_STYLE))
     xlsx.addSymbol(wb, tytle = "Пропущенные значения", style = MISSING_VALUE_STYLE)
   }
@@ -50,12 +50,12 @@ xlsx.createBook <- function(x, sheetName, file, missing_value = FALSE, mis_ind, 
      #      setCellStyle(names(cells[outliers_ind]), OUTLIERS_STYLE)
      #   }
      #print(is.na(cells[outliers_ind]))
-     print(outliers_ind)
-     print(cells[outliers_ind])
+     # print(outliers_ind)
+     # print(cells[outliers_ind])
     
     
      
-     #lapply(names(cells[outliers_ind]), function(i) setCellStyle(cells[[i]], MISSING_VALUE_STYLE))
+     lapply(names(cells[outliers_ind]), function(i) setCellStyle(cells[[i]], OUTLIERS_STYLE))
      #xlsx.addSymbol(wb, colIndex = 2, tytle = "Выбросы", style = OUTLIERS_STYLE)
     }
     autoSizeColumn(sheet1, colIndex = c(1:ncol(x)))
@@ -71,6 +71,7 @@ xlsx.findMissingValue <- function(x){
   if (is.null(ind) == TRUE) {
     xlsx.createBook(x, sheet_out_name, file_out)
   } else {
+    #print(ind)
     ind[,1] <- ind[,1] + 2
     mis_ind <- apply(ind, 1, paste, collapse = ".")
     
@@ -94,14 +95,24 @@ xlsx.findOutliers <- function(x, mis_ind){
   outliers_ind <- c()
   for (i in 1:ncol(x)){
     if (is.numeric(x[[i]]) & length(unique(x[[i]])) > 5){
+      print("Печатаю индексы колонок с выбросами:")
+      print(i)
       outliers <- boxplot.stats(x[[i]])$out
       outliers_row_ind <- which(x[[i]] %in% outliers, arr.ind = T, useNames = F)
-      outliers_ind <- append(outliers_ind, values = outer(outliers_row_ind, i+2, paste, sep = "."))
+      print("Печатаю индексы строк с выбросами:")
+     
+      outliers_row_ind <- outliers_row_ind + 2
+      print(outliers_row_ind)
+      outliers_ind <- append(outliers_ind, values = outer(outliers_row_ind, i, paste, sep = "."))
       
     }
   }
+  
   xlsx.createBook(x, sheet_out_name, file_out, missing_value = TRUE, mis_ind, outliers = TRUE, outliers_ind, startR = 2)
 }
 
 source_table <- read.csv2(file_in, na.strings = c("", "NA"), stringsAsFactors = FALSE, check.names = FALSE)
 xlsx.findMissingValue(source_table)
+
+
+

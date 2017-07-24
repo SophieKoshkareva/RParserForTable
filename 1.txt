@@ -1,2 +1,0 @@
-Called from: cat(x, file = file, sep = c(rep.int(sep, ncolumns - 1), "\n"), 
-    append = append)
