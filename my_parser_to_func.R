@@ -20,13 +20,14 @@ xlsx.createBook <- function(x, sheetName, file, missing_value = FALSE, mis_ind, 
                          Border(position = c("BOTTOM", "LEFT", "TOP", "RIGHT"))
   OUTLIERS_STYLE <- CellStyle(wb) +
                     Font(wb, isItalic = TRUE) +
-                    Fill(foregroundColor = "red") +
+                    Fill(foregroundColor = "tomato2") +
                     Border(position = c("BOTTOM", "LEFT", "TOP", "RIGHT"))
   
-  addDataFrame(x, sheet1,  row.names = FALSE, startRow = startR, startColumn = 1, colnamesStyle = TABLE_COLNAMES_STYLE)
-  
+  createRow(sheet1, rowIndex = 1)
+  addDataFrame(x, sheet1,  row.names = FALSE, startRow = 2, startColumn = 1, colnamesStyle = TABLE_COLNAMES_STYLE)
   rows <- getRows(sheet1, rowIndex = 1:nrow(x) + 2)    
   cells <- getCells(rows, colIndex = 1:ncol(x)) 
+  #print(title_values <- getCellValue(cells[["1.1"]]))
   
   if (missing_value == TRUE){
     #print(mis_ind)
@@ -38,9 +39,12 @@ xlsx.createBook <- function(x, sheetName, file, missing_value = FALSE, mis_ind, 
     #print(cells[["53.29"]])
     #tmp1 <- names(cells[mis_ind])[[1]]
     #tmp2 <- cells[[mis_ind[1]]]
+    print(mis_ind[1])
+    print(cells[1][1])
     #setCellStyle(tmp2, MISSING_VALUE_STYLE)
     lapply(names(cells[mis_ind]), function(i) setCellStyle(cells[[i]], MISSING_VALUE_STYLE))
-    xlsx.addSymbol(wb, tytle = "Пропущенные значения", style = MISSING_VALUE_STYLE)
+    #xlsx.addSymbol(wb, tytle = "Пропущенные значения", style = MISSING_VALUE_STYLE)
+   # xlsx.addTitle(cells, i = "1.1", title = "Пропущенные значения", titleStyle = MISSING_VALUE_STYLE)
   }
 
    if (outliers == TRUE){
@@ -57,58 +61,69 @@ xlsx.createBook <- function(x, sheetName, file, missing_value = FALSE, mis_ind, 
      
      lapply(names(cells[outliers_ind]), function(i) setCellStyle(cells[[i]], OUTLIERS_STYLE))
      #xlsx.addSymbol(wb, colIndex = 2, tytle = "Выбросы", style = OUTLIERS_STYLE)
+     #xlsx.addTitle(sheet1, rowIndex = 1, colIndex = 2, title = "Выбросы", titleStyle = OUTLIERS_STYLE)
     }
     autoSizeColumn(sheet1, colIndex = c(1:ncol(x)))
 # закрепляем строку/строки и 1й столбец
-    createFreezePane(sheet1, rowSplit = startR + 1, colSplit = 2, startRow = startR, startColumn = 1)
+    createFreezePane(sheet1, rowSplit = 2, colSplit = 2, startRow = 2, startColumn = 1)
     saveWorkbook(wb, file)
     print("New workbook was created")
 }
 
 xlsx.findMissingValue <- function(x){
+  row_header <- 1
+  row_symbol <- 1
   ind <- which(is.na(x), arr.ind = TRUE, useNames = FALSE)
 # чтобы проверить работоспособность кода для таблицы без пропусков, измените в след.условии TRUE на FALSE
   if (is.null(ind) == TRUE) {
     xlsx.createBook(x, sheet_out_name, file_out)
   } else {
-    #print(ind)
-    ind[,1] <- ind[,1] + 2
-    mis_ind <- apply(ind, 1, paste, collapse = ".")
+      ind[,1] <- ind[,1] + row_header + row_symbol
+      mis_ind <- apply(ind, 1, paste, collapse = ".")
     
     xlsx.findOutliers(x, mis_ind)
     
   }  
 }
 
+# 
+# xlsx.addSymbol <- function(wb, rowIndex = 1, colIndex = 1, tytle, style){
+#   sheets <- getSheets(wb)
+#   rows <- createRow(sheets[[1]], rowIndex)
+#   CellSymbol <- createCell(rows, colIndex)
+#   setCellValue(CellSymbol[[1]], tytle)
+#   setCellStyle(CellSymbol[[1]], style) 
+# }
 
-xlsx.addSymbol <- function(wb, rowIndex = 1, colIndex = 1, tytle, style){
-  sheets <- getSheets(wb)
-  rows <- createRow(sheets[[1]], rowIndex)
-  CellSymbol <- createCell(rows, colIndex)
-  setCellValue(CellSymbol[[1]], tytle)
-  setCellStyle(CellSymbol[[1]], style) 
+xlsx.addTitle <- function(cells, i, title, titleStyle){
+  #sheetTitle <- createCell(rows, colIndex)
+  setCellValue(cells[[i]], title)
+  #setCellStyle(cells[[1]], titleStyle)
 }
 
 xlsx.findOutliers <- function(x, mis_ind){
   outliers <- c()
   outliers_row_ind <- c()
   outliers_ind <- c()
+  row_header <- 1
+  row_symbol <- 1
   for (i in 1:ncol(x)){
     if (is.numeric(x[[i]]) & length(unique(x[[i]])) > 5){
-      print("Печатаю индексы колонок с выбросами:")
-      print(i)
+      #print("Печатаю индексы колонок с выбросами:")
+     # print(i)
       outliers <- boxplot.stats(x[[i]])$out
+     # print(outliers)
       outliers_row_ind <- which(x[[i]] %in% outliers, arr.ind = T, useNames = F)
-      print("Печатаю индексы строк с выбросами:")
+     # print("Печатаю индексы строк с выбросами:")
      
-      outliers_row_ind <- outliers_row_ind + 2
-      print(outliers_row_ind)
+      outliers_row_ind <- outliers_row_ind + row_header + row_symbol
+      #print(outliers_row_ind)
       outliers_ind <- append(outliers_ind, values = outer(outliers_row_ind, i, paste, sep = "."))
       
     }
   }
   
-  xlsx.createBook(x, sheet_out_name, file_out, missing_value = TRUE, mis_ind, outliers = TRUE, outliers_ind, startR = 2)
+  xlsx.createBook(x, sheet_out_name, file_out, missing_value = TRUE, mis_ind, outliers = TRUE, outliers_ind)
 }
 
 source_table <- read.csv2(file_in, na.strings = c("", "NA"), stringsAsFactors = FALSE, check.names = FALSE)
