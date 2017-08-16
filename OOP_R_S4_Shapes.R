@@ -4,15 +4,15 @@ Shapes <- setClass(
     x = "numeric",
     y = "numeric"),
   prototype = list(
-    x = 0.0,
-    y = 0.0)
+    x = 0,
+    y = 0)
 )
 
 Circle <- setClass(
   "Circle",
   contains = "Shapes",
   slots = c(R = "numeric"),
-  prototype = list(R = 1),
+  prototype = list(R = 0),
   
   validity = function(object){
     if(object@R <= 0){ 
@@ -30,8 +30,8 @@ Rectangle <- setClass(
     height = "numeric"
   ),
   prototype = list(
-    width = 0.1,
-    height = 0.1),
+    width = 0,
+    height = 0),
   
   validity = function(object){
     if((object@width <= 0) || (object@height <= 0)) { 
@@ -239,7 +239,7 @@ setMethod(f = "Draw",
           }
 )
 
-russianCircles <- Circle()
+krujochek <- Circle()
 
 myrec <- Rectangle()
 
