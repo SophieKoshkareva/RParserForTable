@@ -10,6 +10,7 @@ Shapes <- setClass(
 
 Circle <- setClass(
   "Circle",
+  contains = "Shapes",
   slots = c(
     R = "numeric"
   ),
@@ -19,13 +20,12 @@ Circle <- setClass(
         return("A negative number for one of the coordinates was given.")
       }
       return(TRUE)
-    },
-  contains = "Shapes"
-  
+    }
 )
 
 Rectangle <- setClass(
   "Rectangle",
+  contains = "Shapes",
   slots = c(
     width = "numeric",
     height = "numeric"
@@ -35,8 +35,7 @@ Rectangle <- setClass(
       return("A negative number is given for one of the sizes.")
     }
     return(TRUE)
-  },
-  contains = "Shapes"
+  }
 )
 
 setGeneric(name = "setCoordinate",
@@ -63,6 +62,7 @@ setGeneric(name = "getCoordinate",
              standardGeneric("getCoordinate")
              }
 )
+
 setMethod(f = "getCoordinate",
           signature = "Shapes", 
           definition = function(theObject)
@@ -71,16 +71,39 @@ setMethod(f = "getCoordinate",
           }
 )
  
-setMethod(f ="getCoordinate",
+setGeneric(name = "setRadius",
+           def = function(theObject, RVal)
+           {
+              standardGeneric("getCoordinate")
+           }
+)
+
+setMethod(f ="setRadius",
           signature = "Circle",
-          definition = function(theObject)
+          definition = function(theObject, RVal)
           {
-            theObject <- callNextMethod(theObject)
-            return(c(theObject@x, theObject@y, theObject@R))
+            theObject@R <- RVal
+            validObject(theObject)
+            return(theObject)
           }  
 )
 
+setGeneric(name = "configureCircle",
+           def = function(theObject, xval, yVal, RVal)
+           {
+              standardGeneric("configureCircle")
+           }   
+)
 
+setMethod(f = "configureCircle",
+          signature = "Circle",
+          definition = function(theObject, xval, yVal, RVal)
+          {
+            theObject <- setCoordinate(theObject, xVal, yVal)
+            theObject <- setRadius(theObject, RVal)
+            return(theObject)
+          }
+)
 
 # setGeneric(name = "Draw",
 #            def = function(theObject, RVal)
@@ -97,7 +120,7 @@ setMethod(f ="getCoordinate",
 #             cat("I draw a circle with radius", RVal )
 #           } 
 # )
-# russianCircles <- Circle()
+ russianCircles <- Circle()
 # russianCircles
 # bigrectangle <- Rectangle()
 # bigrectangle
