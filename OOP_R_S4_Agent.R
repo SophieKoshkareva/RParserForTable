@@ -352,3 +352,4 @@ lionel <- Lynx()
 lionel
 lionel <- move(lionel)
 lionel
+mirra <- Prey()
