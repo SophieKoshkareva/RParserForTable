@@ -24,14 +24,15 @@ setGeneric(name = "FindMisprints",
 
 setMethod(f = "FindMisprints",
           signature = "Misprint",
-          definition = function(theObject, data_table, dictionary_keys)
+          definition = function(theObject, data_table, dictionary)
           { 
             #for (i in 1:ncol(data_table)){
-            misprint_row_ind <- which(data_table[2] %in% dictionary_keys, arr.ind = T, useNames = F)
-            
+            misprint_row_ind <- which(toupper(data_table[[2]]) %in% toupper(dictionary_keys), arr.ind = T, useNames = F)
+            #print(data_table[2])
+            #print(misprint_row_ind)
             #misprint_row_ind <- which(data_table[[i]] %in% dictionary_keys, arr.ind = T, useNames = F)
-            misprint_row_ind <- outliers_row_ind + theObject@row_header + theObject@row_symbol
-            theObject@ind <- append(theObject@ind, values = outer(misprint_row_ind, i, paste, sep = "."))
+            misprint_row_ind <- misprint_row_ind + theObject@row_header + theObject@row_symbol
+            theObject@ind <- append(theObject@ind, values = outer(misprint_row_ind, 2, paste, sep = "."))
             #}
             return(theObject)
           }
