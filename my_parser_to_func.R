@@ -32,17 +32,17 @@ xlsx.createBook <- function(x, sheetName, file, missing_value = FALSE, mis_ind, 
   
   if (missing_value == TRUE){
     lapply(names(cells[mis_ind]), function(i) setCellStyle(cells[[i]], MISSING_VALUE_STYLE))
-    xlsx.addSymbolTytle(sheet, colIndex = 1, title = "Пропущенные значения", titleStyle = MISSING_VALUE_STYLE)
+    xlsx.addSymbolTytle(sheet, colIndex = 1, title = "??????????? ????????", titleStyle = MISSING_VALUE_STYLE)
   }
 
   if (outliers == TRUE){
     print("HELOOOOO")
     lapply(names(cells[outliers_ind]), function(i) setCellStyle(cells[[i]], OUTLIERS_STYLE))
-    xlsx.addSymbolTytle(sheet, colIndex = 2, title = "Выбросы", titleStyle = OUTLIERS_STYLE)
+    xlsx.addSymbolTytle(sheet, colIndex = 2, title = "???????", titleStyle = OUTLIERS_STYLE)
   }
     
   autoSizeColumn(sheet, colIndex = c(1:ncol(x)))
-# закрепляем строку/строки и 1й столбец
+# ?????????? ??????/?????? ? 1? ???????
     createFreezePane(sheet, rowSplit = 2, colSplit = 2, startRow = 1, startColumn = 1)
     saveWorkbook(wb, file)
     print("New workbook was created")
@@ -50,13 +50,16 @@ xlsx.createBook <- function(x, sheetName, file, missing_value = FALSE, mis_ind, 
 
 xlsx.findMissingValue <- function(x){
   ind <- which(is.na(x), arr.ind = TRUE, useNames = FALSE)
-# чтобы проверить работоспособность кода для таблицы без пропусков, измените в след.условии TRUE на FALSE
+ # ????? ????????? ????????????????? ???? ??? ??????? ??? ?????????, ???????? ? ????.??????? TRUE ?? FALSE
   if (is.null(ind) == TRUE) {
     xlsx.createBook(x, sheet_out_name, file_out)
   } else {
       ind[,1] <- ind[,1] + row_header + row_symbol
+      print("??????????? ????????")
+      print(class(ind))
       mis_ind <- apply(ind, 1, paste, collapse = ".")
-    
+      print("??????????? ????????")
+      print(class(mis_ind))
     xlsx.findOutliers(x, mis_ind)
     
   }  
@@ -82,7 +85,11 @@ xlsx.findOutliers <- function(x, mis_ind){
       } else {
         outliers_row_ind <- which(x[[i]] %in% outliers, arr.ind = T, useNames = F)
         outliers_row_ind <- outliers_row_ind + row_header + row_symbol
+        print("???????")
+        print(class(outliers_row_ind))
         outliers_ind <- append(outliers_ind, values = outer(outliers_row_ind, i, paste, sep = "."))
+        print("???????")
+        print(class(outliers_ind))
         }
     }
   }

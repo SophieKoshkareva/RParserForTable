@@ -1,9 +1,8 @@
 Column <- setClass("Column",
                    slots = c(
-                     dictionary = "list",
-                     value = "list")
-                     
-                   
+                     key = "list",
+                     value = "list",
+                     data = "data.frame")
 )
 
 Sex <- setClass("Sex", 
@@ -16,17 +15,12 @@ Diabetes <- setClass("Diabetes",
 setMethod(f = "initialize",
           signature = "Sex",
           definition = function(.Object)
-            { #callNextMethod(.Object)
-
-              # dictionary.name <- c("Male", "Female")
-              # .Object@dictionary <- vector("list", length(dictionary.name))
-              # names(.Object@dictionary) <- dictionary.name
-              .Object@dictionary["Male"] <- list(c("м",
+            { .Object@key["Male"] <- list(c("м",
                                                    "муж",
                                                    "мужчина",
                                                    "мужик"))
               .Object@value["Male"] <- list(1)
-              .Object@dictionary["Female"] <- list(c("ж",
+              .Object@key["Female"] <- list(c("ж",
                                                      "жен",
                                                      "женщина"))
               .Object@value["Female"] <- list(0)
@@ -38,10 +32,10 @@ setMethod(f = "initialize",
           signature = "Diabetes",
           definition = function(.Object)
           {
-            .Object@dictionary["FirstDiabetesType"] <- list(c("1 тип",
+            .Object@key["FirstDiabetesType"] <- list(c("1 тип",
                                                               "1тип",
                                                               "первый"))
-            .Object@dictionary["SecondDiabetesType"] <- list(c("2 тип",
+            .Object@key["SecondDiabetesType"] <- list(c("2 тип",
                                                                "2тип",
                                                                "второй",
                                                                "2"))
