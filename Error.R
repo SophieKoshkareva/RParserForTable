@@ -1,6 +1,11 @@
 Error <- setClass("Error",
                   slots = c(ind = "character",
-                            style = "character")
+                            style = "character",
+                            row_header = "numeric", 
+                            row_symbol = "numeric"),
+                  prototype = list(
+                              row_header = 1,
+                              row_symbol = 1)
 )
 
 setGeneric(name = "SetColor",

@@ -14,7 +14,8 @@ setMethod(f = "Open",
           signature = "File",
           definition = function(theObject)
           { 
-            theObject@path_in <- "D:/Diploma/r_project/data_CABG_PCI_2.csv"
+            #theObject@path_in <- "D:/Diploma/r_project/data_CABG_PCI_2.csv"
+            theObject@path_in <- "D:/Diploma/r_project/data_GABR_PCI ред..csv"
             theObject@table <- read.csv2(theObject@path_in,
                                          na.strings = c("", "NA"),
                                          stringsAsFactors = FALSE,
