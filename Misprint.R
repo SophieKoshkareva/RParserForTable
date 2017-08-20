@@ -25,37 +25,40 @@ setGeneric(name = "FindMisprints",
 setMethod(f = "FindMisprints",
           signature = "Misprint",
           definition = function(theObject, table, column_index, keys, values)
-          { misprint_row_ind <- 0
+          { 
+            misprint_row_ind <- 0
             c <- table[[column_index]]
-            
             for (i in length(c)){
               found <- FALSE
-              
-              print(c[i])
-              for(j in 1:length(values)){
-                for(k in 1:length(values[j])){
-                    print("!!!!!!!!!!")
-                    print(values[[j]][k])
-                    
-                    #misprint_row_ind <- which(c %in% values)
-                    if (c[i] != values[[j]][k]){
-                      #which(file@table[[2]] %in% sex@value[[2]])
-                      found <- TRUE
-                      print(found)
-                      misprint_row_ind <-  i + theObject@row_header + theObject@row_symbol
-                      print(misprint_row_ind)
-                      theObject@ind <- append(theObject@ind, values = paste(misprint_row_ind, column_index, sep = "."))
-                      print(theObject@ind)
-                    }
-                  }
+              for(j in 1:length(values))
+              {
+                if (toupper(c[i]) == toupper(values[[j]][1]))
+                {
+                  #which(toupper(file@table[[2]]) %in% toupper(sex@key[[1]][1]))
+                  found <- TRUE
+                  break
+                }
+              }
+            } 
+            next
+            for(a in 1:length(keys)){
+              for(b in 1:length(keys[j])){
+                if (toupper(c[i]) == toupper(keys[[a]][b])){
+                    found <- TRUE
+                    misprint_row_ind <-  i + theObject@row_header + theObject@row_symbol
+                    print(misprint_row_ind)
+                    theObject@ind <- append(theObject@ind, values = paste(misprint_row_ind, column_index, sep = "."))
+                    print(theObject@ind)
+                }
+                if (!found){
+                  print("Опечатка не распарсена")
+                }else next
               }
             }
-            #misprint_row_ind <- which(c %in% values)
-            #misprint_row_ind <- which(toupper(c) %in% toupper(dictionary_keys), arr.ind = T, useNames = F)
-            #misprint_row_ind <- which(data_table[[i]] %in% dictionary_keys, arr.ind = T, useNames = F)
-            #misprint_row_ind <- misprint_row_ind + theObject@row_header + theObject@row_symbol
-            #theObject@ind <- append(theObject@ind, values = outer(misprint_row_ind, column_index, paste, sep = "."))
-            #}
+          }
           return(theObject)
         }
 )
+
+misprint <- FindMisprints(misprint, file@table, sex@column_index, sex@key, sex@value)
+
