@@ -16,49 +16,56 @@ setMethod(f = "initialize",
 )
 
 setGeneric(name = "FindMisprints",
-           def = function(theObject, table, column_index, keys, values)
+           def = function(theObject, table, column_index, keys, values, missing)
            { 
              standardGeneric("FindMisprints")
            }
 )
 
 setMethod(f = "FindMisprints",
-          signature = "Misprint",
-          definition = function(theObject, table, column_index, keys, values)
-          { 
-            misprint_row_ind <- 0
-            c <- table[[column_index]]
-            for (i in length(c)){
-              found <- FALSE
-              for(j in 1:length(values))
-              {
-                if (toupper(c[i]) == toupper(values[[j]][1]))
-                {
-                  #which(toupper(file@table[[2]]) %in% toupper(sex@key[[1]][1]))
-                  found <- TRUE
-                  break
-                }
-              }
-            } 
-            next
-            for(a in 1:length(keys)){
-              for(b in 1:length(keys[j])){
-                if (toupper(c[i]) == toupper(keys[[a]][b])){
-                    found <- TRUE
-                    misprint_row_ind <-  i + theObject@row_header + theObject@row_symbol
-                    print(misprint_row_ind)
-                    theObject@ind <- append(theObject@ind, values = paste(misprint_row_ind, column_index, sep = "."))
-                    print(theObject@ind)
-                }
-                if (!found){
-                  print("Опечатка не распарсена")
-                }else next
-              }
-            }
-          }
-          return(theObject)
+  signature = "Misprint",
+  definition = function(theObject, table, column_index, keys, values, missing)
+  { 
+    misprint_row_ind <- 0
+    c <- table[[column_index]]
+    missing <- as.numeric(missing)
+    c <- c[-missing]
+    
+    for (i in 1:length(c))
+    {
+      found <- FALSE
+      for(j in 1:length(values))
+      {
+        if (toupper(c[i]) == toupper(values[[j]][1]))
+        {
+          #which(toupper(file@table[[2]]) %in% toupper(sex@key[[1]][1]))
+          found <- TRUE
+          break
         }
+      }
+     
+      if (found)
+        next
+      
+      
+      for(a in 1:length(keys))
+      {
+        for(b in 1:length(keys[j]))
+        {
+          if (toupper(c[i]) == toupper(keys[[a]][b]))
+          {
+              found <- TRUE
+              #misprint_row_ind <-  i + theObject@row_header + theObject@row_symbol
+              theObject@ind <- append(theObject@ind, values = paste(i, column_index, sep = ","))
+              cat("Misprints coord are ",theObject@ind, "\n")
+          }
+          else
+          {
+            print("Unsolved misprint")
+          }
+        }
+      }
+    }
+    return(theObject)
+  }       
 )
-
-misprint <- FindMisprints(misprint, file@table, sex@column_index, sex@key, sex@value)
-

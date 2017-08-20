@@ -33,7 +33,7 @@ setMethod(f = "FindErrors",
           signature = "Sex",
           definition = function(theObject)
           { 
-            FindMissingValue(missingValue, file@table, theObject@column_index)
-            FindMisprints(misprint, file@table, theObject@column_index, theObject@key, theObject@value)
+            missingValue <- FindMissingValue(missingValue, file@table, theObject@column_index)
+            #FindMisprints(misprint, file@table, theObject@column_index, theObject@key, theObject@value)
           }
 )

@@ -32,7 +32,7 @@ setMethod(f = "FindMissingValue",
             # xlsx.createBook(x, sheet_out_name, file_out)
             } else {
               mis_row_ind <- mis_row_ind + theObject@row_header + theObject@row_symbol
-              theObject@ind <- append(theObject@ind, values = paste(mis_row_ind, column_index, sep = "."))
+              theObject@ind <- append(theObject@ind, values = paste(mis_row_ind, column_index, sep = ","))
             }
             return(theObject)
           }
