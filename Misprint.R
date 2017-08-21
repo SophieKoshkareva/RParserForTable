@@ -1,25 +1,26 @@
 Misprint <- setClass("Misprint",
-                     contains = "Error" 
+  contains = "Error" 
 )
 
 
 setMethod(f = "initialize",
-          signature = "Misprint",
-          definition = function(.Object)
-          { .Object@style <- "yellow1"
-            # .Object@style <- CellStyle(wb) +
-            # Font(wb, isItalic = TRUE) +
-            # Fill(foregroundColor = "yellow1") +
-            # Border(position = c("BOTTOM", "LEFT", "TOP", "RIGHT"))
-          return(.Object)
-          }
+  signature = "Misprint",
+  definition = function(.Object)
+  {
+    .Object@style <- "yellow1"
+    # .Object@style <- CellStyle(wb) +
+    # Font(wb, isItalic = TRUE) +
+    # Fill(foregroundColor = "yellow1") +
+    # Border(position = c("BOTTOM", "LEFT", "TOP", "RIGHT"))
+    return(.Object)
+  }
 )
 
 setGeneric(name = "FindMisprints",
-           def = function(theObject, table, column_index, keys, values, missing)
-           { 
-             standardGeneric("FindMisprints")
-           }
+  def = function(theObject, table, column_index, keys, values, missing)
+    { 
+      standardGeneric("FindMisprints")
+    }
 )
 
 setMethod(f = "FindMisprints",

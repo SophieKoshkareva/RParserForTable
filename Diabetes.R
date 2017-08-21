@@ -1,20 +1,20 @@
 Diabetes <- setClass("Diabetes",
-                     contains = "Column")
+  contains = "Column")
 
 setMethod(f = "initialize",
-          signature = "Diabetes",
-          definition = function(.Object)
-          { #.Object@data <- column_data
-          
-            .Object@key["FirstDiabetesType"] <- list(c("1 òèï",
-                                                       "1òèï",
-                                                       "ïåğâûé"))
-            .Object@value["FirstDiabetesType"] <- list(1)
-            .Object@key["SecondDiabetesType"] <- list(c("2 òèï",
-                                                        "2òèï",
-                                                        "âòîğîé",
-                                                        "2"))
-            .Object@value["SecondDiabetesType"] <- list(0)
-            return(.Object)
-          }
+  signature = "Diabetes",
+  definition = function(.Object)
+  { #.Object@data <- column_data
+  
+    .Object@key["FirstDiabetesType"] <- list(c("1 Ñ‚Ğ¸Ğ¿",
+                                               "1Ñ‚Ğ¸Ğ¿",
+                                               "Ğ¿ĞµÑ€Ğ²Ñ‹Ğ¹"))
+    .Object@value["FirstDiabetesType"] <- list(1)
+    .Object@key["SecondDiabetesType"] <- list(c("2 Ñ‚Ğ¸Ğ¿",
+                                                "2Ñ‚Ğ¸Ğ¿",
+                                                "Ğ²Ñ‚Ğ¾Ñ€Ğ¾Ğ¹",
+                                                "2"))
+    .Object@value["SecondDiabetesType"] <- list(0)
+    return(.Object)
+  }
 )
