@@ -29,12 +29,18 @@ setMethod(f = "FindMisprints",
   { 
     misprint_row_ind <- 0
     c <- table[[column_index]]
-    missing <- as.numeric(missing)
-    c <- c[-missing]
+    #missing <- as.numeric(missing)
+    #c <- c[-missing]
     
     for (i in 1:length(c))
-    {
+    { 
       found <- FALSE
+      if (is.na(c[i]) == TRUE)
+      {
+        missing <- append(missing, values = paste(i, column_index, sep = "."))
+        cat("Missing value coordinates are ", missing, "\n")
+      }
+      next
       for(j in 1:length(values))
       {
         if (toupper(c[i]) == toupper(values[[j]][1]))
@@ -48,7 +54,6 @@ setMethod(f = "FindMisprints",
       if (found)
         next
       
-      
       for(a in 1:length(keys))
       {
         for(b in 1:length(keys[j]))
@@ -58,11 +63,11 @@ setMethod(f = "FindMisprints",
               found <- TRUE
               #misprint_row_ind <-  i + theObject@row_header + theObject@row_symbol
               theObject@ind <- append(theObject@ind, values = paste(i, column_index, sep = ","))
-              cat("Misprints coord are ",theObject@ind, "\n")
+              cat("Misprints coordinates are ",theObject@ind, "\n")
           }
           else
           {
-            print("Unsolved misprint")
+            cat("Unsolved misprint coordinates are", paste(i, column_index, sep = "."), "\n")
           }
         }
       }
