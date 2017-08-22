@@ -21,8 +21,11 @@ setMethod(f = "Open",
     theObject@path_out <- "D:/Diploma/r_project/data_CABG_PCI_2_coloring.xlsx"
     theObject@table_in <- read.csv2(theObject@path_in,
                                  na.strings = c("", "NA"),
+                                 sep = ";",
+                                 dec = ",",
                                  stringsAsFactors = FALSE,
                                  check.names = FALSE)
+    
     return(theObject)
   }
 )

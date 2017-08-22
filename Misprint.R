@@ -38,7 +38,6 @@ setMethod(f = "FindMisprints",
         cat("Missing value coordinates are ", paste(i, column_index, sep = "."), "\n")
         next
       }
-      
       for(j in 1:length(values))
       {
         if (toupper(c[i]) == toupper(values[[j]][1]))
@@ -48,10 +47,8 @@ setMethod(f = "FindMisprints",
           break
         }
       }
-      
       if (found)
         next
-      
       for(a in 1:length(keys))
       { 
         if (found)
@@ -62,7 +59,7 @@ setMethod(f = "FindMisprints",
           {
             found <- TRUE
             #misprint_row_ind <-  i + theObject@row_header + theObject@row_symbol
-            globalMisprint <- append(globalMisprint, values = paste(i, column_index, sep = "."))
+            globalMisprint <<- append(globalMisprint, values = paste(i, column_index, sep = "."))
             #theObject@indices <- append(theObject@indices, values = paste(i, column_index, sep = "."))
             cat("Misprints coordinates are ", paste(i, column_index, sep = "."), "\n")
             break
@@ -78,4 +75,38 @@ setMethod(f = "FindMisprints",
     }
     #return(theObject)
   }       
+)
+
+setGeneric(name = "FindMisprintsForNumeric",
+           def = function(theObject, table, column_index)
+           { 
+             standardGeneric("FindMisprintsForNumeric")
+           }
+)
+
+setMethod(f = "FindMisprintsForNumeric",
+  signature = "Misprint",
+  definition = function(theObject, table, column_index)
+  { 
+    c <- table[[column_index]]
+    
+    for (i in 1:length(c))
+    { 
+      found <- FALSE
+      if (is.na(c[i]) == TRUE)
+      {
+        globalMissing <<- append(globalMissing, values = paste(i, column_index, sep = "."))
+        cat("Missing value coordinates are ", paste(i, column_index, sep = "."), "\n")
+        next
+      }
+      if (grepl("\\d", c[[i]]) == FALSE)
+      {
+        globalMisprint <<- append(globalMisprint, values = paste(i, column_index, sep = "."))
+        #theObject@indices <- append(theObject@indices, values = paste(i, column_index, sep = "."))
+        cat("Misprints coordinates are ", paste(i, column_index, sep = "."), "\n")
+        next
+      }
+    #return(theObject)
+    } 
+  }
 )

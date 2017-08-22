@@ -1,3 +1,6 @@
+#install.packages("xlsx")
+require(xlsx)
+
 file <- new("File")
 file <- Open(file)
 
@@ -10,7 +13,10 @@ sex <- new("Sex")
 FindErrors(sex)
 diabetes <- new("Diabetes")
 FindErrors(diabetes)
+age <- new("Age")
+FindErrors(age)
 #other columns
+
 
 missingValue <- new("MissingValue")
 missingValue@indices <- globalMissing
