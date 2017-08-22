@@ -1,5 +1,5 @@
 Error <- setClass("Error",
-  slots = c(ind = "character",
+  slots = c(indices = "character",
             style = "character",
             row_header = "numeric", 
             row_symbol = "numeric"),

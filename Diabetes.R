@@ -15,6 +15,23 @@ setMethod(f = "initialize",
                                                 "второй",
                                                 "2"))
     .Object@value["SecondDiabetesType"] <- list(0)
+    .Object@column_index <- 5
     return(.Object)
   }
+)
+
+setGeneric(name = "FindErrors", 
+           def = function(theObject)
+           {
+             standardGeneric("FindErrors")
+           }
+)
+
+setMethod(f = "FindErrors",
+          signature = "Diabetes",
+          definition = function(theObject)
+          { 
+            #FindMisprints(file@table_in, theObject@column_index, theObject@key, theObject@value)
+            FindMisprints(misprint, file@table_in, theObject@column_index, theObject@key, theObject@value)
+          }
 )
