@@ -17,7 +17,7 @@ setMethod(f = "initialize",
 )
 
 setGeneric(name = "FindMisprints",
-           def = function(theObject, table, column_index, keys, values)
+           def = function(theObject, table_in, table_out, column_index, keys, values)
            { 
              standardGeneric("FindMisprints")
            }
@@ -25,9 +25,9 @@ setGeneric(name = "FindMisprints",
 
 setMethod(f = "FindMisprints",
   signature = "Misprint",
-  definition = function(theObject, table, column_index, keys, values)
+  definition = function(theObject, table_in, table_out, column_index, keys, values)
   { 
-    c <- table[[column_index]]
+    c <- table_in[[column_index]]
     
     for (i in 1:length(c))
     { 
@@ -42,7 +42,7 @@ setMethod(f = "FindMisprints",
       {
         if (toupper(c[i]) == toupper(values[[j]][1]))
         {
-          #which(toupper(file@table[[2]]) %in% toupper(sex@key[[1]][1]))
+          #which(toupper(file@table_in[[2]]) %in% toupper(sex@key[[1]][1]))
           found <- TRUE
           break
         }
@@ -58,10 +58,9 @@ setMethod(f = "FindMisprints",
           if (toupper(c[i]) == toupper(keys[[a]][b]))
           {
             found <- TRUE
-            #misprint_row_ind <-  i + theObject@row_header + theObject@row_symbol
             globalMisprint <<- append(globalMisprint, values = paste(i, column_index, sep = "."))
-            #theObject@indices <- append(theObject@indices, values = paste(i, column_index, sep = "."))
             cat("Misprints coordinates are ", paste(i, column_index, sep = "."), "\n")
+            file@table_out[[column_index]][i] <<- unlist(values[[a]], use.names = FALSE)
             break
           }
         }
@@ -73,12 +72,12 @@ setMethod(f = "FindMisprints",
         }
       }
     }
-    #return(theObject)
+    return(table_out)
   }       
 )
 
 setGeneric(name = "FindMisprintsForNumeric",
-           def = function(theObject, table, column_index)
+           def = function(theObject, table_in, table_out, column_index)
            { 
              standardGeneric("FindMisprintsForNumeric")
            }
@@ -86,13 +85,12 @@ setGeneric(name = "FindMisprintsForNumeric",
 
 setMethod(f = "FindMisprintsForNumeric",
   signature = "Misprint",
-  definition = function(theObject, table, column_index)
+  definition = function(theObject, table_in, table_out, column_index)
   { 
-    c <- table[[column_index]]
+    c <- table_in[[column_index]]
     
     for (i in 1:length(c))
     { 
-      found <- FALSE
       if (is.na(c[i]) == TRUE)
       {
         globalMissing <<- append(globalMissing, values = paste(i, column_index, sep = "."))
@@ -102,7 +100,6 @@ setMethod(f = "FindMisprintsForNumeric",
       if (grepl("\\d", c[[i]]) == FALSE)
       {
         globalMisprint <<- append(globalMisprint, values = paste(i, column_index, sep = "."))
-        #theObject@indices <- append(theObject@indices, values = paste(i, column_index, sep = "."))
         cat("Misprints coordinates are ", paste(i, column_index, sep = "."), "\n")
         next
       }

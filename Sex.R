@@ -34,6 +34,7 @@ setMethod(f = "FindErrors",
   definition = function(theObject)
   { 
     #FindMisprints(file@table_in, theObject@column_index, theObject@key, theObject@value)
-    FindMisprints(misprint, file@table_in, theObject@column_index, theObject@key, theObject@value)
+    FindMisprints(misprint, file@table_in, file@table_out, theObject@column_index, theObject@key, theObject@value)
+    
   }
 )

@@ -25,6 +25,7 @@ setMethod(f = "Open",
                                  dec = ",",
                                  stringsAsFactors = FALSE,
                                  check.names = FALSE)
+    theObject@table_out <- theObject@table_in
     
     return(theObject)
   }

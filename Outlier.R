@@ -16,7 +16,7 @@ setMethod(f = "initialize",
 )
 
 setGeneric(name = "FindOutliers",
-  def = function(theObject, data_table)
+  def = function(theObject, table, column_index)
   { 
     standardGeneric("FindOutliers")
   }
@@ -24,24 +24,29 @@ setGeneric(name = "FindOutliers",
 
 setMethod(f = "FindOutliers",
   signature = "Outlier",
-  definition = function(theObject, data_table)
-  { #outliers <- c()
-    #outliers_row_ind <- c()
-    #theObject@ind <- c()
-    num_levels_defaul <- 5
-    for (i in 1:ncol(data_table)){
-      if (is.numeric(data_table[[i]]) & length(unique(data_table[[i]])) > num_levels_defaul){
-        outliers <- boxplot.stats(data_table[[i]])$out
-        if (is.null(outliers) == TRUE) {
-          #xlsx.createBook(data_table, sheet_out_name, file_out)
-        } else {
-          outliers_row_ind <- which(data_table[[i]] %in% outliers, arr.ind = T, useNames = F)
-          outliers_row_ind <- outliers_row_ind + theObject@row_header + theObject@row_symbol
-          theObject@ind <- append(theObject@ind, values = outer(outliers_row_ind, i, paste, sep = "."))
-        }
-      }
+  definition = function(theObject, table, column_index)
+  { 
+    outliers_row_ind <- c()
+    only_digits <- c()
+    outliers <- c()
+    c <- table[[column_index]]
+    
+    for (i in 1:length(c))
+    { 
+      if (grepl("\\d", c[i]) == TRUE)
+        only_digits <- append(only_digits, c[i])
     }
-    return(theObject)
+    outliers <- boxplot.stats(as.numeric(only_digits))$out
+    print(outliers)
+    if (!is.null(outliers))
+    {
+      #xlsx.createBook(table, sheet_out_name, file_out)
+      outliers_row_ind <- which(c %in% outliers, arr.ind = T, useNames = F)
+      #outliers_row_ind <- outliers_row_ind + theObject@row_header + theObject@row_symbol
+      globalOutlier <<- append(globalOutlier, values = outer(outliers_row_ind, column_index, paste, sep = "."))
+      cat("Outlier coordinates are ", paste(outliers_row_ind, column_index, sep = "."), "\n")
+    }
+  #return(theObject)
   }
 )
 
