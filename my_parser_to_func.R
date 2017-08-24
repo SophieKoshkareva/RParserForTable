@@ -1,8 +1,8 @@
 #install.packages("xlsx")
 require(xlsx)
 
-#file_in <- "D:/Diploma/r_project/data_CABG_PCI_2.csv"
-file_in <- "D:/Diploma/r_project/data_GABR_PCI ред..csv"
+file_in <- "D:/Diploma/r_project/data_CABG_PCI_2.csv"
+#file_in <- "D:/Diploma/r_project/data_GABR_PCI ред..csv"
 file_out <- "D:/Diploma/r_project/data_CABG_PCI_2_coloring.xlsx"
 sheet_out_name <- "data_CABG_PCI_2"
 row_header <- 1
@@ -11,7 +11,9 @@ row_symbol <- 1
 xlsx.createBook <- function(x, sheetName, file, missing_value = FALSE, mis_ind, outliers = FALSE, outliers_ind, startR = 1){
   
   wb <- createWorkbook(type = "xlsx")
+  print(str(wb))
   sheet <- createSheet(wb, sheetName)
+  print(str(sheet))
  
   TABLE_COLNAMES_STYLE <- CellStyle(wb) +
                           Font(wb, isBold = TRUE) +
@@ -51,7 +53,7 @@ xlsx.createBook <- function(x, sheetName, file, missing_value = FALSE, mis_ind, 
 
 xlsx.findMissingValue <- function(x){
   ind <- which(is.na(x), arr.ind = TRUE, useNames = FALSE)
-  print(ind)
+  
  # ????? ????????? ????????????????? ???? ??? ??????? ??? ?????????, ???????? ? ????.??????? TRUE ?? FALSE
   if (is.null(ind) == TRUE) {
     xlsx.createBook(x, sheet_out_name, file_out)
@@ -61,7 +63,7 @@ xlsx.findMissingValue <- function(x){
       
       mis_ind <- apply(ind, 1, paste, collapse = ".")
       print("??????????? ????????")
-      print(mis_ind)
+      
     xlsx.findOutliers(x, mis_ind)
     
   }  

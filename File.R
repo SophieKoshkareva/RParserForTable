@@ -2,7 +2,8 @@ File <- setClass("File",
   slots = c(path_in = "character",
             table_in = "data.frame",
             path_out = "character",
-            table_out = "data.frame")
+            table_out = "data.frame",
+            sheet_name = "character")
 )
 
 setGeneric(name = "Open", 
@@ -26,6 +27,23 @@ setMethod(f = "Open",
                                  stringsAsFactors = FALSE,
                                  check.names = FALSE)
     theObject@table_out <- theObject@table_in
+    
+    return(theObject)
+  }
+)
+
+setMethod(f = "CreateExcelWB",
+  signature = "File",
+  definition = function(theObject)
+  {
+    wb <- createWorkbook(type = "xlsx")
+    sheet <- createSheet(wb, theObject@sheet_name)
+
+
+    createRow(sheet, rowIndex = 1)
+    addDataFrame(theObject@table_out, sheet,  row.names = FALSE, startRow = 2, startColumn = 1)
+    rows <- getRows(sheet, rowIndex = 1:nrow(theObject@table_out) + row_header + row_symbol)
+    cells <- getCells(rows, colIndex = 1:ncol(theObject@table_out))
     
     return(theObject)
   }
