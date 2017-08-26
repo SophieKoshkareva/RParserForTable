@@ -5,7 +5,11 @@ File <- setClass("File",
             table_out = "data.frame",
             sheet_name = "character",
             wb = "jobjRef",
-            sheet = "jobjRef")
+            sheet = "jobjRef",
+            row_header = "numeric", 
+            row_table_legend = "numeric"),
+  prototype = list(row_header = 1,
+                   row_table_legend = 1)
 )
 
 setGeneric(name = "Open", 
@@ -51,8 +55,7 @@ setMethod(f = "CreateExcelWB",
 
     createRow(theObject@sheet, rowIndex = 1)
     addDataFrame(theObject@table_out, theObject@sheet,  row.names = FALSE, startRow = 2, startColumn = 1)
-    rows <- getRows(theObject@sheet, rowIndex = 1:nrow(theObject@table_out) + row_header + row_symbol)
-    cells <- getCells(rows, colIndex = 1:ncol(theObject@table_out))
+    
 
     return(theObject)
   }

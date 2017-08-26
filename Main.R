@@ -3,6 +3,7 @@ require(xlsx)
 
 file <- new("File")
 file <- Open(file)
+file <- CreateExcelWB(file)
 
 globalMissing <- character()
 globalMisprint <- character()

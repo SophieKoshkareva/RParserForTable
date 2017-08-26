@@ -6,6 +6,7 @@ setMethod(f = "initialize",
   signature = "Outlier",
   definition = function(.Object)
   { 
+    .Object@title <- c("Выбросы")
     .Object@style <- "tomato2"
     # .Object@style <- CellStyle(wb) +
     # Font(wb, isItalic = TRUE) +
@@ -42,7 +43,7 @@ setMethod(f = "FindOutliers",
     {
       #xlsx.createBook(table, sheet_out_name, file_out)
       outliers_row_ind <- which(c %in% outliers, arr.ind = T, useNames = F)
-      #outliers_row_ind <- outliers_row_ind + theObject@row_header + theObject@row_symbol
+      outliers_row_ind <- outliers_row_ind + file@row_header + file@row_table_legend
       globalOutlier <<- append(globalOutlier, values = outer(outliers_row_ind, column_index, paste, sep = "."))
       cat("Outlier coordinates are ", paste(outliers_row_ind, column_index, sep = "."), "\n")
     }
