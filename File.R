@@ -3,7 +3,9 @@ File <- setClass("File",
             table_in = "data.frame",
             path_out = "character",
             table_out = "data.frame",
-            sheet_name = "character")
+            sheet_name = "character",
+            wb = "jobjRef",
+            sheet = "jobjRef")
 )
 
 setGeneric(name = "Open", 
@@ -27,24 +29,31 @@ setMethod(f = "Open",
                                  stringsAsFactors = FALSE,
                                  check.names = FALSE)
     theObject@table_out <- theObject@table_in
-    
+    theObject@sheet_name <- "data_CABG_PCI_2"
     return(theObject)
   }
+)
+
+setGeneric(name = "CreateExcelWB", 
+           def = function(theObject)
+           {
+             standardGeneric("CreateExcelWB")
+           }
 )
 
 setMethod(f = "CreateExcelWB",
   signature = "File",
   definition = function(theObject)
   {
-    wb <- createWorkbook(type = "xlsx")
-    sheet <- createSheet(wb, theObject@sheet_name)
+    theObject@wb <- createWorkbook(type = "xlsx")
+    theObject@sheet <- createSheet(theObject@wb, theObject@sheet_name)
 
 
-    createRow(sheet, rowIndex = 1)
-    addDataFrame(theObject@table_out, sheet,  row.names = FALSE, startRow = 2, startColumn = 1)
-    rows <- getRows(sheet, rowIndex = 1:nrow(theObject@table_out) + row_header + row_symbol)
+    createRow(theObject@sheet, rowIndex = 1)
+    addDataFrame(theObject@table_out, theObject@sheet,  row.names = FALSE, startRow = 2, startColumn = 1)
+    rows <- getRows(theObject@sheet, rowIndex = 1:nrow(theObject@table_out) + row_header + row_symbol)
     cells <- getCells(rows, colIndex = 1:ncol(theObject@table_out))
-    
+
     return(theObject)
   }
 )
