@@ -39,13 +39,13 @@ setMethod(f = "FindOutliers",
         only_digits <- append(only_digits, c[i])
     }
     outliers <- boxplot.stats(as.numeric(only_digits))$out
-    print(outliers)
     if (!is.null(outliers))
     {
       #xlsx.createBook(table, sheet_out_name, file_out)
       outliers_row_ind <- which(c %in% outliers, arr.ind = T, useNames = F)
       outliers_row_ind <- outliers_row_ind + row_header + row_table_legend
-      globalOutlier <<- append(globalOutlier, values = outer(outliers_row_ind, column_index, paste, sep = "."))
+      outlier@indices <<- append(outlier@indices, values = outer(outliers_row_ind, column_index, paste, sep = "."))
+      lapply(outliers_row_ind, function(i) PrintReport(theObject, file@path_report, outliers_row_ind[[i]], column_index))
       cat("Outlier coordinates are ", paste(outliers_row_ind, column_index, sep = "."), "\n")
     }
   #return(theObject)

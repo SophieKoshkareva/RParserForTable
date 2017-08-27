@@ -2,6 +2,7 @@ File <- setClass("File",
   slots = c(path_in = "character",
             table_in = "data.frame",
             path_out = "character",
+            path_report = "character",
             table_out = "data.frame",
             sheet_name = "character",
             wb = "jobjRef",
@@ -26,6 +27,7 @@ setMethod(f = "Open",
     #theObject@path_in <- "D:/Diploma/r_project/data_CABG_PCI_2.csv"
     theObject@path_in <- "D:/Diploma/r_project/data_GABR_PCI ред..csv"
     theObject@path_out <- "D:/Diploma/r_project/data_CABG_PCI_2_coloring.xlsx"
+    theObject@path_report <- "D:/Diploma/r_project/report.txt"
     theObject@table_in <- read.csv2(theObject@path_in,
                                  na.strings = c("", "NA"),
                                  sep = ";",

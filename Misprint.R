@@ -18,7 +18,7 @@ setMethod(f = "initialize",
 )
 
 setGeneric(name = "FindMisprints",
-           def = function(theObject, table_in, table_out, column_index, keys, values, row_header, row_table_legend)
+           def = function(theObject, table_in, column_index, keys, values, row_header, row_table_legend)
            { 
              standardGeneric("FindMisprints")
            }
@@ -26,7 +26,7 @@ setGeneric(name = "FindMisprints",
 
 setMethod(f = "FindMisprints",
   signature = "Misprint",
-  definition = function(theObject, table_in, table_out, column_index, keys, values, row_header, row_table_legend)
+  definition = function(theObject, table_in, column_index, keys, values, row_header, row_table_legend)
   { 
     c <- table_in[[column_index]]
     misprints_row_ind <- c()
@@ -37,7 +37,8 @@ setMethod(f = "FindMisprints",
       if (is.na(c[i]) == TRUE)
       {
         misprints_row_ind <- i + row_header + row_table_legend
-        globalMissing <<- append(globalMissing, values = paste(misprints_row_ind, column_index, sep = "."))
+        missingValue@indices <<- append(missingValue@indices, values = paste(misprints_row_ind, column_index, sep = "."))
+        PrintReport(missingValue, file@path_report, misprints_row_ind, column_index)
         cat("Missing value coordinates are ", paste(i, column_index, sep = "."), "\n")
         next
       }
@@ -62,7 +63,8 @@ setMethod(f = "FindMisprints",
           {
             found <- TRUE
             misprints_row_ind <- i + row_header + row_table_legend
-            globalMisprint <<- append(globalMisprint, values = paste(misprints_row_ind, column_index, sep = "."))
+            misprint@indices <<- append(misprint@indices, values = paste(misprints_row_ind, column_index, sep = "."))
+            PrintReport(theObject, file@path_report, misprints_row_ind, column_index)
             cat("Misprints coordinates are ", paste(i, column_index, sep = "."), "\n")
             file@table_out[[column_index]][i] <<- unlist(values[[a]], use.names = FALSE)
             break
@@ -71,13 +73,14 @@ setMethod(f = "FindMisprints",
         if ((!found) & (a == length(keys)))
         {
           misprints_row_ind <- i + row_header + row_table_legend
-          globalUnsolvedMisprint <<- append(globalUnsolvedMisprint, values = paste(misprints_row_ind, column_index, sep = "."))
+          unsolvedMisprint@indices <<- append(unsolvedMisprint@indices, values = paste(misprints_row_ind, column_index, sep = "."))
+          PrintReport(unsolvedMisprint, file@path_report, misprints_row_ind, column_index)
           cat("Unsolved misprint coordinates are", paste(i, column_index, sep = "."), "\n")
           found <- TRUE
         }
       }
     }
-    return(table_out)
+    #return(theObject)
   }       
 )
 
@@ -100,18 +103,19 @@ setMethod(f = "FindMisprintsForNumeric",
       if (is.na(c[i]) == TRUE)
       {
         misprints_row_ind <- i + row_header + row_table_legend
-        globalMissing <<- append(globalMissing, values = paste(misprints_row_ind, column_index, sep = "."))
+        missingValue@indices <<- append(missingValue@indices, values = paste(misprints_row_ind, column_index, sep = "."))
+        PrintReport(missingValue, file@path_report, misprints_row_ind, column_index)
         cat("Missing value coordinates are ", paste(i, column_index, sep = "."), "\n")
         next
       }
       if (grepl("\\d", c[[i]]) == FALSE)
       {
         misprints_row_ind <- i + row_header + row_table_legend
-        globalUnsolvedMisprint <<- append(globalUnsolvedMisprint, values = paste(misprints_row_ind, column_index, sep = "."))
-        cat("Misprints coordinates are ", paste(i, column_index, sep = "."), "\n")
+        unsolvedMisprint@indices <<- append(unsolvedMisprint@indices, values = paste(misprints_row_ind, column_index, sep = "."))
+        PrintReport(unsolvedMisprint, file@path_report, misprints_row_ind, column_index)
+        cat("Unsolved misprint coordinates are ", paste(i, column_index, sep = "."), "\n")
         next
       }
-    #return(theObject)
     } 
   }
 )

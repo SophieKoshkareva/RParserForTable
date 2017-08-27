@@ -70,3 +70,20 @@ setMethod(f = "AddTableLegend",
     return(theObject)
   }
 )
+
+setGeneric(name = "PrintReport",
+  def = function(theObject, path_report, row_index, col_index)
+  {
+    standardGeneric("PrintReport")
+  }
+)
+
+setMethod(f = "PrintReport",
+  signature = "Error",
+  definition = function(theObject, path_report, row_index, col_index)
+  {
+    cat(c(class(theObject)[1], "in", "row", row_index, "column", col_index, "\n"), file = path_report, append = T)
+    #cat(c(class(theObject)[1], " coordinates are: ", paste(row_index, col_index, sep = "."), "\n"), file = path_report, append = TRUE)
+  }
+
+)
