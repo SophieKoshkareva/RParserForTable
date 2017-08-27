@@ -3,31 +3,39 @@ require(xlsx)
 
 file <- new("File")
 file <- Open(file)
-file <- CreateExcelWB(file)
 
 globalMissing <- character()
 globalMisprint <- character()
 globalOutlier <- character()
 globalUnsolvedMisprint <- character()
 
+missingValue <- new("MissingValue")
+misprint <- new("Misprint")
+unsolvedMisprint <- new("UnsolvedMisprint")
+outlier <- new("Outlier")
+
 sex <- new("Sex")
 FindErrors(sex)
+
 diabetes <- new("Diabetes")
 FindErrors(diabetes)
+
 age <- new("Age")
 FindErrors(age)
 #other columns
 
+file <- CreateExcelWB(file)
 
-missingValue <- new("MissingValue")
 missingValue@indices <- globalMissing
 SetColor(missingValue, file)
 
-misprint <- new("Misprint")
 misprint@indices <- globalMisprint
 SetColor(misprint, file)
 
-outlier <- new("Outlier")
+unsolvedMisprint@indices <- globalUnsolvedMisprint
+SetColor(unsolvedMisprint, file)
+
 outlier@indices <- globalOutlier
 SetColor(outlier, file)
 
+file <- SaveExcelWB(file)

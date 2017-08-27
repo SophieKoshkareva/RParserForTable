@@ -51,12 +51,36 @@ setMethod(f = "CreateExcelWB",
   {
     theObject@wb <- createWorkbook(type = "xlsx")
     theObject@sheet <- createSheet(theObject@wb, theObject@sheet_name)
-
-
     createRow(theObject@sheet, rowIndex = 1)
-    addDataFrame(theObject@table_out, theObject@sheet,  row.names = FALSE, startRow = 2, startColumn = 1)
+    TABLE_COLNAMES_STYLE <- CellStyle(theObject@wb) +
+      Font(theObject@wb, isBold = TRUE) +
+      Alignment(wrapText = TRUE, horizontal = "ALIGN_CENTER") +
+      Border(position = c("BOTTOM", "LEFT", "TOP", "RIGHT")) 
     
+    addDataFrame(theObject@table_out,
+                 theObject@sheet,
+                 row.names = FALSE,
+                 startRow = 2,
+                 startColumn = 1,
+                 colnamesStyle = TABLE_COLNAMES_STYLE)
+    return(theObject)
+  }
+)
 
+setGeneric(name = "SaveExcelWB", 
+  def = function(theObject)
+  {
+    standardGeneric("SaveExcelWB")
+  }
+)
+setMethod(f = "SaveExcelWB",
+  signature = "File",
+  definition = function(theObject)
+  {
+    autoSizeColumn(theObject@sheet, colIndex = c(1:ncol(theObject@table_out)))
+    #createFreezePane(theObject@sheet, rowSplit = 2, colSplit = 2, startRow = 1, startColumn = 1)
+    saveWorkbook(theObject@wb, theObject@path_out )
+    print("New workbook was created")
     return(theObject)
   }
 )

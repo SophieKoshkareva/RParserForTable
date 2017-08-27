@@ -6,9 +6,11 @@ setMethod(f = "initialize",
   signature = "MissingValue",
   definition = function(.Object)
   { 
-    .Object@style <- "lightgray"
-    # .Object@style <- CellStyle(wb) +
-    # Font(wb, isItalic = TRUE) +
+    .Object@title <- c("Пропущенные значения")
+    .Object@col_index_legend <- 1
+    .Object@style <- c("missing_value")
+    # .Object@style <- CellStyle(file@wb) +
+    # Font(file@wb, isItalic = TRUE) +
     # Fill(foregroundColor = "lightgray") +
     # Border(position = c("BOTTOM", "LEFT", "TOP", "RIGHT"))
     return(.Object)

@@ -6,15 +6,13 @@ setMethod(f = "initialize",
   signature = "Misprint",
   definition = function(.Object)
   { 
-    .Object@title <- c("Опечатки")
+    .Object@title <- c("Исправления")
     .Object@col_index_legend <- 2
-    #.Object@style["Font"] <- list("isItalic = TRUE")
-    .Object@style <- CellStyle(file@wb) +
-      Font(file@wb, isItalic = TRUE) +
-      Fill(foregroundColor = "lightgray") +
-      Border(position = c("BOTTOM", "LEFT", "TOP", "RIGHT"))
-    # .Object@style["Fill"] <- list(foregroundColor = "yellow1")
-    # .Object@style["Border"]<- list(position = c("BOTTOM", "LEFT", "TOP", "RIGHT"))
+    .Object@style<- c("misprint")
+    # .Object@style <- CellStyle(file@wb) +
+    #   Font(file@wb, isItalic = TRUE) +
+    #   Fill(foregroundColor = "lightyellow") +
+    #   Border(position = c("BOTTOM", "LEFT", "TOP", "RIGHT"))
     return(.Object)
   }
 )
@@ -84,7 +82,7 @@ setMethod(f = "FindMisprints",
 )
 
 setGeneric(name = "FindMisprintsForNumeric",
-           def = function(theObject, table_in, table_out, column_index, row_header, row_table_legend)
+           def = function(theObject, table_in, column_index, row_header, row_table_legend)
            { 
              standardGeneric("FindMisprintsForNumeric")
            }
@@ -92,7 +90,7 @@ setGeneric(name = "FindMisprintsForNumeric",
 
 setMethod(f = "FindMisprintsForNumeric",
   signature = "Misprint",
-  definition = function(theObject, table_in, table_out, column_index, row_header, row_table_legend)
+  definition = function(theObject, table_in, column_index, row_header, row_table_legend)
   { 
     misprints_row_ind <- c()
     c <- table_in[[column_index]]
@@ -109,7 +107,7 @@ setMethod(f = "FindMisprintsForNumeric",
       if (grepl("\\d", c[[i]]) == FALSE)
       {
         misprints_row_ind <- i + row_header + row_table_legend
-        globalMisprint <<- append(globalMisprint, values = paste(misprints_row_ind, column_index, sep = "."))
+        globalUnsolvedMisprint <<- append(globalUnsolvedMisprint, values = paste(misprints_row_ind, column_index, sep = "."))
         cat("Misprints coordinates are ", paste(i, column_index, sep = "."), "\n")
         next
       }

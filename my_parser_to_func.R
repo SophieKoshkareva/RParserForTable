@@ -11,9 +11,9 @@ row_symbol <- 1
 xlsx.createBook <- function(x, sheetName, file, missing_value = FALSE, mis_ind, outliers = FALSE, outliers_ind, startR = 1){
   
   wb <- createWorkbook(type = "xlsx")
-  print(str(wb))
+  
   sheet <- createSheet(wb, sheetName)
-  print(str(sheet))
+  
  
   TABLE_COLNAMES_STYLE <- CellStyle(wb) +
                           Font(wb, isBold = TRUE) +
@@ -30,6 +30,7 @@ xlsx.createBook <- function(x, sheetName, file, missing_value = FALSE, mis_ind, 
   
   createRow(sheet, rowIndex = 1)
   addDataFrame(x, sheet,  row.names = FALSE, startRow = 2, startColumn = 1, colnamesStyle = TABLE_COLNAMES_STYLE)
+  print(str(MISSING_VALUE_STYLE))
   rows <- getRows(sheet, rowIndex = 1:nrow(x) + row_header + row_symbol)    
   cells <- getCells(rows, colIndex = 1:ncol(x)) 
   
