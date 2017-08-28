@@ -2,7 +2,7 @@ File <- setClass("File",
   slots = c(path_in = "character",
             table_in = "data.frame",
             path_out = "character",
-            path_report = "character",
+            path_report = "file",
             table_out = "data.frame",
             sheet_name = "character",
             wb = "jobjRef",
@@ -24,10 +24,12 @@ setMethod(f = "Open",
   signature = "File",
   definition = function(theObject)
   { 
+    file_report_name <- paste("D:/Diploma/r_project/", "Report_", format(Sys.time(), "%Y_%m_%d"), ".txt", sep = "")
     #theObject@path_in <- "D:/Diploma/r_project/data_CABG_PCI_2.csv"
     theObject@path_in <- "D:/Diploma/r_project/data_GABR_PCI ред..csv"
     theObject@path_out <- "D:/Diploma/r_project/data_CABG_PCI_2_coloring.xlsx"
-    theObject@path_report <- "D:/Diploma/r_project/report.txt"
+    theObject@path_report <- file(description = file_report_name, open ="w")
+      
     theObject@table_in <- read.csv2(theObject@path_in,
                                  na.strings = c("", "NA"),
                                  sep = ";",
@@ -83,6 +85,7 @@ setMethod(f = "SaveExcelWB",
     #createFreezePane(theObject@sheet, rowSplit = 2, colSplit = 2, startRow = 1, startColumn = 1)
     saveWorkbook(theObject@wb, theObject@path_out )
     print("New workbook was created")
+    close(theObject@path_report)
     return(theObject)
   }
 )
