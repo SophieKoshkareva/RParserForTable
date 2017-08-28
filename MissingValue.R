@@ -9,10 +9,6 @@ setMethod(f = "initialize",
     .Object@title <- c("Пропущенные значения")
     .Object@col_index_legend <- 1
     .Object@style <- c("missing_value")
-    # .Object@style <- CellStyle(file@wb) +
-    # Font(file@wb, isItalic = TRUE) +
-    # Fill(foregroundColor = "lightgray") +
-    # Border(position = c("BOTTOM", "LEFT", "TOP", "RIGHT"))
     return(.Object)
   }
 )

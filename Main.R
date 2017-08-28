@@ -17,25 +17,28 @@ outlier <- new("Outlier")
 sex <- new("Sex")
 FindErrors(sex)
 
-diabetes <- new("Diabetes")
-FindErrors(diabetes)
-
 age <- new("Age")
 FindErrors(age)
+
+weight <- new("Weight")
+FindErrors(weight)
+
+diabetes <- new("Diabetes")
+FindErrors(diabetes)
 #other columns
 
 file <- CreateExcelWB(file)
 
-missingValue@indices <- globalMissing
+#missingValue@indices <- globalMissing
 SetColor(missingValue, file)
 
-misprint@indices <- globalMisprint
+#misprint@indices <- globalMisprint
 SetColor(misprint, file)
 
-unsolvedMisprint@indices <- globalUnsolvedMisprint
+#unsolvedMisprint@indices <- globalUnsolvedMisprint
 SetColor(unsolvedMisprint, file)
 
-outlier@indices <- globalOutlier
+#outlier@indices <- globalOutlier
 SetColor(outlier, file)
 
 file <- SaveExcelWB(file)

@@ -9,10 +9,6 @@ setMethod(f = "initialize",
     .Object@title <- c("Выбросы")
     .Object@col_index_legend <- 4
     .Object@style <- c("outlier")
-    # .Object@style <- CellStyle(file@wb) +
-    # Font(file@wb, isItalic = TRUE) +
-    # Fill(foregroundColor = "tomato") +
-    # Border(position = c("BOTTOM", "LEFT", "TOP", "RIGHT"))
     return(.Object)
   }
 )
@@ -34,10 +30,25 @@ setMethod(f = "FindOutliers",
     c <- table[[column_index]]
     
     for (i in 1:length(c))
+      
     { 
+      if (is.na(c[i]) == TRUE)
+      {
+        outliers_row_ind <- i + row_header + row_table_legend
+        missingValue@indices <<- append(missingValue@indices, values = paste(outliers_row_ind, column_index, sep = "."))
+        PrintReport(missingValue, file@path_report, outliers_row_ind, column_index)
+        cat("Missing value coordinates are ", paste(i, column_index, sep = "."), "\n")
+        next
+      }
+      
       if (grepl("\\d", c[i]) == TRUE)
+      { 
         only_digits <- append(only_digits, c[i])
+        next
+      }
     }
+    
+    only_digits <- gsub(',', '.', only_digits)
     outliers <- boxplot.stats(as.numeric(only_digits))$out
     if (!is.null(outliers))
     {
@@ -45,10 +56,9 @@ setMethod(f = "FindOutliers",
       outliers_row_ind <- which(c %in% outliers, arr.ind = T, useNames = F)
       outliers_row_ind <- outliers_row_ind + row_header + row_table_legend
       outlier@indices <<- append(outlier@indices, values = outer(outliers_row_ind, column_index, paste, sep = "."))
-      lapply(outliers_row_ind, function(i) PrintReport(theObject, file@path_report, outliers_row_ind[[i]], column_index))
+      lapply(outliers_row_ind, function(i) PrintReport(theObject, file@path_report, i, column_index))
       cat("Outlier coordinates are ", paste(outliers_row_ind, column_index, sep = "."), "\n")
     }
-  #return(theObject)
   }
 )
 

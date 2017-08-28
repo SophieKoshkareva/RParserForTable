@@ -9,10 +9,6 @@ setMethod(f = "initialize",
     .Object@title <- c("Исправления")
     .Object@col_index_legend <- 2
     .Object@style<- c("misprint")
-    # .Object@style <- CellStyle(file@wb) +
-    #   Font(file@wb, isItalic = TRUE) +
-    #   Fill(foregroundColor = "lightyellow") +
-    #   Border(position = c("BOTTOM", "LEFT", "TOP", "RIGHT"))
     return(.Object)
   }
 )
