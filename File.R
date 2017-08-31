@@ -1,4 +1,6 @@
+setOldClass("file")
 File <- setClass("File",
+  contains = "file",
   slots = c(path_in = "character",
             table_in = "data.frame",
             path_out = "character",
@@ -24,20 +26,21 @@ setMethod(f = "Open",
   signature = "File",
   definition = function(theObject)
   { 
-    file_report_name <- paste("D:/Diploma/r_project/", "Report_", format(Sys.time(), "%Y_%m_%d"), ".txt", sep = "")
     #theObject@path_in <- "D:/Diploma/r_project/data_CABG_PCI_2.csv"
-    theObject@path_in <- "D:/Diploma/r_project/data_GABR_PCI Ρ€ΠµΠ΄..csv"
-    theObject@path_out <- "D:/Diploma/r_project/data_CABG_PCI_2_coloring.xlsx"
-    theObject@path_report <- file(description = file_report_name, open ="w")
-      
+    theObject@path_in <- "D:/Diploma/r_project/data_GABR_PCI πεδ..csv"
     theObject@table_in <- read.csv2(theObject@path_in,
                                  na.strings = c("", "NA"),
                                  sep = ";",
                                  dec = ",",
                                  stringsAsFactors = FALSE,
                                  check.names = FALSE)
+    
+    theObject@path_out <- "D:/Diploma/r_project/data_CABG_PCI_2_coloring.xlsx"
     theObject@table_out <- theObject@table_in
     theObject@sheet_name <- "data_CABG_PCI_2"
+    
+    file_report_name <- paste("D:/Diploma/r_project/", "Report_", format(Sys.time(), "%Y_%m_%d"), ".txt", sep = "")
+    theObject@path_report <- file(description = file_report_name, open ="w")
     return(theObject)
   }
 )

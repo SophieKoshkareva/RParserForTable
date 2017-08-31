@@ -1,6 +1,19 @@
 #install.packages("xlsx")
 require(xlsx)
 
+source("File.R")
+source("Error.R")
+source("MissingValue.R")
+source("Misprint.R")
+source("UnsolvedMisprint.R")
+source("Outlier.R")
+source("Column.R")
+source("Sex.R")
+source("Age.R")
+source("Weight.R")
+source("Diabetes.R")
+
+
 file <- new("File")
 file <- Open(file)
 
