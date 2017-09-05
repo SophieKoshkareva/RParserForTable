@@ -6,7 +6,7 @@ setMethod(f = "initialize",
   signature = "MissingValue",
   definition = function(.Object)
   { 
-    .Object@title <- c("РџСЂРѕРїСѓС‰РµРЅРЅС‹Рµ Р·РЅР°С‡РµРЅРёСЏ")
+    .Object@title <- c("Пропущенные значения")
     .Object@col_index_legend <- 1
     .Object@style <- c("missing_value")
     return(.Object)

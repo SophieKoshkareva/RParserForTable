@@ -6,7 +6,7 @@ setMethod(f = "initialize",
   signature = "Outlier",
   definition = function(.Object)
   { 
-    .Object@title <- c("Ð’Ñ‹Ð±Ñ€Ð¾ÑÑ‹")
+    .Object@title <- c("Âûáðîñû")
     .Object@col_index_legend <- 4
     .Object@style <- c("outlier")
     return(.Object)

@@ -7,7 +7,7 @@ setMethod(f = "initialize",
   signature = "UnsolvedMisprint",
   definition = function(.Object)
   { 
-    .Object@title <- c("ÐžÐ¿ÐµÑ‡Ð°Ñ‚ÐºÐ¸")
+    .Object@title <- c("Îïå÷àòêè")
     .Object@col_index_legend <- 3
     .Object@style <- c("unsolved_misprint")
     return(.Object)

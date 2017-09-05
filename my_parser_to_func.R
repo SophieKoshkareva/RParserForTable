@@ -2,7 +2,7 @@
 require(xlsx)
 
 file_in <- "D:/Diploma/r_project/data_CABG_PCI_2.csv"
-#file_in <- "D:/Diploma/r_project/data_GABR_PCI Ρ€ΠµΠ΄..csv"
+#file_in <- "D:/Diploma/r_project/data_GABR_PCI πεδ..csv"
 file_out <- "D:/Diploma/r_project/data_CABG_PCI_2_coloring.xlsx"
 sheet_out_name <- "data_CABG_PCI_2"
 row_header <- 1

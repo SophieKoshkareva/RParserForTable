@@ -6,16 +6,16 @@ setMethod(f = "initialize",
   signature = "Sex",
   definition = function(.Object)
   { 
-    .Object@key[["Male"]] <- list("Ð¼", "Ð¼ÑƒÐ¶",
-                                  "Ð¼ÑƒÐ¶ÑÐºÐ¾Ð¹",
-                                  "Ð¼ÑƒÐ¶Ñ‡Ð¸Ð½Ð°",
-                                  "Ð¼ÑƒÐ¶Ð¸Ðº")
+    .Object@key[["Male"]] <- list("ì", "ìóæ",
+                                  "ìóæ÷èíà",
+                                  "ìóæñêîé",
+                                  "ìóæèê")
     .Object@value[["Male"]] <- list(1)
     
-    .Object@key[["Female"]] <- list("Ð¶",
-                                    "Ð¶ÐµÐ½",
-                                    "Ð¶ÐµÐ½ÑÐºÐ¸Ð¹",
-                                    "Ð¶ÐµÐ½Ñ‰Ð¸Ð½Ð°")
+    .Object@key[["Female"]] <- list("æ",
+                                    "æåí",
+                                    "æåíùèíà",
+                                    "æåíñêèé")
     .Object@value[["Female"]] <- list(0)
     .Object@column_index <- 2
     return(.Object)

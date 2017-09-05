@@ -6,13 +6,13 @@ setMethod(f = "initialize",
   definition = function(.Object)
   { #.Object@data <- column_data
   
-    .Object@key["FirstDiabetesType"] <- list(c("1 С‚РёРї",
-                                               "1С‚РёРї",
-                                               "РїРµСЂРІС‹Р№"))
+    .Object@key["FirstDiabetesType"] <- list(c("1 тип",
+                                               "1тип",
+                                               "первый"))
     .Object@value["FirstDiabetesType"] <- list(1)
-    .Object@key["SecondDiabetesType"] <- list(c("2 С‚РёРї",
-                                                "2С‚РёРї",
-                                                "РІС‚РѕСЂРѕР№",
+    .Object@key["SecondDiabetesType"] <- list(c("2 тип",
+                                                "2тип",
+                                                "второй",
                                                 "2"))
     .Object@value["SecondDiabetesType"] <- list(0)
     .Object@column_index <- 5
