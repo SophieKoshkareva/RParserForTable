@@ -37,6 +37,11 @@ FindErrors(weight)
 source("D:/Diploma/r_project/Diabetes.R")
 diabetes <- new("Diabetes")
 FindErrors(diabetes)
+
+
+source("D:/Diploma/r_project/Euroscore.R")
+euroscore <- new("Euroscore")
+FindErrors(euroscore)
 #other columns
 
 file <- CreateExcelWB(file)
