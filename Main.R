@@ -52,6 +52,10 @@ source("D:/Diploma/r_project/PeakPressureGradient.R")
 peakPressureGradient <- new("PeakPressureGradient")
 FindErrors(peakPressureGradient)
 
+source("D:/Diploma/r_project/AveragePressureGradient.R")
+averagePressureGradient <- new("AveragePressureGradient")
+FindErrors(averagePressureGradient)
+
 #other columns
 
 
