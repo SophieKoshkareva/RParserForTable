@@ -48,7 +48,7 @@ setMethod(f = "SetColor",
     cells <- getCells(rows, colIndex = 1:ncol(file@table_out))
     lapply(names(cells[theObject@indices]), function(i) setCellStyle(cells[[i]], style))
     AddTableLegend(theObject, style, file)
-    return(file)
+    #return(file)
   }
 )
 
@@ -67,7 +67,7 @@ setMethod(f = "AddTableLegend",
     sheetTitle <- createCell(rows, theObject@col_index_legend)
     setCellValue(sheetTitle[[1,1]], theObject@title)
     setCellStyle(sheetTitle[[1,1]], style)
-    return(theObject)
+    #return(theObject)
   }
 )
 

@@ -1,39 +1,40 @@
 #install.packages("xlsx")
 require(xlsx)
 
-source("File.R")
+source("D:/Diploma/r_project/File.R")
 file <- new("File")
 file <- Open(file)
 
-source("Error.R")
+
 # globalMissing <- character()
 # globalMisprint <- character()
 # globalOutlier <- character()
 # globalUnsolvedMisprint <- character()
 
-source("Column.R")
-source("MissingValue.R")
+source("D:/Diploma/r_project/Error.R")
+source("D:/Diploma/r_project/MissingValue.R")
 missingValue <- new("MissingValue")
-source("Misprint.R")
+source("D:/Diploma/r_project/Misprint.R")
 misprint <- new("Misprint")
-source("UnsolvedMisprint.R")
+source("D:/Diploma/r_project/UnsolvedMisprint.R")
 unsolvedMisprint <- new("UnsolvedMisprint")
-source("Outlier.R")
+source("D:/Diploma/r_project/Outlier.R")
 outlier <- new("Outlier")
 
-source("Sex.R")
+source("D:/Diploma/r_project/Column.R")
+source("D:/Diploma/r_project/Sex.R")
 sex <- new("Sex")
 FindErrors(sex)
 
-source("Age.R")
+source("D:/Diploma/r_project/Age.R")
 age <- new("Age")
 FindErrors(age)
 
-source("Weight.R")
+source("D:/Diploma/r_project/Weight.R")
 weight <- new("Weight")
 FindErrors(weight)
 
-source("Diabetes.R")
+source("D:/Diploma/r_project/Diabetes.R")
 diabetes <- new("Diabetes")
 FindErrors(diabetes)
 #other columns
