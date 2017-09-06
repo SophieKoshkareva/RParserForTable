@@ -42,7 +42,18 @@ FindErrors(diabetes)
 source("D:/Diploma/r_project/Euroscore.R")
 euroscore <- new("Euroscore")
 FindErrors(euroscore)
+
+
+source("D:/Diploma/r_project/StsScore.R")
+stsScore <- new("StsScore")
+FindErrors(stsScore)
+
+source("D:/Diploma/r_project/PeakPressureGradient.R")
+peakPressureGradient <- new("PeakPressureGradient")
+FindErrors(peakPressureGradient)
+
 #other columns
+
 
 file <- CreateExcelWB(file)
 
