@@ -56,6 +56,10 @@ source("D:/Diploma/r_project/AveragePressureGradient.R")
 averagePressureGradient <- new("AveragePressureGradient")
 FindErrors(averagePressureGradient)
 
+source("D:/Diploma/r_project/AorticValveStenosis.R")
+aorticValveStenosis <- new("AorticValveStenosis")
+FindErrors(aorticValveStenosis)
+
 #other columns
 
 
