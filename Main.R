@@ -60,6 +60,10 @@ source("D:/Diploma/r_project/AorticValveStenosis.R")
 aorticValveStenosis <- new("AorticValveStenosis")
 FindErrors(aorticValveStenosis)
 
+source("D:/Diploma/r_project/EjectionFraction.R")
+ejectionFraction <- new("EjectionFraction")
+FindErrors(ejectionFraction)
+
 #other columns
 
 
