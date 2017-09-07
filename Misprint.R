@@ -40,40 +40,55 @@ setMethod(f = "FindMisprints",
       }
       for(j in 1:length(values))
       {
-        if (toupper(c[i]) == toupper(values[[j]][1]))
-        {
-          #which(toupper(file@table_in[[2]]) %in% toupper(sex@key[[1]][1]))
-          found <- TRUE
+        if (found)
           break
+        for(k in 1:length(values[[j]]))
+        { 
+          if (toupper(c[i]) == toupper(values[[j]][k]))
+          {
+            found <- TRUE
+            break
+          }
         }
       }
       if (found)
         next
-      for(a in 1:length(keys))
-      { 
-        if (found)
-          break
-        for(b in 1:length(keys[[a]]))
+      if (length(keys) != 0)
+      {
+        for(a in 1:length(keys))
         { 
-          if (toupper(c[i]) == toupper(keys[[a]][b]))
-          {
-            found <- TRUE
-            misprints_row_ind <- i + row_header + row_table_legend
-            misprint@indices <<- append(misprint@indices, values = paste(misprints_row_ind, column_index, sep = "."))
-            PrintReport(theObject, file@path_report, misprints_row_ind, column_index)
-            cat("Misprints coordinates are ", paste(i, column_index, sep = "."), "\n")
-            file@table_out[[column_index]][i] <<- unlist(values[[a]], use.names = FALSE)
+          if (found)
             break
+          for(b in 1:length(keys[[a]]))
+          { 
+            if (toupper(c[i]) == toupper(keys[[a]][b]))
+            {
+              found <- TRUE
+              misprints_row_ind <- i + row_header + row_table_legend
+              misprint@indices <<- append(misprint@indices, values = paste(misprints_row_ind, column_index, sep = "."))
+              PrintReport(theObject, file@path_report, misprints_row_ind, column_index)
+              cat("Misprints coordinates are ", paste(i, column_index, sep = "."), "\n")
+              file@table_out[[column_index]][i] <<- unlist(values[[a]], use.names = FALSE)
+              break
+            }
+          }
+          if ((!found) & (a == length(keys)))
+          {
+            misprints_row_ind <- i + row_header + row_table_legend
+            unsolvedMisprint@indices <<- append(unsolvedMisprint@indices, values = paste(misprints_row_ind, column_index, sep = "."))
+            PrintReport(unsolvedMisprint, file@path_report, misprints_row_ind, column_index)
+            cat("Unsolved misprint coordinates are", paste(i, column_index, sep = "."), "\n")
+            found <- TRUE
           }
         }
-        if ((!found) & (a == length(keys)))
-        {
-          misprints_row_ind <- i + row_header + row_table_legend
-          unsolvedMisprint@indices <<- append(unsolvedMisprint@indices, values = paste(misprints_row_ind, column_index, sep = "."))
-          PrintReport(unsolvedMisprint, file@path_report, misprints_row_ind, column_index)
-          cat("Unsolved misprint coordinates are", paste(i, column_index, sep = "."), "\n")
-          found <- TRUE
-        }
+      }
+      if (!found)
+      {
+        misprints_row_ind <- i + row_header + row_table_legend
+        unsolvedMisprint@indices <<- append(unsolvedMisprint@indices, values = paste(misprints_row_ind, column_index, sep = "."))
+        PrintReport(unsolvedMisprint, file@path_report, misprints_row_ind, column_index)
+        cat("Unsolved misprint coordinates are", paste(i, column_index, sep = "."), "\n")
+        found <- TRUE
       }
     }
     #return(theObject)

@@ -69,6 +69,8 @@ Outlier in row 107 column 4
 Outlier in row 112 column 4 
 Misprint in row 38 column 5 
 Misprint in row 45 column 5 
+MissingValue in row 4 column 6 
+UnsolvedMisprint in row 5 column 6 
 Outlier in row 22 column 12 
 Outlier in row 27 column 12 
 Outlier in row 62 column 12 

@@ -7,15 +7,15 @@ setMethod(f = "initialize",
   definition = function(.Object)
   { 
     .Object@key[["Male"]] <- list("м", "муж",
-                                  "мужчина",
                                   "мужской",
+                                  "мужчина",
                                   "мужик")
     .Object@value[["Male"]] <- list(1)
     
     .Object@key[["Female"]] <- list("ж",
                                     "жен",
-                                    "женщина",
-                                    "женский")
+                                    "женский",
+                                    "женщина")
     .Object@value[["Female"]] <- list(0)
     .Object@column_index <- 2
     return(.Object)
