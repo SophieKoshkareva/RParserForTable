@@ -47,6 +47,11 @@ source("D:/Diploma/r_project/NyhaClass.R")
 nyhaClass <- new("NyhaClass")
 FindErrors(nyhaClass)
 
+#7
+source("D:/Diploma/r_project/TiaAdcc.R")
+tiaAdcc <- new("TiaAdcc")
+FindErrors(tiaAdcc)
+
 #12
 source("D:/Diploma/r_project/Euroscore.R")
 euroscore <- new("Euroscore")
