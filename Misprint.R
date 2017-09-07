@@ -104,7 +104,8 @@ setMethod(f = "FindMisprintsForNumeric",
         cat("Missing value coordinates are ", paste(i, column_index, sep = "."), "\n")
         next
       }
-      if (grepl("\\d", c[[i]]) == FALSE)
+      
+      if (grepl("^(\\d)+([,.](\\d)+)?$", c[[i]]) == FALSE)
       {
         misprints_row_ind <- i + row_header + row_table_legend
         unsolvedMisprint@indices <<- append(unsolvedMisprint@indices, values = paste(misprints_row_ind, column_index, sep = "."))
