@@ -21,56 +21,71 @@ unsolvedMisprint <- new("UnsolvedMisprint")
 source("D:/Diploma/r_project/Outlier.R")
 outlier <- new("Outlier")
 
+#2
 source("D:/Diploma/r_project/Column.R")
 source("D:/Diploma/r_project/Sex.R")
 sex <- new("Sex")
 FindErrors(sex)
 
+#3
 source("D:/Diploma/r_project/Age.R")
 age <- new("Age")
 FindErrors(age)
 
+#4
 source("D:/Diploma/r_project/Weight.R")
 weight <- new("Weight")
 FindErrors(weight)
 
+#5
 source("D:/Diploma/r_project/Diabetes.R")
 diabetes <- new("Diabetes")
 FindErrors(diabetes)
 
-
+#12
 source("D:/Diploma/r_project/Euroscore.R")
 euroscore <- new("Euroscore")
 FindErrors(euroscore)
 
-
+#13
 source("D:/Diploma/r_project/StsScore.R")
 stsScore <- new("StsScore")
 FindErrors(stsScore)
 
+#14
 source("D:/Diploma/r_project/PeakPressureGradient.R")
 peakPressureGradient <- new("PeakPressureGradient")
 FindErrors(peakPressureGradient)
 
+#15
 source("D:/Diploma/r_project/AveragePressureGradient.R")
 averagePressureGradient <- new("AveragePressureGradient")
 FindErrors(averagePressureGradient)
 
+#16
 source("D:/Diploma/r_project/AorticValveStenosis.R")
 aorticValveStenosis <- new("AorticValveStenosis")
 FindErrors(aorticValveStenosis)
 
+#19
 source("D:/Diploma/r_project/EjectionFraction.R")
 ejectionFraction <- new("EjectionFraction")
 FindErrors(ejectionFraction)
 
+#26
 source("D:/Diploma/r_project/ArtificialCirculationTime.R")
 artificialCirculationTime <- new("ArtificialCirculationTime")
 FindErrors(artificialCirculationTime)
 
+#27
 source("D:/Diploma/r_project/PeakPressureGradientRepeat.R")
 peakPressureGradientRepeat <- new("PeakPressureGradientRepeat")
 FindErrors(peakPressureGradientRepeat)
+
+#28
+source("D:/Diploma/r_project/AveragePressureGradientRepeat.R")
+averagePressureGradientRepeat <- new("AveragePressureGradientRepeat")
+FindErrors(averagePressureGradientRepeat)
 #other columns
 
 
