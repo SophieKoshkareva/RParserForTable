@@ -57,6 +57,11 @@ source("D:/Diploma/r_project/ArterialHypertensionStage.R")
 arterialHypertensionStage <- new("ArterialHypertensionStage")
 FindErrors(arterialHypertensionStage)
 
+#9
+source("D:/Diploma/r_project/ChronicPulmonaryDisease.R")
+chronicPulmonaryDisease <- new("ChronicPulmonaryDisease")
+FindErrors(chronicPulmonaryDisease)
+
 #12
 source("D:/Diploma/r_project/Euroscore.R")
 euroscore <- new("Euroscore")

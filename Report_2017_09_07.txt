@@ -74,6 +74,7 @@ UnsolvedMisprint in row 5 column 6
 MissingValue in row 5 column 7 
 UnsolvedMisprint in row 6 column 7 
 MissingValue in row 10 column 8 
+UnsolvedMisprint in row 11 column 9 
 Outlier in row 22 column 12 
 Outlier in row 27 column 12 
 Outlier in row 62 column 12 
