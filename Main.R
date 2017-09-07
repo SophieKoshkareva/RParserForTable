@@ -52,6 +52,11 @@ source("D:/Diploma/r_project/TiaAdcc.R")
 tiaAdcc <- new("TiaAdcc")
 FindErrors(tiaAdcc)
 
+#8
+source("D:/Diploma/r_project/ArterialHypertensionStage.R")
+arterialHypertensionStage <- new("ArterialHypertensionStage")
+FindErrors(arterialHypertensionStage)
+
 #12
 source("D:/Diploma/r_project/Euroscore.R")
 euroscore <- new("Euroscore")
