@@ -85,7 +85,7 @@ setMethod(f = "SaveExcelWB",
   definition = function(theObject)
   {
     autoSizeColumn(theObject@sheet, colIndex = c(1:ncol(theObject@table_out)))
-    #createFreezePane(theObject@sheet, rowSplit = 2, colSplit = 2, startRow = 1, startColumn = 1)
+    createFreezePane(theObject@sheet, rowSplit = 2, colSplit = 1, startRow = 1, startColumn = 1)
     saveWorkbook(theObject@wb, theObject@path_out )
     print("New workbook was created")
     close(theObject@path_report)
