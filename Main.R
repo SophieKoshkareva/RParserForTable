@@ -64,6 +64,10 @@ source("D:/Diploma/r_project/EjectionFraction.R")
 ejectionFraction <- new("EjectionFraction")
 FindErrors(ejectionFraction)
 
+source("D:/Diploma/r_project/ArtificialCirculationTime.R")
+artificialCirculationTime <- new("ArtificialCirculationTime")
+FindErrors(artificialCirculationTime)
+
 #other columns
 
 
