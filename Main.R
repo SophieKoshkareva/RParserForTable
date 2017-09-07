@@ -62,6 +62,11 @@ source("D:/Diploma/r_project/ChronicPulmonaryDisease.R")
 chronicPulmonaryDisease <- new("ChronicPulmonaryDisease")
 FindErrors(chronicPulmonaryDisease)
 
+#10
+source("D:/Diploma/r_project/Arrhythmia.R")
+arrhythmia <- new("Arrhythmia")
+FindErrors(arrhythmia)
+
 #12
 source("D:/Diploma/r_project/Euroscore.R")
 euroscore <- new("Euroscore")
