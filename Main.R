@@ -42,6 +42,11 @@ source("D:/Diploma/r_project/Diabetes.R")
 diabetes <- new("Diabetes")
 FindErrors(diabetes)
 
+#6
+source("D:/Diploma/r_project/NyhaClass.R")
+nyhaClass <- new("NyhaClass")
+FindErrors(nyhaClass)
+
 #12
 source("D:/Diploma/r_project/Euroscore.R")
 euroscore <- new("Euroscore")
