@@ -68,6 +68,9 @@ source("D:/Diploma/r_project/ArtificialCirculationTime.R")
 artificialCirculationTime <- new("ArtificialCirculationTime")
 FindErrors(artificialCirculationTime)
 
+source("D:/Diploma/r_project/PeakPressureGradientRepeat.R")
+peakPressureGradientRepeat <- new("PeakPressureGradientRepeat")
+FindErrors(peakPressureGradientRepeat)
 #other columns
 
 

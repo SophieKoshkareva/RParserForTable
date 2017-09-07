@@ -111,3 +111,17 @@ Outlier in row 70 column 26
 Outlier in row 97 column 26 
 Outlier in row 104 column 26 
 Outlier in row 125 column 26 
+MissingValue in row 34 column 27 
+MissingValue in row 97 column 27 
+Outlier in row 69 column 27 
+Outlier in row 73 column 27 
+Outlier in row 75 column 27 
+Outlier in row 76 column 27 
+Outlier in row 81 column 27 
+Outlier in row 82 column 27 
+Outlier in row 89 column 27 
+Outlier in row 95 column 27 
+Outlier in row 103 column 27 
+Outlier in row 109 column 27 
+Outlier in row 110 column 27 
+Outlier in row 111 column 27 
