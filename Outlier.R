@@ -30,30 +30,28 @@ setMethod(f = "FindOutliers",
     c <- table[[column_index]]
     
     for (i in 1:length(c))
-      
     { 
       if (is.na(c[i]) == TRUE)
       {
-        outliers_row_ind <- i + row_header + row_table_legend
-        missingValue@indices <<- append(missingValue@indices, values = paste(outliers_row_ind, column_index, sep = "."))
-        PrintReport(missingValue, file@path_report, outliers_row_ind, column_index)
-        cat("Missing value coordinates are ", paste(i, column_index, sep = "."), "\n")
+        # outliers_row_ind <- i + row_header + row_table_legend
+        # missingValue@indices <<- append(missingValue@indices, values = paste(outliers_row_ind, column_index, sep = "."))
+        # PrintReport(missingValue, file@path_report, outliers_row_ind, column_index)
+        # cat("Missing value coordinates are ", paste(i, column_index, sep = "."), "\n")
         next
       }
       
-      if (grepl("\\d", c[i]) == TRUE)
+      if (grepl("^(\\d)+([,.](\\d)+)?$", c[[i]]) == TRUE)
       { 
         only_digits <- append(only_digits, c[i])
         next
       }
     }
-    
-    only_digits <- gsub(',', '.', only_digits)
+    only_digits <- gsub("[,]", ".", only_digits)
     outliers <- boxplot.stats(as.numeric(only_digits))$out
+    
     if (!is.null(outliers))
     {
-      #xlsx.createBook(table, sheet_out_name, file_out)
-      outliers_row_ind <- which(c %in% outliers, arr.ind = T, useNames = F)
+      outliers_row_ind <- which(gsub("[,]", ".", c) %in% outliers, arr.ind = T, useNames = F)
       outliers_row_ind <- outliers_row_ind + row_header + row_table_legend
       outlier@indices <<- append(outlier@indices, values = outer(outliers_row_ind, column_index, paste, sep = "."))
       lapply(outliers_row_ind, function(i) PrintReport(theObject, file@path_report, i, column_index))
