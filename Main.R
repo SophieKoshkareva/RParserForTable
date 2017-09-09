@@ -4,8 +4,6 @@ require(xlsx)
 source("D:/Diploma/r_project/File.R")
 file <- new("File")
 file <- Open(file)
-
-
 # globalMissing <- character()
 # globalMisprint <- character()
 # globalOutlier <- character()
@@ -48,8 +46,10 @@ nyhaClass <- new("NyhaClass")
 FindErrors(nyhaClass)
 
 #7
-source("D:/Diploma/r_project/TiaAdcc.R")
-tiaAdcc <- new("TiaAdcc")
+source("D:/Diploma/r_project/Binary.R")
+tiaAdcc <- new("Binary")
+tiaAdcc <- setColumnIndex(tiaAdcc, 7)
+getColumnIndex(tiaAdcc)
 FindErrors(tiaAdcc)
 
 #8
@@ -58,14 +58,25 @@ arterialHypertensionStage <- new("ArterialHypertensionStage")
 FindErrors(arterialHypertensionStage)
 
 #9
-source("D:/Diploma/r_project/ChronicPulmonaryDisease.R")
-chronicPulmonaryDisease <- new("ChronicPulmonaryDisease")
+source("D:/Diploma/r_project/Binary.R")
+chronicPulmonaryDisease <- new("Binary")
+chronicPulmonaryDisease <- setColumnIndex(chronicPulmonaryDisease, 9)
+getColumnIndex(chronicPulmonaryDisease)
 FindErrors(chronicPulmonaryDisease)
 
 #10
-source("D:/Diploma/r_project/Arrhythmia.R")
-arrhythmia <- new("Arrhythmia")
+source("D:/Diploma/r_project/Binary.R")
+arrhythmia <- new("Binary")
+arrhythmia <- setColumnIndex(arrhythmia, 10)
+getColumnIndex(arrhythmia)
 FindErrors(arrhythmia)
+
+#11
+source("D:/Diploma/r_project/Binary.R")
+previousIntervention <- new("Binary")
+previousIntervention <- setColumnIndex(previousIntervention, 11)
+getColumnIndex(previousIntervention)
+FindErrors(previousIntervention)
 
 #12
 source("D:/Diploma/r_project/Euroscore.R")
@@ -111,6 +122,39 @@ FindErrors(peakPressureGradientRepeat)
 source("D:/Diploma/r_project/AveragePressureGradientRepeat.R")
 averagePressureGradientRepeat <- new("AveragePressureGradientRepeat")
 FindErrors(averagePressureGradientRepeat)
+
+#31
+source("D:/Diploma/r_project/Binary.R")
+rhythmDisturbances <- new("Binary")
+rhythmDisturbances <- setColumnIndex(rhythmDisturbances, 31)
+getColumnIndex(rhythmDisturbances)
+FindErrors(rhythmDisturbances)
+
+#32
+source("D:/Diploma/r_project/Binary.R")
+acuteMyocardialInfarction <- new("Binary")
+acuteMyocardialInfarction <- setColumnIndex(acuteMyocardialInfarction, 32)
+getColumnIndex(acuteMyocardialInfarction)
+FindErrors(acuteMyocardialInfarction)
+
+#33
+source("D:/Diploma/r_project/Binary.R")
+repeatedRevascularization <- new("Binary")
+repeatedRevascularization <- setColumnIndex(repeatedRevascularization, 33)
+getColumnIndex(repeatedRevascularization)
+FindErrors(repeatedRevascularization)
+
+#34
+source("D:/Diploma/r_project/Binary.R")
+Adcc <- new("Binary")
+Adcc <- setColumnIndex(Adcc, 34)
+getColumnIndex(Adcc)
+FindErrors(Adcc)
+
+
+
+
+
 #other columns
 
 
