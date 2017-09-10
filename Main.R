@@ -19,6 +19,15 @@ unsolvedMisprint <- new("UnsolvedMisprint")
 source("D:/Diploma/r_project/Outlier.R")
 outlier <- new("Outlier")
 
+#1
+source("D:/Diploma/r_project/Binary.R")
+patient <- new("Binary")
+patient <- setColumnIndex(patient, 1)
+getColumnIndex(patient)
+patient<- setValue(patient, c("CABG", "PCI"))
+getValue(patient)
+FindErrors(patient)
+
 #2
 source("D:/Diploma/r_project/Column.R")
 source("D:/Diploma/r_project/Sex.R")
@@ -146,13 +155,45 @@ FindErrors(repeatedRevascularization)
 
 #34
 source("D:/Diploma/r_project/Binary.R")
-Adcc <- new("Binary")
-Adcc <- setColumnIndex(Adcc, 34)
-getColumnIndex(Adcc)
-FindErrors(Adcc)
+adcc <- new("Binary")
+adcc <- setColumnIndex(adcc, 34)
+getColumnIndex(adcc)
+FindErrors(adcc)
 
+#35
+source("D:/Diploma/r_project/Binary.R")
+death <- new("Binary")
+death <- setColumnIndex(death, 35)
+getColumnIndex(death)
+FindErrors(death)
 
+#36
+source("D:/Diploma/r_project/Binary.R")
+masse <- new("Binary")
+masse <- setColumnIndex(masse, 36)
+getColumnIndex(masse)
+FindErrors(masse)
 
+#37
+source("D:/Diploma/r_project/Binary.R")
+acuteKidneyInjury <- new("Binary")
+acuteKidneyInjury <- setColumnIndex(masse, 37)
+getColumnIndex(acuteKidneyInjury)
+FindErrors(acuteKidneyInjury)
+
+#38
+source("D:/Diploma/r_project/Binary.R")
+bleeding <- new("Binary")
+bleeding <- setColumnIndex(bleeding, 38)
+getColumnIndex(bleeding)
+FindErrors(bleeding)
+
+#41
+source("D:/Diploma/r_project/Binary.R")
+revascularization <- new("Binary")
+revascularization <- setColumnIndex(revascularization, 41)
+getColumnIndex(revascularization)
+FindErrors(revascularization)
 
 
 #other columns
