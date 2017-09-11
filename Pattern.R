@@ -4,6 +4,6 @@ pattern <- "^((\\d){2}|(\\d){4})$"
 grepl(pattern, string1)
 
 
-string1 <- "12."
-pattern <- "^(\\d){1,2}[/-]$"
+string1 <- "12/11/1994"
+pattern <- "^((\\d){2})([,.]|[-/])(\\d{2})([,.]|[-/])((\\d){2}|(\\d){4})$"
 grepl(pattern, string1)
