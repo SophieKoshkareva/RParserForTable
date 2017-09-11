@@ -2,14 +2,14 @@ AveragePressureGradient <- setClass("AveragePressureGradient",
                                  contains = "Column"
 )
 
-setMethod(f = "initialize",
-          signature = "AveragePressureGradient",
-          definition = function(.Object)
-          { 
-            .Object@column_index <- 15
-            return(.Object)
-          }
-)
+# setMethod(f = "initialize",
+#           signature = "AveragePressureGradient",
+#           definition = function(.Object)
+#           { 
+#             .Object@column_index <- 15
+#             return(.Object)
+#           }
+# )
 
 setGeneric(name = "FindErrors", 
            def = function(theObject)

@@ -2,14 +2,14 @@ Age <- setClass("Age",
                 contains = "Column"
 )
 
-setMethod(f = "initialize",
-          signature = "Age",
-          definition = function(.Object)
-          { 
-            .Object@column_index <- 3
-            return(.Object)
-          }
-)
+# setMethod(f = "initialize",
+#           signature = "Age",
+#           definition = function(.Object)
+#           { 
+#             
+#             return(.Object)
+#           }
+# )
 
 setGeneric(name = "FindErrors", 
            def = function(theObject)

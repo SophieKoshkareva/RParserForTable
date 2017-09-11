@@ -4,18 +4,13 @@ Diabetes <- setClass("Diabetes",
 setMethod(f = "initialize",
   signature = "Diabetes",
   definition = function(.Object)
-  { #.Object@data <- column_data
-  
-    .Object@key["FirstDiabetesType"] <- list(c("1 тип",
-                                               "1тип",
-                                               "первый"))
-    .Object@value["FirstDiabetesType"] <- list(1)
-    .Object@key["SecondDiabetesType"] <- list(c("2 тип",
-                                                "2тип",
-                                                "второй",
-                                                "2"))
-    .Object@value["SecondDiabetesType"] <- list(0)
-    .Object@column_index <- 5
+  { 
+    .Object@key[["DiabetesType"]] <- list("1 ???",
+                                        "1???",
+                                        "??????")
+    .Object@value[["DiabetesType"]] <- list(1)
+    .Object@key[["NoDiabetes"]] <- list("???")
+    .Object@value[["NoDiabetes"]] <- list(0)
     return(.Object)
   }
 )

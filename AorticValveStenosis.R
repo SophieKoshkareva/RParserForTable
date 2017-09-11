@@ -2,14 +2,14 @@ AorticValveStenosis <- setClass("AorticValveStenosis",
                                     contains = "Column"
 )
 
-setMethod(f = "initialize",
-          signature = "AorticValveStenosis",
-          definition = function(.Object)
-          { 
-            .Object@column_index <- 16
-            return(.Object)
-          }
-)
+# setMethod(f = "initialize",
+#           signature = "AorticValveStenosis",
+#           definition = function(.Object)
+#           { 
+#             .Object@column_index <- 16
+#             return(.Object)
+#           }
+# )
 
 setGeneric(name = "FindErrors", 
            def = function(theObject)

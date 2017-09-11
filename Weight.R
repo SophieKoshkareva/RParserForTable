@@ -2,14 +2,14 @@ Weight <- setClass("Weight",
                 contains = "Column"
 )
 
-setMethod(f = "initialize",
-          signature = "Weight",
-          definition = function(.Object)
-          { 
-            .Object@column_index <- 4
-            return(.Object)
-          }
-)
+# setMethod(f = "initialize",
+#           signature = "Weight",
+#           definition = function(.Object)
+#           { 
+#             .Object@column_index <- 4
+#             return(.Object)
+#           }
+# )
 
 setGeneric(name = "FindErrors", 
            def = function(theObject)

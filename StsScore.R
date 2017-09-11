@@ -2,14 +2,14 @@ StsScore <- setClass("StsScore",
                 contains = "Column"
 )
 
-setMethod(f = "initialize",
-          signature = "StsScore",
-          definition = function(.Object)
-          { 
-            .Object@column_index <- 13
-            return(.Object)
-          }
-)
+# setMethod(f = "initialize",
+#           signature = "StsScore",
+#           definition = function(.Object)
+#           { 
+#             .Object@column_index <- 13
+#             return(.Object)
+#           }
+# )
 
 setGeneric(name = "FindErrors", 
            def = function(theObject)

@@ -8,7 +8,6 @@ setMethod(f = "initialize",
           { 
             
             .Object@value[["ArterialHypertensionStage"]] <- list(0, 1, 2, 3)
-            .Object@column_index <- 8
             return(.Object)
           }
 )

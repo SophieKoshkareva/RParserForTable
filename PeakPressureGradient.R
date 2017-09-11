@@ -2,14 +2,14 @@ PeakPressureGradient <- setClass("PeakPressureGradient",
                 contains = "Column"
 )
 
-setMethod(f = "initialize",
-          signature = "PeakPressureGradient",
-          definition = function(.Object)
-          { 
-            .Object@column_index <- 14
-            return(.Object)
-          }
-)
+# setMethod(f = "initialize",
+#           signature = "PeakPressureGradient",
+#           definition = function(.Object)
+#           { 
+#             .Object@column_index <- 14
+#             return(.Object)
+#           }
+# )
 
 setGeneric(name = "FindErrors", 
            def = function(theObject)

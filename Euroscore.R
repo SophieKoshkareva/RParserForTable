@@ -2,14 +2,14 @@ Euroscore <- setClass("Euroscore",
                 contains = "Column"
 )
 
-setMethod(f = "initialize",
-          signature = "Euroscore",
-          definition = function(.Object)
-          { 
-            .Object@column_index <- 12
-            return(.Object)
-          }
-)
+# setMethod(f = "initialize",
+#           signature = "Euroscore",
+#           definition = function(.Object)
+#           { 
+#             .Object@column_index <- 12
+#             return(.Object)
+#           }
+# )
 
 setGeneric(name = "FindErrors", 
            def = function(theObject)

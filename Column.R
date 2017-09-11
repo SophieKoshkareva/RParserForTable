@@ -5,13 +5,26 @@ Column <- setClass("Column",
   column_index = "numeric")
 )
 
+setGeneric(name = "getColumnIndex",
+  def = function(theObject)
+  {
+    standardGeneric("getColumnIndex")
+  }
+)
+setMethod(f = "getColumnIndex",
+  signature = "Column",
+  definition = function(theObject)
+  {
+    return(theObject@column_index)
+  }
+)
+
 setGeneric(name = "setColumnIndex",
   def = function(theObject, index_value)
   {
     standardGeneric("setColumnIndex")
   }
 )
-
 setMethod(f = "setColumnIndex",
   signature = "Column",
   definition = function(theObject, index_value)
@@ -21,28 +34,12 @@ setMethod(f = "setColumnIndex",
   }
 )
 
-setGeneric(name = "getColumnIndex",
-def = function(theObject)
-  {
-    standardGeneric("getColumnIndex")
-  }
-)
-
-setMethod(f = "getColumnIndex",
-  signature = "Column",
-  definition = function(theObject)
-  {
-    return(theObject@column_index)
-  }
-)
-
 setGeneric(name = "getValue",
   def = function(theObject)
   {
     standardGeneric("getValue")
   }
 )
-
 setMethod(f = "getValue",
   signature = "Column",
   definition = function(theObject)
@@ -50,13 +47,13 @@ setMethod(f = "getValue",
     return(theObject@value)
   }
 )
+
 setGeneric(name = "setValue",
   def = function(theObject, newValue, add = FALSE)
   {
     standardGeneric("setValue")
   }
 )
-
 setMethod(f = "setValue",
   signature = "Column",
   definition = function(theObject, newValue, add = FALSE)
@@ -72,24 +69,43 @@ setMethod(f = "setValue",
   }
 )
 
+setGeneric(name = "getKey",
+  def = function(theObject)
+  {
+    standardGeneric("getKey")
+  }
+)
+setMethod(f = "getKey",
+  signature = "Column",
+  definition = function(theObject)
+  {
+    return(theObject@key)
+  }
+)
+
 setGeneric(name = "setKey",
   def = function(theObject, newKey, add = FALSE)
   {
     standardGeneric("setKey")
   }
 )
-  
-  setMethod(f = "setKey",
+setMethod(f = "setKey",
   signature = "Column",
   definition = function(theObject, newKey, add = FALSE)
   {
-    # if(add)
-    # {
-    #   theObject@key[[i]] <- c(theObject@value, newKey)
-    # }else
-    # {
-    #   theObject@key <- as.list(newKey)
-    # }
+    if (!is.list(newKey)) newKey <- list(newKey) 
+    for(i in 1:length(newKey))
+    {
+      if(add)
+      {
+        theObject@key[[i]] <- c(theObject@key[[i]], as.list(newKey[[i]]))
+      }else
+      {
+        theObject@key[[i]] <- as.list(newKey[i])
+      }
+    }
     return(theObject)
   }
 )
+#setKey(sex, list(c("male", "m"), c("female", "f")), add = TRUE)
+#setKey(diabetes, list(c("2 тип", "2тип", "второй", "2")), add = TRUE)

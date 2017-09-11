@@ -2,14 +2,14 @@ ArtificialCirculationTime <- setClass("ArtificialCirculationTime",
                 contains = "Column"
 )
 
-setMethod(f = "initialize",
-          signature = "ArtificialCirculationTime",
-          definition = function(.Object)
-          { 
-            .Object@column_index <- 26
-            return(.Object)
-          }
-)
+# setMethod(f = "initialize",
+#           signature = "ArtificialCirculationTime",
+#           definition = function(.Object)
+#           { 
+#             .Object@column_index <- 26
+#             return(.Object)
+#           }
+# )
 
 setGeneric(name = "FindErrors", 
            def = function(theObject)

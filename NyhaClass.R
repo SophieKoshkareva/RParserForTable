@@ -8,7 +8,6 @@ setMethod(f = "initialize",
           { 
             
             .Object@value[["NyhaClass"]] <- list(1, 2, 3, 4)
-            .Object@column_index <- 6
             return(.Object)
           }
 )

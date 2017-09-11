@@ -8,7 +8,7 @@ setMethod(f = "initialize",
           { 
             
             .Object@value[["Zero"]] <- list(0)
-            .Object@value[["First"]]<- list(1)
+            .Object@value[["One"]]<- list(1)
             return(.Object)
           }
 )
