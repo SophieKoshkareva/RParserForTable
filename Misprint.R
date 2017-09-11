@@ -34,7 +34,7 @@ setMethod(f = "FindMisprints",
       {
         misprints_row_ind <- i + row_header + row_table_legend
         missingValue@indices <<- append(missingValue@indices, values = paste(misprints_row_ind, column_index, sep = "."))
-        PrintReport(missingValue, file@path_report, misprints_row_ind, column_index)
+        #PrintReport(missingValue, file@path_report, misprints_row_ind, column_index)
         cat("Missing value coordinates are ", paste(i, column_index, sep = "."), "\n")
         next
       }
@@ -121,6 +121,50 @@ setMethod(f = "FindMisprintsForNumeric",
       }
       
       if (grepl("^(\\d)+([,.](\\d)+)?$", c[[i]]) == FALSE)
+      {
+        misprints_row_ind <- i + row_header + row_table_legend
+        unsolvedMisprint@indices <<- append(unsolvedMisprint@indices, values = paste(misprints_row_ind, column_index, sep = "."))
+        PrintReport(unsolvedMisprint, file@path_report, misprints_row_ind, column_index)
+        cat("Unsolved misprint coordinates are ", paste(i, column_index, sep = "."), "\n")
+        next
+      }
+    } 
+  }
+)
+
+setGeneric(name = "FindMisprintsForDates",
+  def = function(theObject, table_in, column_index, row_header, row_table_legend)
+  { 
+    standardGeneric("FindMisprintsForDates")
+  }
+)
+setMethod(f = "FindMisprintsForDates",
+  signature = "Misprint",
+  definition = function(theObject, table_in, column_index, row_header, row_table_legend)
+  { 
+    misprints_row_ind <- c()
+    c <- table_in[[column_index]]
+  
+    for (i in 1:length(c))
+    { 
+      if (is.na(c[i]) == TRUE)
+      {
+        misprints_row_ind <- i + row_header + row_table_legend
+        missingValue@indices <<- append(missingValue@indices, values = paste(misprints_row_ind, column_index, sep = "."))
+        PrintReport(missingValue, file@path_report, misprints_row_ind, column_index)
+        cat("Missing value coordinates are ", paste(i, column_index, sep = "."), "\n")
+        next
+      }
+  
+      if (grepl("[,-/]", c[[i]]) == TRUE)
+      {
+        print("HELLOOOO")
+        misprints_row_ind <- i + row_header + row_table_legend
+        misprint@indices <<- append(misprint@indices, values = paste(misprints_row_ind, column_index, sep = "."))
+        PrintReport(theObject, file@path_report, misprints_row_ind, column_index)
+        cat("Misprints coordinates are ", paste(i, column_index, sep = "."), "\n")
+        file@table_out[[column_index]][i] <<- gsub("[,]", ".", file@table_out[[column_index]][i])
+      } else if (grepl("^[0-9][0-9][.][0-9][0-9][.][0-9][0-9][0-9][0-9]$", c[[i]]) == FALSE)
       {
         misprints_row_ind <- i + row_header + row_table_legend
         unsolvedMisprint@indices <<- append(unsolvedMisprint@indices, values = paste(misprints_row_ind, column_index, sep = "."))

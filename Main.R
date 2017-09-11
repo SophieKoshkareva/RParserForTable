@@ -1,5 +1,6 @@
 #install.packages("xlsx")
 require(xlsx)
+Sys.setenv(TZ = "Asia/Novosibirsk")
 source("D:/Diploma/r_project/File.R")
 file <- new("File")
 file <- Open(file)
@@ -19,42 +20,69 @@ source("D:/Diploma/r_project/Outlier.R")
 outlier <- new("Outlier")
 
 #1
+source("D:/Diploma/r_project/Column.R")
 source("D:/Diploma/r_project/Binary.R")
 patient <- new("Binary")
+print(patient)
 patient <- setColumnIndex(patient, 1)
 patient<- setValue(patient, c("CABG", "PCI"))
 FindErrors(patient)
 
 #2
-#source("D:/Diploma/r_project/Column.R")
+#!!!!!!!!!
 source("D:/Diploma/r_project/Binary.R")
-source("D:/Diploma/r_project/Sex.R")
-sex <- new("Sex")
+sex <- new("Binary")
 sex <- setColumnIndex(sex, 2)
+sex<- setKey(sex,
+             list(c("ж",
+                    "жен",
+                    "женщина",
+                    "женский",
+                    "female",
+                    "f"),
+                  c("м",
+                    "муж",
+                    "мужчина",
+                    "мужской",
+                    "male",
+                    "m")),
+              add = FALSE)
 FindErrors(sex)
 
 #3
-source("D:/Diploma/r_project/Age.R")
-age <- new("Age")
+source("D:/Diploma/r_project/Continuous.R")
+age <- new("Continuous")
 age <- setColumnIndex(age, 3)
 FindErrors(age)
 
 #4
-source("D:/Diploma/r_project/Weight.R")
-weight <- new("Weight")
+source("D:/Diploma/r_project/Continuous.R")
+weight <- new("Continuous")
 weight <- setColumnIndex(weight, 4)
 FindErrors(weight)
 
+#!!!!!!!!
 #5
-source("D:/Diploma/r_project/Diabetes.R")
-diabetes <- new("Diabetes")
+source("D:/Diploma/r_project/Binary.R")
+diabetes <- new("Binary")
 diabetes <- setColumnIndex(diabetes, 5)
+diabetes <- setKey(diabetes,
+                   list(c("нет"),
+                        c("1 тип",
+                          "1тип",
+                          "первый",
+                          "2 тип",
+                          "2тип",
+                          "второй",
+                          "2")),
+                   add = FALSE)
 FindErrors(diabetes)
 
 #6
-source("D:/Diploma/r_project/NyhaClass.R")
-nyhaClass <- new("NyhaClass")
+source("D:/Diploma/r_project/Discrete.R")
+nyhaClass <- new("Discrete")
 nyhaClass <- setColumnIndex(nyhaClass, 6)
+nyhaClass <- setValue(nyhaClass, c(1, 2, 3, 4))
 FindErrors(nyhaClass)
 
 #7
@@ -64,9 +92,10 @@ tiaAdcc <- setColumnIndex(tiaAdcc, 7)
 FindErrors(tiaAdcc)
 
 #8
-source("D:/Diploma/r_project/ArterialHypertensionStage.R")
-arterialHypertensionStage <- new("ArterialHypertensionStage")
+source("D:/Diploma/r_project/Discrete.R")
+arterialHypertensionStage <- new("Discrete")
 arterialHypertensionStage <- setColumnIndex(arterialHypertensionStage, 8)
+arterialHypertensionStage <- setValue(arterialHypertensionStage, c(0, 1, 2, 3))
 FindErrors(arterialHypertensionStage)
 
 #9
@@ -88,78 +117,127 @@ previousIntervention <- setColumnIndex(previousIntervention, 11)
 FindErrors(previousIntervention)
 
 #12
-source("D:/Diploma/r_project/Euroscore.R")
-euroscore <- new("Euroscore")
+source("D:/Diploma/r_project/Continuous.R")
+euroscore <- new("Continuous")
 euroscore <- setColumnIndex(euroscore, 12)
 FindErrors(euroscore)
 
 #13
-source("D:/Diploma/r_project/StsScore.R")
-stsScore <- new("StsScore")
+source("D:/Diploma/r_project/Continuous.R")
+stsScore <- new("Continuous")
 stsScore <- setColumnIndex(stsScore, 13)
 FindErrors(stsScore)
 
 #14
-source("D:/Diploma/r_project/PeakPressureGradient.R")
-peakPressureGradient <- new("PeakPressureGradient")
+source("D:/Diploma/r_project/Continuous.R")
+peakPressureGradient <- new("Continuous")
 peakPressureGradient <- setColumnIndex(peakPressureGradient, 14)
 FindErrors(peakPressureGradient)
 
 #15
-source("D:/Diploma/r_project/AveragePressureGradient.R")
-averagePressureGradient <- new("AveragePressureGradient")
+source("D:/Diploma/r_project/Continuous.R")
+averagePressureGradient <- new("Continuous")
 averagePressureGradient <- setColumnIndex(averagePressureGradient, 15)
 FindErrors(averagePressureGradient)
 
 #16
-source("D:/Diploma/r_project/AorticValveStenosis.R")
-aorticValveStenosis <- new("AorticValveStenosis")
+source("D:/Diploma/r_project/Continuous.R")
+aorticValveStenosis <- new("Continuous")
 aorticValveStenosis <- setColumnIndex(aorticValveStenosis, 16)
 FindErrors(aorticValveStenosis)
 
 #17
+source("D:/Diploma/r_project/Discrete.R")
+aorticRegurgitation <- new("Discrete")
+aorticRegurgitation <- setColumnIndex(aorticRegurgitation, 17)
+aorticRegurgitation <- setValue(aorticRegurgitation, c(0, 1, 2))
+FindErrors(aorticRegurgitation)
 
 #18
+source("D:/Diploma/r_project/Discrete.R")
+mitralRegurgitation <- new("Discrete")
+mitralRegurgitation <- setColumnIndex(mitralRegurgitation, 18)
+mitralRegurgitation <- setValue(mitralRegurgitation, c(0, 1, 2))
+FindErrors(mitralRegurgitation)
 
 #19
-source("D:/Diploma/r_project/EjectionFraction.R")
-ejectionFraction <- new("EjectionFraction")
+source("D:/Diploma/r_project/Continuous.R")
+ejectionFraction <- new("Continuous")
 ejectionFraction <- setColumnIndex(ejectionFraction, 19)
 FindErrors(ejectionFraction)
 
 #20
+source("D:/Diploma/r_project/Discrete.R")
+anteriorDescendingArtery <- new("Discrete")
+anteriorDescendingArtery <- setColumnIndex(anteriorDescendingArtery, 20)
+anteriorDescendingArtery <- setValue(anteriorDescendingArtery, c(0, 1, 2))
+FindErrors(anteriorDescendingArtery)
 
 #21
+source("D:/Diploma/r_project/Discrete.R")
+bypassArtery <- new("Discrete")
+bypassArtery <- setColumnIndex(bypassArtery, 21)
+bypassArtery <- setValue(bypassArtery, c(0, 1, 2))
+FindErrors(bypassArtery)
 
 #22
+source("D:/Diploma/r_project/Discrete.R")
+rightCoronaryArtery <- new("Discrete")
+rightCoronaryArtery <- setColumnIndex(rightCoronaryArtery, 22)
+rightCoronaryArtery <- setValue(rightCoronaryArtery, c(0, 1, 2))
+FindErrors(rightCoronaryArtery)
 
 #23
+source("D:/Diploma/r_project/Discrete.R")
+leftCoronaryArteryTrunk <- new("Discrete")
+leftCoronaryArteryTrunk <- setColumnIndex(leftCoronaryArteryTrunk, 23)
+leftCoronaryArteryTrunk <- setValue(leftCoronaryArteryTrunk, c(0, 1, 2))
+FindErrors(leftCoronaryArteryTrunk)
 
 #24
+#date
+source("D:/Diploma/r_project/Dates.R")
+InterventionDate <- new("Dates")
+InterventionDate <- setColumnIndex(InterventionDate, 24)
+FindErrors(InterventionDate)
 
 #25
+source("D:/Diploma/r_project/Binary.R")
+RossProcedure <- new("Binary")
+RossProcedure <- setColumnIndex(RossProcedure, 25)
+FindErrors(RossProcedure)
 
 #26
-source("D:/Diploma/r_project/ArtificialCirculationTime.R")
-artificialCirculationTime <- new("ArtificialCirculationTime")
+source("D:/Diploma/r_project/Continuous.R")
+artificialCirculationTime <- new("Continuous")
 artificialCirculationTime <- setColumnIndex(artificialCirculationTime, 26)
 FindErrors(artificialCirculationTime)
 
 #27
-source("D:/Diploma/r_project/PeakPressureGradientRepeat.R")
-peakPressureGradientRepeat <- new("PeakPressureGradientRepeat")
+source("D:/Diploma/r_project/Continuous.R")
+peakPressureGradientRepeat <- new("Continuous")
 peakPressureGradientRepeat <- setColumnIndex(peakPressureGradientRepeat, 27)
 FindErrors(peakPressureGradientRepeat)
 
 #28
-source("D:/Diploma/r_project/AveragePressureGradientRepeat.R")
-averagePressureGradientRepeat <- new("AveragePressureGradientRepeat")
+source("D:/Diploma/r_project/Continuous.R")
+averagePressureGradientRepeat <- new("Continuous")
 averagePressureGradientRepeat <- setColumnIndex(averagePressureGradientRepeat, 28)
 FindErrors(averagePressureGradientRepeat)
 
 #29
+source("D:/Diploma/r_project/Discrete.R")
+aorticRegurgitationRepeat <- new("Discrete")
+aorticRegurgitationRepeat <- setColumnIndex(aorticRegurgitationRepeat, 29)
+aorticRegurgitationRepeat <- setValue(aorticRegurgitationRepeat, c(0, 1, 2))
+FindErrors(aorticRegurgitationRepeat)
 
 #30
+source("D:/Diploma/r_project/Discrete.R")
+mitralRegurgitationRepeat <- new("Discrete")
+mitralRegurgitationRepeat <- setColumnIndex(mitralRegurgitationRepeat, 30)
+mitralRegurgitationRepeat <- setValue(mitralRegurgitationRepeat, c(0, 1, 2))
+FindErrors(mitralRegurgitationRepeat)
 
 #31
 source("D:/Diploma/r_project/Binary.R")
@@ -189,6 +267,13 @@ FindErrors(adcc)
 source("D:/Diploma/r_project/Binary.R")
 death <- new("Binary")
 death <- setColumnIndex(death, 35)
+death <- setKey(death,
+                list(c("ок",
+                       "нет"),
+                     c("лет",
+                       "2",
+                       "да")),
+                add = FALSE)
 FindErrors(death)
 
 #36
@@ -209,12 +294,28 @@ bleeding <- new("Binary")
 bleeding <- setColumnIndex(bleeding, 38)
 FindErrors(bleeding)
 
+#39 Discrete or Continuous
+source("D:/Diploma/r_project/Error.R")
+source("D:/Diploma/r_project/Discrete.R")
+shuntsNumber <- new("Discrete")
+shuntsNumber <- setColumnIndex(shuntsNumber, 39)
+shuntsNumber <- setValue(shuntsNumber, c(0, 1, 2, 3))
+FindErrors(shuntsNumber)
+
+#40
+source("D:/Diploma/r_project/Binary.R")
+stentType <- new("Binary")
+stentType <- setColumnIndex(stentType, 40)
+stentType <- setValue(stentType, c("bms", "des"))
+FindErrors(stentType)
+
 #41
 source("D:/Diploma/r_project/Binary.R")
 revascularization <- new("Binary")
 revascularization <- setColumnIndex(revascularization, 41)
 FindErrors(revascularization)
 
+#42 date
 
 #other columns
 
@@ -234,3 +335,4 @@ SetColor(unsolvedMisprint, file)
 SetColor(outlier, file)
 
 file <- SaveExcelWB(file)
+# which(sapply(as.Date(file@table_in[[42]], format = "%d.%m.%Y"), is.date), arr.ind = TRUE, useNames = FALSE)

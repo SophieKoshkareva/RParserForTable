@@ -1,17 +1,20 @@
-TiaAdcc <- setClass("Binary", 
-                    contains = "Column"
+Binary <- setClass("Binary", 
+                    contains = "Column",
+                    prototype = prototype (value = list("Zero" = list(0),
+                                     "One" = list(1)))
+                    
 )
 
-setMethod(f = "initialize",
-          signature = "Binary",
-          definition = function(.Object)
-          { 
-            
-            .Object@value[["Zero"]] <- list(0)
-            .Object@value[["One"]]<- list(1)
-            return(.Object)
-          }
-)
+# setMethod(f = "initialize",
+#           signature = "Binary",
+#           definition = function(.Object)
+#           { 
+#             
+#             .Object@value[["Zero"]] <- list(0)
+#             .Object@value[["One"]]<- list(1)
+#             return(.Object)
+#           }
+# )
 
 setGeneric(name = "FindErrors", 
            def = function(theObject)

@@ -101,7 +101,7 @@ setMethod(f = "setKey",
         theObject@key[[i]] <- c(theObject@key[[i]], as.list(newKey[[i]]))
       }else
       {
-        theObject@key[[i]] <- as.list(newKey[i])
+        theObject@key[[i]] <- as.list(newKey[[i]])
       }
     }
     return(theObject)
