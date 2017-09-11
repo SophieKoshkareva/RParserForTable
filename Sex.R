@@ -1,21 +1,21 @@
 Sex <- setClass("Sex", 
-  contains = "Binary"
+  contains = "Column"
 )
 
 setMethod(f = "initialize",
   signature = "Sex",
   definition = function(.Object)
   { 
-    .Object@key[["One"]] <- list("?", "???",
-                                  "???????",
-                                  "???????",
-                                  "?????")
+    .Object@key[["Male"]] <- list("м",
+                                  "муж",
+                                  "мужчина",
+                                  "мужской")
     .Object@value[["Male"]] <- list(1)
     
-    .Object@key[["Zero"]] <- list("?",
-                                    "???",
-                                    "???????",
-                                    "???????")
+    .Object@key[["Female"]] <- list("ж",
+                                    "жен",
+                                    "женщина",
+                                    "женский")
     .Object@value[["Female"]] <- list(0)
     return(.Object)
   }

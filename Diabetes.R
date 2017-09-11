@@ -5,11 +5,15 @@ setMethod(f = "initialize",
   signature = "Diabetes",
   definition = function(.Object)
   { 
-    .Object@key[["DiabetesType"]] <- list("1 ???",
-                                        "1???",
-                                        "??????")
+    .Object@key[["DiabetesType"]] <- list("1 тип",
+                                          "1тип",
+                                          "первый",
+                                          "2 тип",
+                                          "2тип",
+                                          "второй",
+                                          "2")
     .Object@value[["DiabetesType"]] <- list(1)
-    .Object@key[["NoDiabetes"]] <- list("???")
+    .Object@key[["NoDiabetes"]] <- list("нет")
     .Object@value[["NoDiabetes"]] <- list(0)
     return(.Object)
   }

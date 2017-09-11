@@ -26,7 +26,8 @@ patient<- setValue(patient, c("CABG", "PCI"))
 FindErrors(patient)
 
 #2
-source("D:/Diploma/r_project/Column.R")
+#source("D:/Diploma/r_project/Column.R")
+source("D:/Diploma/r_project/Binary.R")
 source("D:/Diploma/r_project/Sex.R")
 sex <- new("Sex")
 sex <- setColumnIndex(sex, 2)
