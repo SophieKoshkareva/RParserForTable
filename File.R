@@ -41,17 +41,17 @@ setMethod(f = "Open",
     
     file_report_name <- paste("D:/Diploma/r_project/", "Report_", format(Sys.time(), "%Y_%m_%d"), ".txt", sep = "")
     theObject@path_report <- file(description = file_report_name, open ="w")
+    
     return(theObject)
   }
 )
 
 setGeneric(name = "CreateExcelWB", 
-           def = function(theObject)
-           {
-             standardGeneric("CreateExcelWB")
-           }
+  def = function(theObject)
+  {
+    standardGeneric("CreateExcelWB")
+  }
 )
-
 setMethod(f = "CreateExcelWB",
   signature = "File",
   definition = function(theObject)
@@ -88,7 +88,7 @@ setMethod(f = "SaveExcelWB",
     createFreezePane(theObject@sheet, rowSplit = 2, colSplit = 1, startRow = 1, startColumn = 1)
     saveWorkbook(theObject@wb, theObject@path_out )
     print("New workbook was created")
-    close(theObject@path_report)
+    on.exit(close(theObject@path_report))
     return(theObject)
   }
 )

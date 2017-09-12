@@ -1,6 +1,7 @@
 #install.packages("xlsx")
 require(xlsx)
 Sys.setenv(TZ = "Asia/Novosibirsk")
+
 source("D:/Diploma/r_project/File.R")
 file <- new("File")
 file <- Open(file)
@@ -23,7 +24,6 @@ outlier <- new("Outlier")
 source("D:/Diploma/r_project/Column.R")
 source("D:/Diploma/r_project/Binary.R")
 patient <- new("Binary")
-print(patient)
 patient <- setColumnIndex(patient, 1)
 patient<- setValue(patient, c("CABG", "PCI"))
 FindErrors(patient)
@@ -197,15 +197,15 @@ FindErrors(leftCoronaryArteryTrunk)
 #24
 #date
 source("D:/Diploma/r_project/Dates.R")
-InterventionDate <- new("Dates")
-InterventionDate <- setColumnIndex(InterventionDate, 24)
-FindErrors(InterventionDate)
+interventionDate <- new("Dates")
+interventionDate <- setColumnIndex(interventionDate, 24)
+FindErrors(interventionDate)
 
 #25
 source("D:/Diploma/r_project/Binary.R")
-RossProcedure <- new("Binary")
-RossProcedure <- setColumnIndex(RossProcedure, 25)
-FindErrors(RossProcedure)
+rossProcedure <- new("Binary")
+rossProcedure <- setColumnIndex(rossProcedure, 25)
+FindErrors(rossProcedure)
 
 #26
 source("D:/Diploma/r_project/Continuous.R")
@@ -316,7 +316,10 @@ revascularization <- setColumnIndex(revascularization, 41)
 FindErrors(revascularization)
 
 #42 date
-
+source("D:/Diploma/r_project/Dates.R")
+dischargeDate <- new("Dates")
+dischargeDate <- setColumnIndex(dischargeDate, 42)
+FindErrors(dischargeDate)
 #other columns
 
 

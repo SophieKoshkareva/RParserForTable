@@ -11,12 +11,12 @@ setGeneric(name = "SetColor",
     standardGeneric("SetColor")
   }
 )
-
 setMethod(f = "SetColor",
   signature = "Error",
   definition = function(theObject, file)
   { 
-    print("Coloring...")
+    #!!!!!!!!!!!!!!
+    cat(sprintf("Attention! The painting of the %s is in progress, please wait.", tolower(class(theObject)[1])))
     
     MISSING_VALUE_STYLE <- CellStyle(file@wb) +
       Font(file@wb, isItalic = TRUE) +
@@ -40,10 +40,7 @@ setMethod(f = "SetColor",
                     "misprint"= MISPRINT_STYLE,
                     "unsolved_misprint"= UNSOLVED_MISPRINT_STYLE,
                     "outlier"= OUTLIERS_STYLE)
-    # errorFont <- Font(file@wb, theObject@style["Font"])
-    # errorFill <- Fill(theObject@style["Fill"])
-    # errorBorder <- Border(theObject@style["Border"])
-    # errorStyle <- CellStyle(file@wb, font = errorFont, fill = errorFill, border = errorBorder)
+    
     rows <- getRows(file@sheet, rowIndex = 1:nrow(file@table_out) + file@row_header + file@row_table_legend)
     cells <- getCells(rows, colIndex = 1:ncol(file@table_out))
     lapply(names(cells[theObject@indices]), function(i) setCellStyle(cells[[i]], style))
@@ -58,7 +55,6 @@ setGeneric(name = "AddTableLegend",
     standardGeneric("AddTableLegend")
   }
 )
-
 setMethod(f = "AddTableLegend",
   signature = "Error",
   definition = function(theObject, style, file)
@@ -77,7 +73,6 @@ setGeneric(name = "PrintReport",
     standardGeneric("PrintReport")
   }
 )
-
 setMethod(f = "PrintReport",
   signature = "Error",
   definition = function(theObject, path_report, row_index, col_index)
@@ -85,5 +80,4 @@ setMethod(f = "PrintReport",
     cat(c(class(theObject)[1], "in", "row", row_index, "column", col_index, "\n"), file = path_report, append = T)
     #cat(c(class(theObject)[1], " coordinates are: ", paste(row_index, col_index, sep = "."), "\n"), file = path_report, append = TRUE)
   }
-
 )
