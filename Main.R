@@ -321,8 +321,8 @@ dischargeDate <- new("Dates")
 dischargeDate <- setColumnIndex(dischargeDate, 42)
 FindErrors(dischargeDate)
 #other columns
-
-
+#file@table_out[[24]] <- as.Date(file@table_out[[24]], format = "%d.%m.%Y", origin = "1899-12-30")
+#file@table_out[[24]] <- DataFormat(file@table_out[[24]])
 file <- CreateExcelWB(file)
 
 #missingValue@indices <- globalMissing
