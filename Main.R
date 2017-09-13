@@ -19,6 +19,8 @@ source("D:/Diploma/r_project/UnsolvedMisprint.R")
 unsolvedMisprint <- new("UnsolvedMisprint")
 source("D:/Diploma/r_project/Outlier.R")
 outlier <- new("Outlier")
+source("D:/Diploma/r_project/DateMisprint.R")
+dateMisprint <- new("DateMisprint")
 
 #1
 source("D:/Diploma/r_project/Column.R")
@@ -320,6 +322,7 @@ source("D:/Diploma/r_project/Dates.R")
 dischargeDate <- new("Dates")
 dischargeDate <- setColumnIndex(dischargeDate, 42)
 FindErrors(dischargeDate)
+FindDateMisprints(dateMisprint, dischargeDate, interventionDate, file)
 #other columns
 #file@table_out[[24]] <- as.Date(file@table_out[[24]], format = "%d.%m.%Y", origin = "1899-12-30")
 #file@table_out[[24]] <- DataFormat(file@table_out[[24]])
@@ -327,15 +330,13 @@ file <- CreateExcelWB(file)
 
 #missingValue@indices <- globalMissing
 SetColor(missingValue, file)
-
 #misprint@indices <- globalMisprint
 SetColor(misprint, file)
-
 #unsolvedMisprint@indices <- globalUnsolvedMisprint
 SetColor(unsolvedMisprint, file)
-
 #outlier@indices <- globalOutlier
 SetColor(outlier, file)
+SetColor(dateMisprint, file)
 
 file <- SaveExcelWB(file)
 # which(sapply(as.Date(file@table_in[[42]], format = "%d.%m.%Y"), is.date), arr.ind = TRUE, useNames = FALSE)

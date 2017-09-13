@@ -34,12 +34,17 @@ setMethod(f = "SetColor",
       Font(file@wb, isItalic = TRUE) +
       Fill(foregroundColor = "firebrick1") +
       Border(position = c("BOTTOM", "LEFT", "TOP", "RIGHT"))
+    DATE_MISPRINT_STYLE <- CellStyle(file@wb) +
+      Font(file@wb, isItalic = TRUE) +
+      Fill(foregroundColor = "lightgoldenrod3") +
+      Border(position = c("BOTTOM", "LEFT", "TOP", "RIGHT"))
     
     style <- switch(theObject@style,
                     "missing_value"= MISSING_VALUE_STYLE,
                     "misprint"= MISPRINT_STYLE,
                     "unsolved_misprint"= UNSOLVED_MISPRINT_STYLE,
-                    "outlier"= OUTLIERS_STYLE)
+                    "outlier"= OUTLIERS_STYLE,
+                    "dateMisprint" = DATE_MISPRINT_STYLE)
     
     rows <- getRows(file@sheet, rowIndex = 1:nrow(file@table_out) + file@row_header + file@row_table_legend)
     cells <- getCells(rows, colIndex = 1:ncol(file@table_out))
