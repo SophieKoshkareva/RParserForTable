@@ -1,22 +1,65 @@
-a<-table(file@table_in[[3]])
-aa<- data.frame(a, stringsAsFactors = FALSE)
-aa <- t.data.frame(aa)
-if (length(a) > 15) 
-  aa<- data.frame(aa[,1:15], stringsAsFactors = FALSE)
-aa[nrow(aa)+1,]<-aa[nrow(aa),]
-aa[nrow(aa)-1,]<-c("Only first 15th values", rep(NA, ncol(aa)-1))
-#colnames(a) <- NULL
-#rownames(a)<-NULL
+c <- data.frame()
+data.frame.names <- names(file@table_in)
+for (i in 1:ncol(file@table_in))
+{
+  a <-table(file@table_in[[i]])
+  unique_sum <-length(a)
+  a <- as.data.frame(a)
+  a <- t.data.frame(a)
+  a <-as.data.frame.matrix(a, stringsAsFactors = FALSE)
+  if (unique_sum > 10) a<- a[,1:10]
+  c <- rbind.fill(c,a)
+}
 
-b<-table(file@table_in[[4]])
-b<- data.frame(b, stringsAsFactors = FALSE)
-b<- t.data.frame(b)
-b<- data.frame(b, stringsAsFactors = FALSE)
-#colnames(b) <- NULL
-#rownames(b)<-NULL
-c <- rbind.fill(c,a,b)
-# c[seq(3+1,nrow(c)+1),] <- c[seq(3,nrow(c)),]
-# c[3,]<-c(newrow, rep(NA,ncol(c)-1))
-# c
+for(i in 1:ncol(c))
+{
+  if (is.na(as.numeric(c[[i]])) == FALSE)
+    c[[i]] <- as.numeric(c[[i]])
+}
 
+for(j in 1:length(data.frame.names))
+{
+  for (i in seq(1, nrow(c), by=3))
+  { 
+    c[seq(i+1,nrow(c)+1),] <- c[seq(i,nrow(c)),]
+    c[i,] <- c(data.frame.names[j], rep(NA, ncol(c)-1))
+    j <- j+1
+  }
+  break
+}
+require("xlsx")
+wb <- createWorkbook(type = "xlsx")
+sheet <- createSheet(wb, "sheet1")
 
+ALL_CELLS_STYLE <- CellStyle(wb) +
+   Border(position = c("BOTTOM", "LEFT", "TOP", "RIGHT")) +
+  Alignment(wrapText = TRUE, horizontal = "ALIGN_CENTER") 
+TITLE_STYLE <- ALL_CELLS_STYLE +
+  Font(wb, isBold = TRUE) 
+
+addDataFrame(c,
+             sheet,
+             row.names = FALSE,
+             startRow = 1,
+             startColumn = 1, col.names = FALSE)
+
+allrows <- getRows(sheet, rowIndex = 1:nrow(c))
+allcells <- getCells(allrows, colIndex = 1:ncol(c))
+title_rows <- allrows[seq(1, length(allrows), 3)]
+title_cells <- getCells(title_rows, colIndex = 1:ncol(c))
+
+for (i in 1:length(allcells))
+{
+  setCellStyle(allcells[[i]], ALL_CELLS_STYLE)
+}
+
+for (i in seq(1, nrow(c), 3))
+{
+  addMergedRegion(sheet, i, i, 1, 10)
+}
+for(i in 1:length(title_cells))
+{
+  setCellStyle(title_cells[[i]], TITLE_STYLE)
+}
+  autoSizeColumn(sheet, colIndex = c(1:ncol(c)))
+  saveWorkbook(wb, "D:/Diploma/r_project/1.xlsx" )
