@@ -3,15 +3,15 @@ Discrete <- setClass("Discrete",
 )
  
 setGeneric(name = "FindErrors", 
-  def = function(theObject)
+  def = function(theObject, myfile, misprints)
   {
     standardGeneric("FindErrors")
   }
 )
 setMethod(f = "FindErrors",
   signature = "Discrete",
-  definition = function(theObject)
+  definition = function(theObject, myfile, misprints)
   { 
-    FindMisprints(misprint, file@table_in, theObject@column_index, theObject@key, theObject@value, file@row_header, file@row_table_legend)
+    FindMisprints(misprints, myfile, theObject)
   }
 )

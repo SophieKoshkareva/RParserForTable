@@ -26,7 +26,7 @@ setGeneric(name = "setColumnIndex",
   }
 )
 setMethod(f = "setColumnIndex",
-  signature = "Column",
+  signature = c("Column", "numeric"),
   definition = function(theObject, index_value)
   {
     theObject@column_index <- index_value
@@ -56,15 +56,15 @@ setGeneric(name = "setValue",
 )
 setMethod(f = "setValue",
   signature = "Column",
-  definition = function(theObject, newValue, add = FALSE)
+  definition = function(theObject, newValue)#, add = FALSE)
   {
-    if(add)
-    {
-      theObject@value <- c(theObject@value, newValue)
-    }else
-    {
+    # if(add)
+    # {
+    #   theObject@value <- c(theObject@value, newValue)
+    # }else
+    # {
       theObject@value <- as.list(newValue)
-    }
+    #}
       return(theObject)
   }
 )
@@ -91,18 +91,18 @@ setGeneric(name = "setKey",
 )#!!!!!!!!!!!
 setMethod(f = "setKey",
   signature = "Column",
-  definition = function(theObject, newKey, add = FALSE)
+  definition = function(theObject, newKey)#, add = FALSE)
   {
     if (!is.list(newKey)) newKey <- list(newKey) 
     for(i in 1:length(newKey))
     {
-      if(add)
-      {
-        theObject@key[[i]] <- c(theObject@key[[i]], as.list(newKey[[i]]))
-      }else
-      {
+      # if(add)
+      # {
+      #   theObject@key[[i]] <- c(theObject@key[[i]], as.list(newKey[[i]]))
+      # }else
+      # {
         theObject@key[[i]] <- as.list(newKey[[i]])
-      }
+      #}
     }
     return(theObject)
   }

@@ -14,20 +14,20 @@ setMethod(f = "initialize",
 )
 
 setGeneric(name = "FindOutliers",
-  def = function(theObject, table, column_index, row_header, row_table_legend)
+  def = function(theObject, myfile, column_class)
   { 
     standardGeneric("FindOutliers")
   }
 )
 
 setMethod(f = "FindOutliers",
-  signature = "Outlier",
-  definition = function(theObject, table, column_index, row_header, row_table_legend)
+  signature = "Outlier" ,
+  definition = function(theObject, myfile, column_class)
   { 
     outliers_row_ind <- c()
     only_digits <- c()
     outliers <- c()
-    c <- table[[column_index]]
+    c <- myfile@table_in[[column_class@column_index]]
     
     for (i in 1:length(c))
     { 
@@ -52,10 +52,10 @@ setMethod(f = "FindOutliers",
     if (!is.null(outliers))
     {
       outliers_row_ind <- which(gsub("[,]", ".", c) %in% outliers, arr.ind = T, useNames = F)
-      outliers_row_ind <- outliers_row_ind + row_header + row_table_legend
-      outlier@indices <<- append(outlier@indices, values = outer(outliers_row_ind, column_index, paste, sep = "."))
-      lapply(outliers_row_ind, function(i) PrintReport(theObject, file@path_report, i, column_index))
-      cat("Outlier coordinates are ", paste(outliers_row_ind, column_index, sep = "."), "\n")
+      outliers_row_ind <- outliers_row_ind + myfile@row_header + myfile@row_table_legend
+      outlier@indices <<- append(outlier@indices, values = outer(outliers_row_ind, column_class@column_index, paste, sep = "."))
+      lapply(outliers_row_ind, function(i) PrintReport(theObject, myfile, i, column_class@column_index))
+      cat("Outlier coordinates are ", paste(outliers_row_ind, column_class@column_index, sep = "."), "\n")
     }
   }
 )

@@ -6,36 +6,36 @@ Error <- setClass("Error",
 )
 
 setGeneric(name = "SetColor",
-  def = function(theObject, file)
+  def = function(theObject, myfile)
   {
     standardGeneric("SetColor")
   }
 )
 setMethod(f = "SetColor",
   signature = "Error",
-  definition = function(theObject, file)
+  definition = function(theObject, myfile)
   { 
     #!!!!!!!!!!!!!!
     cat(sprintf("Attention! The painting of the %s is in progress, please wait.", tolower(class(theObject)[1])))
     
-    MISSING_VALUE_STYLE <- CellStyle(file@wb) +
-      Font(file@wb, isItalic = TRUE) +
+    MISSING_VALUE_STYLE <- CellStyle(myfile@wb) +
+      Font(myfile@wb, isItalic = TRUE) +
       Fill(foregroundColor = "gray70") +
       Border(position = c("BOTTOM", "LEFT", "TOP", "RIGHT"))
-    MISPRINT_STYLE <- CellStyle(file@wb) +
-      Font(file@wb, isItalic = TRUE) +
+    MISPRINT_STYLE <- CellStyle(myfile@wb) +
+      Font(myfile@wb, isItalic = TRUE) +
       Fill(foregroundColor = "gold1") +
       Border(position = c("BOTTOM", "LEFT", "TOP", "RIGHT"))
-    UNSOLVED_MISPRINT_STYLE <- CellStyle(file@wb) +
-      Font(file@wb, isItalic = TRUE) +
+    UNSOLVED_MISPRINT_STYLE <- CellStyle(myfile@wb) +
+      Font(myfile@wb, isItalic = TRUE) +
       Fill(foregroundColor = "darkorange") +
       Border(position = c("BOTTOM", "LEFT", "TOP", "RIGHT"))
-    OUTLIERS_STYLE <- CellStyle(file@wb) +
-      Font(file@wb, isItalic = TRUE) +
+    OUTLIERS_STYLE <- CellStyle(myfile@wb) +
+      Font(myfile@wb, isItalic = TRUE) +
       Fill(foregroundColor = "firebrick1") +
       Border(position = c("BOTTOM", "LEFT", "TOP", "RIGHT"))
-    DATE_MISPRINT_STYLE <- CellStyle(file@wb) +
-      Font(file@wb, isItalic = TRUE) +
+    DATE_MISPRINT_STYLE <- CellStyle(myfile@wb) +
+      Font(myfile@wb, isItalic = TRUE) +
       Fill(foregroundColor = "lightgoldenrod3") +
       Border(position = c("BOTTOM", "LEFT", "TOP", "RIGHT"))
     
@@ -46,25 +46,25 @@ setMethod(f = "SetColor",
                     "outlier"= OUTLIERS_STYLE,
                     "dateMisprint" = DATE_MISPRINT_STYLE)
     
-    rows <- getRows(file@sheet, rowIndex = 1:nrow(file@table_out) + file@row_header + file@row_table_legend)
-    cells <- getCells(rows, colIndex = 1:ncol(file@table_out))
+    rows <- getRows(myfile@sheet, rowIndex = 1:nrow(myfile@table_out) + myfile@row_header + myfile@row_table_legend)
+    cells <- getCells(rows, colIndex = 1:ncol(myfile@table_out))
     lapply(names(cells[theObject@indices]), function(i) setCellStyle(cells[[i]], style))
-    AddTableLegend(theObject, style, file)
-    #return(file)
+    AddTableLegend(theObject, myfile, style)
+    #return(myfile)
   }
 )
 
 setGeneric(name = "AddTableLegend",
-  def = function(theObject, style, file)
+  def = function(theObject, myfile, style)
   {
     standardGeneric("AddTableLegend")
   }
 )
 setMethod(f = "AddTableLegend",
   signature = "Error",
-  definition = function(theObject, style, file)
+  definition = function(theObject, myfile, style)
   {
-    rows <- getRows(file@sheet,rowIndex = 1)
+    rows <- getRows(myfile@sheet,rowIndex = 1)
     sheetTitle <- createCell(rows, theObject@col_index_legend)
     setCellValue(sheetTitle[[1,1]], theObject@title)
     setCellStyle(sheetTitle[[1,1]], style)
@@ -73,16 +73,15 @@ setMethod(f = "AddTableLegend",
 )
 
 setGeneric(name = "PrintReport",
-  def = function(theObject, path_report, row_index, col_index)
+  def = function(theObject, myfile, row_index, col_index)
   {
     standardGeneric("PrintReport")
   }
 )
 setMethod(f = "PrintReport",
   signature = "Error",
-  definition = function(theObject, path_report, row_index, col_index)
+  definition = function(theObject, myfile, row_index, col_index)
   {
-    cat(c(class(theObject)[1], "in", "row", row_index, "column", col_index, "\n"), file = path_report, append = T)
-    #cat(c(class(theObject)[1], " coordinates are: ", paste(row_index, col_index, sep = "."), "\n"), file = path_report, append = TRUE)
+    cat(c(class(theObject)[1], "in", "row", row_index, "column", col_index, "\n"), file = myfile@path_report, append = T)
   }
 )

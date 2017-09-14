@@ -3,16 +3,16 @@ Continuous  <- setClass("Continuous",
 )
 
 setGeneric(name = "FindErrors", 
-  def = function(theObject)
+  def = function(theObject, myfile, outliers, misprints)
   {
     standardGeneric("FindErrors")
   }
 )
 setMethod(f = "FindErrors",
   signature = "Continuous",
-  definition = function(theObject)
+  definition = function(theObject, myfile, outliers, misprints)
   { 
-    FindMisprintsForNumeric(misprint, file@table_in, theObject@column_index, file@row_header, file@row_table_legend)
-    FindOutliers(outlier, file@table_in, theObject@column_index, file@row_header, file@row_table_legend)
+    FindMisprints(misprints, myfile, theObject)
+    FindOutliers(outliers, myfile, theObject)
   }
 )
