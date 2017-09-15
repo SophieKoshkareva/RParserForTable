@@ -108,7 +108,7 @@ setMethod(f = "FindMisprints",
   { 
     misprints_row_ind <- c()
     c <- myfile@table_in[[column_class@column_index]]
-    pattern <- "^((\\d){2})[[:punct:]]|([[:space:]])?(\\d)+)?$"
+    pattern <- "^((\\d){2})[,.]|([[:space:]])?(\\d)+)?$"
     for (i in 1:length(c))
     { 
       if (is.na(c[i]) == TRUE)

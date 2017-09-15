@@ -1,8 +1,7 @@
 Binary <- setClass("Binary", 
-                    contains = "Discrete",
-                    prototype = prototype (value = list("Zero" = list(0),
-                                     "One" = list(1)))
-                    
+  contains = "Discrete",
+  prototype = prototype (value = list("Zero" = list(0),
+                                      "One" = list(1)))
 )
 #!!!!! contains = "Column"
 
@@ -18,16 +17,16 @@ Binary <- setClass("Binary",
 # )
 
 setGeneric(name = "FindErrors", 
-           def = function(theObject, myfile, misprints)
-           {
-             standardGeneric("FindErrors")
-           }
+  def = function(theObject, myfile, misprints)
+  {
+    standardGeneric("FindErrors")
+  }
 )
 
 setMethod(f = "FindErrors",
-          signature = "Binary",
-          definition = function(theObject, myfile, misprints)
-          { 
-            FindMisprints(misprints, myfile, theObject)
-          }
+  signature = "Binary",
+  definition = function(theObject, myfile, misprints)
+  { 
+    FindMisprints(misprints, myfile, theObject)
+  }
 )
