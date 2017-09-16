@@ -36,7 +36,7 @@ setMethod(f = "SetColor",
       Border(position = c("BOTTOM", "LEFT", "TOP", "RIGHT"))
     DATE_MISPRINT_STYLE <- CellStyle(myfile@wb) +
       Font(myfile@wb, isItalic = TRUE) +
-      Fill(foregroundColor = "lightgoldenrod3") +
+      Fill(foregroundColor = "lightpink4") +
       Border(position = c("BOTTOM", "LEFT", "TOP", "RIGHT"))
     
     style <- switch(theObject@style,

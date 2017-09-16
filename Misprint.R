@@ -107,6 +107,7 @@ setMethod(f = "FindMisprints",
   definition = function(theObject, myfile, column_class)
   { 
     misprints_row_ind <- c()
+    unsolved <- 0
     c <- myfile@table_in[[column_class@column_index]]
     pattern <- "^((\\d){2})[,.]|([[:space:]])?(\\d)+)?$"
     for (i in 1:length(c))
@@ -126,6 +127,7 @@ setMethod(f = "FindMisprints",
         unsolvedMisprint@indices <<- append(unsolvedMisprint@indices, values = paste(misprints_row_ind, column_class@column_index, sep = "."))
         PrintReport(unsolvedMisprint, myfile, misprints_row_ind, column_class@column_index)
         cat("Unsolved misprint coordinates are ", paste(i, column_class@column_index, sep = "."), "\n")
+        unsolved <- unsolved + 1
         next
       } else if (grepl("[[:space:]]", c[[i]]) == TRUE)
       {
@@ -141,9 +143,11 @@ setMethod(f = "FindMisprints",
         PrintReport(theObject, myfile, misprints_row_ind, column_class@column_index)
         cat("Misprints coordinates are ", paste(i, column_class@column_index, sep = "."), "\n")
         file@table_out[[column_class@column_index]][i] <<- gsub("[.]", ",", myfile@table_in[[column_class@column_index]][i])
-        
       }
+      # if (unsolved == 0)
+      #   file@table_out[[column_class@column_index]][i] <<- as.numeric(file@table_out[[column_class@column_index]][i])
     } 
+    return(unsolved)
   }
 )
 

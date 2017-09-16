@@ -12,7 +12,7 @@ setMethod(f = "FindErrors",
   signature = "Continuous",
   definition = function(theObject, myfile, outliers, misprints)
   { 
-    FindMisprints(misprints, myfile, theObject)
-    FindOutliers(outliers, myfile, theObject)
+    unsolved <- FindMisprints(misprints, myfile, theObject)
+    FindOutliers(outliers, myfile, theObject, unsolved)
   }
 )

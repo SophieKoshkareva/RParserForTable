@@ -1,7 +1,7 @@
 #install.packages("xlsx")
 require(xlsx)
-Sys.setenv(TZ = "Asia/Novosibirsk")
 on.exit()
+Sys.setenv(TZ = "Asia/Novosibirsk")
 setOldClass("file")
 source("D:/Diploma/r_project/File.R")
 file <- new("File")
@@ -29,6 +29,7 @@ dateMisprint <- new("DateMisprint")
 
 #1
 source("D:/Diploma/r_project/Column.R")
+source("D:/Diploma/r_project/Discrete.R")
 source("D:/Diploma/r_project/Binary.R")
 patient <- new("Binary")
 patient <- setColumnIndex(patient, 1)
