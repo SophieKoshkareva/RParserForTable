@@ -333,7 +333,7 @@ source("D:/Diploma/r_project/Dates.R")
 dischargeDate <- new("Dates")
 dischargeDate <- setColumnIndex(dischargeDate, 42)
 FindErrors(dischargeDate, file, misprint)
-FindDateMisprints(dateMisprint, dischargeDate, interventionDate, file)
+dateMisprint<- FindDateMisprints(dateMisprint, dischargeDate, interventionDate, file)
 #other columns
 #file@table_out[[24]] <- as.Date(file@table_out[[24]], format = "%d.%m.%Y", origin = "1899-12-30")
 #file@table_out[[24]] <- DataFormat(file@table_out[[24]])

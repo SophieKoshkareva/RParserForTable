@@ -57,7 +57,7 @@ setMethod(f = "FindOutliers",
       if (!is.null(outliers))
       {
         outliers_row_ind <- which(gsub("[,]", ".", c) %in% outliers, arr.ind = T, useNames = F)
-        outliers_row_ind <- which(c %in% outliers, arr.ind = T, useNames = F)
+        #outliers_row_ind <- which(c %in% outliers, arr.ind = T, useNames = F)
         outliers_row_ind <- outliers_row_ind + myfile@row_header + myfile@row_table_legend
         theObject@indices <- append(theObject@indices, values = outer(outliers_row_ind, column_class@column_index, paste, sep = "."))
         lapply(outliers_row_ind, function(i) PrintReport(theObject, myfile, i, column_class@column_index))

@@ -1,5 +1,5 @@
   c <- data.frame()
-  data.frame.names <- names(file@table_in)
+  data.frame.names <- colnames(file@table_in)
   for (i in 1:ncol(file@table_in))
   {
     a <-table(file@table_in[[i]])
@@ -13,12 +13,12 @@
 
   for(j in 1:length(data.frame.names))
   {
-    for (i in seq(1, nrow(c)+length(data.frame.names), by=3))
+    for (i in seq(1, nrow(c) + length(data.frame.names), by=3))
     { 
-      print(c[seq(i+1,nrow(c)+1),])
-      c[seq(i+1,nrow(c)+1),] <- c[seq(i,nrow(c)),]
-      c[i,] <- c(data.frame.names[j], rep(NA, ncol(c)-1))
-      j <- j+1
+      #print(c[seq(i+1,nrow(c)+1),])
+      c[seq(i + 1,nrow(c) + 1),] <- c[seq(i,nrow(c)),]
+      c[i,] <- c(data.frame.names[j], rep(NA, ncol(c) - 1))
+      j <- j + 1
     }
   break
   }
