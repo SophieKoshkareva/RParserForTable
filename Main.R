@@ -55,7 +55,7 @@ sex<- setKey(sex,
                     "мужской",
                     "male",
                     "m")))
-FindErrors(sex, file, misprint)
+#FindErrors(sex, file, misprint)
 
 #3
 source("D:/Diploma/r_project/Continuous.R")
@@ -207,7 +207,12 @@ FindErrors(leftCoronaryArteryTrunk, file, misprint)
 source("D:/Diploma/r_project/Dates.R")
 interventionDate <- new("Dates")
 interventionDate <- setColumnIndex(interventionDate, 24)
-FindErrors(interventionDate, file, misprint)
+#FindErrors(interventionDate, file, misprint)
+result_list <- FindErrors(interventionDate, file, misprint, missingValue, unsolvedMisprint)
+misprint <- result_list$misprint
+missingValue <- result_list$missingValues
+unsolvedMisprint <- result_list$unsolvedMisprint
+file <- result_list$file
 
 #25
 source("D:/Diploma/r_project/Binary.R")

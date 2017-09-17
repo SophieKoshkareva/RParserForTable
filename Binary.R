@@ -16,17 +16,17 @@ Binary <- setClass("Binary",
 #           }
 # )
 
-setGeneric(name = "FindErrors", 
-  def = function(theObject, myfile, misprints)
-  {
-    standardGeneric("FindErrors")
-  }
-)
-
-setMethod(f = "FindErrors",
-  signature = "Binary",
-  definition = function(theObject, myfile, misprints)
-  { 
-    FindMisprints(misprints, myfile, theObject)
-  }
-)
+# setGeneric(name = "FindErrors", 
+#   def = function(theObject, myfile, misprints)
+#   {
+#     standardGeneric("FindErrors")
+#   }
+# )
+# 
+# setMethod(f = "FindErrors",
+#   signature = "Binary",
+#   definition = function(theObject, myfile, misprints)
+#   { 
+#     FindMisprints(misprints, myfile, theObject)
+#   }
+# )

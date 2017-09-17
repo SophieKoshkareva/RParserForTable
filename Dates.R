@@ -3,15 +3,16 @@ Dates  <- setClass("Dates",
 )
 
 setGeneric(name = "FindErrors", 
-  def = function(theObject, myfile, misprints)
+  def = function(theObject, myfile, misprints, missing_values, unsolved_misprints)
   {
     standardGeneric("FindErrors")
   }
 )
 setMethod(f = "FindErrors",
   signature = "Dates",
-  definition = function(theObject, myfile, misprints)
+  definition = function(theObject, myfile, misprints, missing_values, unsolved_misprints)
   { 
-    FindMisprints(misprints, myfile, theObject)
+    output_list <- FindMisprints(misprints, missing_values, unsolved_misprints, myfile, theObject)
+    return(output_list)
   }
 )

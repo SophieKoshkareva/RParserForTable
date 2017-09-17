@@ -14,7 +14,7 @@ setMethod(f = "initialize",
 )
 
 setGeneric(name = "FindOutliers",
-  def = function(theObject, myfile, column_class, unsolved)
+  def = function(theObject, myfile, column_class, unsolved_number)
   { 
     standardGeneric("FindOutliers")
   }
@@ -22,14 +22,14 @@ setGeneric(name = "FindOutliers",
 
 setMethod(f = "FindOutliers",
   signature = "Outlier" ,
-  definition = function(theObject, myfile, column_class, unsolved)
+  definition = function(theObject, myfile, column_class, unsolved_number)
   { 
     outliers_row_ind <- c()
     only_digits <- c()
     outliers <- c()
     c <- myfile@table_out[[column_class@column_index]]
     
-    if (unsolved != 0)
+    if (unsolved_number != 0)
     {
       cat("It is impossible to determine outliers, there are  unsolved misprints in the column ", column_class@column_index, "\n")
     } else
@@ -45,7 +45,7 @@ setMethod(f = "FindOutliers",
           next
         }
         
-        if (grepl("^(\\d)+([.](\\d)+)?$", c[[i]]) == TRUE)
+        if (grepl("^(\\d)+([.,](\\d)+)?$", c[[i]]) == TRUE)
         { 
           only_digits <- append(only_digits, c[i])
           next
@@ -59,11 +59,12 @@ setMethod(f = "FindOutliers",
         outliers_row_ind <- which(gsub("[,]", ".", c) %in% outliers, arr.ind = T, useNames = F)
         outliers_row_ind <- which(c %in% outliers, arr.ind = T, useNames = F)
         outliers_row_ind <- outliers_row_ind + myfile@row_header + myfile@row_table_legend
-        outlier@indices <<- append(outlier@indices, values = outer(outliers_row_ind, column_class@column_index, paste, sep = "."))
+        theObject@indices <- append(theObject@indices, values = outer(outliers_row_ind, column_class@column_index, paste, sep = "."))
         lapply(outliers_row_ind, function(i) PrintReport(theObject, myfile, i, column_class@column_index))
         cat("Outlier coordinates are ", paste(outliers_row_ind, column_class@column_index, sep = "."), "\n")
       }
     }
+    return(theObject)
   }
 )
 

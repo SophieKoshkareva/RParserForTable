@@ -52,12 +52,12 @@ setMethod(f = "getKey",
   }
 )
 
-  setGeneric(name = "setKey",
+setGeneric(name = "setKey",
   def = function(theObject, newKey, add = FALSE)
   {
     standardGeneric("setKey")
   }
-  )#!!!!!!!!!!!
+)#!!!!!!!!!!!
 setMethod(f = "setKey",
   signature = "Discrete",
   definition = function(theObject, newKey)#, add = FALSE)
@@ -80,15 +80,16 @@ setMethod(f = "setKey",
 #setKey(diabetes, list(c("2 тип", "2тип", "второй", "2")), add = TRUE)
  
 setGeneric(name = "FindErrors", 
-  def = function(theObject, myfile, misprints)
+  def = function(theObject, myfile, misprints, missing_values, unsolved_misprints)
   {
     standardGeneric("FindErrors")
   }
 )
 setMethod(f = "FindErrors",
   signature = "Discrete",
-  definition = function(theObject, myfile, misprints)
+  definition = function(theObject, myfile, misprints, missing_values, unsolved_misprints)
   { 
-    FindMisprints(misprints, myfile, theObject)
+    output_list <- FindMisprints(misprints, missing_values, unsolved_misprints,  myfile, theObject)
+    return(output_list)
   }
 )
