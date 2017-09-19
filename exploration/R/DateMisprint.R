@@ -1,11 +1,18 @@
+#' @include Error.R
+#' #' An S4 class to represent a file.
+#'
+#' @slot path A character vector to set full file path
+#' @param theObject A File object.
+#' @examples
+#' myfile <- new("File")
 DateMisprint <- setClass("DateMisprint",
-                    contains = "Error" 
+                    contains = "Error"
 )
 
 setMethod(f = "initialize",
   signature = "DateMisprint",
   definition = function(.Object)
-  { 
+  {
     .Object@title <- c("Непоследовательные даты")
     .Object@col_index_legend <- 5
     .Object@style <- c("dateMisprint")
@@ -15,7 +22,7 @@ setMethod(f = "initialize",
 
 setGeneric(name = "FindDateMisprints",
   def = function(theObject, date1, date2, myfile_out, myfile_report)
-  { 
+  {
     standardGeneric("FindDateMisprints")
   }
 )
@@ -23,7 +30,7 @@ setGeneric(name = "FindDateMisprints",
 setMethod(f = "FindDateMisprints",
   signature = "DateMisprint",
   definition = function(theObject, date1, date2, myfile_out, myfile_report)
-  { 
+  {
     dateMisprints_row_ind <- c()
     columns <- sort(c(date1@column_index, date2@column_index))
     d1 <- as.Date(myfile_out@table_out[[columns[1]]], format = "%d.%m.%Y")

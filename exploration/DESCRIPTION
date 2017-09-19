@@ -1,0 +1,41 @@
+Package: exploration
+Type: Package
+Title: Realization of the data exploration
+Version: 0.0.0.9000
+Author: Who wrote it
+Authors@R: person("Sophie", "Koshkareva", email = "sofysilchenko@gmail.com",
+           role = c("aut", "cre"))
+Maintainer: The package maintainer <yourself@somewhere.net>
+Description: Realization of research data exploration R.
+             The package automates the validation of raw data,
+             namely: it helps to search and replace typos, missed values,
+             emissions, check the normal distribution of data.
+License: What license is it under?
+Encoding: CP1251
+LazyData: true
+Imports: plyr,
+         xlsx,
+         methods,
+         utils,
+         grDevices,
+         base
+RoxygenNote: 6.0.1
+Collate: 
+    'Add.R'
+    'Column.R'
+    'Discrete.R'
+    'Binary.R'
+    'Continuous.R'
+    'Error.R'
+    'DateMisprint.R'
+    'Dates.R'
+    'File.R'
+    'FileIn.R'
+    'FileOut.R'
+    'FileReport.R'
+    'UnsolvedMisprint.R'
+    'MissingValue.R'
+    'Misprint.R'
+    'Outlier.R'
+    'SummaryTableFile.R'
+    'hello.R'

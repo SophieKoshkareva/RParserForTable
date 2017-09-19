@@ -131,28 +131,77 @@ setMethod(f = "setFileReportDirectory",
     return(theObject)
   }
 )
-
-setGeneric(name = "Open", 
-  def = function(theObject)
-  {
-    standardGeneric("Open")
+setGeneric(name = "OpenFileReport", 
+           def = function(theObject)
+           {
+             standardGeneric("OpenFileReport")
+           }
+)
+setMethod(f = "OpenFileReport",
+  signature = "File",
+  definition = function(theObject)
+  { 
+    theObject@path_report <- file(description = theObject@file_report_name, open = "w")
+    return(theObject)
   }
 )
-setMethod(f = "Open",
+
+setGeneric(name = "CloseFileReport", 
+  def = function(theObject)
+  {
+    standardGeneric("CloseFileReport")
+  }
+)
+setMethod(f = "CloseFileReport",
+  signature = "File",
+  definition = function(theObject)
+  { 
+    on.exit(close(theObject@path_report))
+    return(theObject)
+  }
+)
+
+setGeneric(name = "ReadFileInput", 
+  def = function(theObject)
+  {
+  standardGeneric("ReadFileInput")
+  }
+)
+setMethod(f = "ReadFileInput",
   signature = "File",
   definition = function(theObject)
   { 
     theObject@table_in <- read.csv2(theObject@path_in,
-                                 na.strings = c("", "NA"),
-                                 sep = ";",
-                                 dec = ",",
-                                 stringsAsFactors = FALSE,
-                                 check.names = FALSE)
+                            na.strings = c("", "NA"),
+                            sep = ";",
+                            dec = ",",
+                            stringsAsFactors = FALSE,
+                            check.names = FALSE)
     theObject@table_out <- theObject@table_in
-    theObject@path_report <- file(description = theObject@file_report_name, open ="w")
     return(theObject)
   }
 )
+# setGeneric(name = "Open", 
+#   def = function(theObject)
+#   {
+#     standardGeneric("Open")
+#   }
+# )
+# setMethod(f = "Open",
+#   signature = "File",
+#   definition = function(theObject)
+#   { 
+#     theObject@table_in <- read.csv2(theObject@path_in,
+#                                  na.strings = c("", "NA"),
+#                                  sep = ";",
+#                                  dec = ",",
+#                                  stringsAsFactors = FALSE,
+#                                  check.names = FALSE)
+#     theObject@table_out <- theObject@table_in
+#     theObject@path_report <- file(description = theObject@file_report_name, open ="w")
+#     return(theObject)
+#   }
+# )
 
 setGeneric(name = "CreateExcelWB", 
   def = function(theObject)
@@ -193,10 +242,11 @@ setMethod(f = "SaveExcelWB",
   definition = function(theObject)
   {
     autoSizeColumn(theObject@sheet, colIndex = c(1:ncol(theObject@table_out)))
-    createFreezePane(theObject@sheet, rowSplit = 2, colSplit = 1, startRow = 1, startColumn = 1)
+    #!!!!!
+    #createFreezePane(theObject@sheet, rowSplit = 2, colSplit = 1, startRow = 1, startColumn = 1)
     saveWorkbook(theObject@wb, theObject@path_out )
     print("New workbook was created")
-    on.exit(close(theObject@path_report))
+    #on.exit(close(theObject@path_report))
     return(theObject)
   }
 )

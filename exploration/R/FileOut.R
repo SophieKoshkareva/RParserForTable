@@ -1,10 +1,19 @@
-require(xlsx)
+#' @include File.R
+#' An S4 class to work with Excel workbook.
+#'
+#' @slot table_out A a data.frame to represent csv-table/
+#' @param theObject A FileIn object.
+#' @return data.frame \code{x}.
+#' @examples
+#' myfile <- new("FileOut")
+#' myfile <- setFilePath(myfile, "D:/data.xlsx")
+#' myfile <- ReadFileIn(myfile)
 FileOut <- setClass("FileOut",
   slots = c(table_out = "data.frame",
            sheet_name = "character",
            wb = "jobjRef",
            sheet = "jobjRef",
-           row_header = "numeric", 
+           row_header = "numeric",
            row_table_legend = "numeric"),
   contains = "File",
   prototype = list(row_header = 1,
@@ -55,7 +64,7 @@ setMethod(f = "setExcelSheetName",
   }
 )
 
-setGeneric(name = "CreateExcelWB", 
+setGeneric(name = "CreateExcelWB",
   def = function(theObject, colnames = TRUE, startRow)
   {
     standardGeneric("CreateExcelWB")
@@ -71,8 +80,8 @@ setMethod(f = "CreateExcelWB",
     TABLE_COLNAMES_STYLE <- CellStyle(theObject@wb) +
                             Font(theObject@wb, isBold = TRUE) +
                             Alignment(wrapText = TRUE, horizontal = "ALIGN_CENTER") +
-                            Border(position = c("BOTTOM", "LEFT", "TOP", "RIGHT")) 
-  
+                            Border(position = c("BOTTOM", "LEFT", "TOP", "RIGHT"))
+
     addDataFrame(theObject@table_out,
                  theObject@sheet,
                  row.names = FALSE,
@@ -84,7 +93,7 @@ setMethod(f = "CreateExcelWB",
   }
 )
 
-setGeneric(name = "SaveExcelWB", 
+setGeneric(name = "SaveExcelWB",
   def = function(theObject, freeze = FALSE)
   {
     standardGeneric("SaveExcelWB")

@@ -1,3 +1,12 @@
+#' An S4 class to work with Excel workbook.
+#'
+#' @slot table_out A a data.frame to represent csv-table/
+#' @param theObject A FileIn object.
+#' @return data.frame \code{x}.
+#' @examples
+#' myfile <- new("FileOut")
+#' myfile <- setFilePath(myfile, "D:/data.xlsx")
+#' myfile <- ReadFileIn(myfile)
 Error <- setClass("Error",
   slots = c(indices = "character",
             style = "character",
@@ -14,10 +23,10 @@ setGeneric(name = "SetColor",
 setMethod(f = "SetColor",
   signature = "Error",
   definition = function(theObject, myfile_out)
-  { 
+  {
     #!!!!!!!!!!!!!!
     cat(sprintf("Attention! The painting of the %s is in progress, please wait.", tolower(class(theObject)[1])))
-    
+
     MISSING_VALUE_STYLE <- CellStyle(myfile_out@wb) +
       Font(myfile_out@wb, isItalic = TRUE) +
       Fill(foregroundColor = "gray70") +
@@ -38,14 +47,14 @@ setMethod(f = "SetColor",
       Font(myfile_out@wb, isItalic = TRUE) +
       Fill(foregroundColor = "lightpink4") +
       Border(position = c("BOTTOM", "LEFT", "TOP", "RIGHT"))
-    
+
     style <- switch(theObject@style,
                     "missing_value"= MISSING_VALUE_STYLE,
                     "misprint"= MISPRINT_STYLE,
                     "unsolved_misprint"= UNSOLVED_MISPRINT_STYLE,
                     "outlier"= OUTLIERS_STYLE,
                     "dateMisprint" = DATE_MISPRINT_STYLE)
-    
+
     rows <- getRows(myfile_out@sheet, rowIndex = 1:nrow(myfile_out@table_out) + myfile_out@row_header + myfile_out@row_table_legend)
     cells <- getCells(rows, colIndex = 1:ncol(myfile_out@table_out))
     lapply(names(cells[theObject@indices]), function(i) setCellStyle(cells[[i]], style))

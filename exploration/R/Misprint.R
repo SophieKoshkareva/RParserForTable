@@ -1,11 +1,18 @@
+#' @include Error.R MissingValue.R UnsolvedMisprint.R FileReport.R
+#' #' An S4 class to represent a file.
+#'
+#' @slot path A character vector to set full file path
+#' @param theObject A File object.
+#' @examples
+#' myfile <- new("File")
 Misprint <- setClass("Misprint",
-                     contains = "Error" 
+                     contains = "Error"
 )
 
 setMethod(f = "initialize",
   signature = "Misprint",
   definition = function(.Object)
-  { 
+  {
     .Object@title <- c("Исправления")
     .Object@col_index_legend <- 2
     .Object@style<- c("misprint")
@@ -15,7 +22,7 @@ setMethod(f = "initialize",
 
 setGeneric(name = "FindMisprints",
            def = function(theObject, missing_values, unsolved_misprints,  myfile_in, myfile_out, myfile_report, column_class)
-           { 
+           {
              standardGeneric("FindMisprints")
            }
 )
@@ -23,12 +30,12 @@ setGeneric(name = "FindMisprints",
 setMethod(f = "FindMisprints",
   signature = c("Misprint", "MissingValue", "UnsolvedMisprint", "FileIn", "FileOut", "FileReport", "Discrete"),
   definition = function(theObject, missing_values, unsolved_misprints,  myfile_in, myfile_out, myfile_report, column_class)
-  { 
+  {
     c <- myfile_in@table_in[[column_class@column_index]]
     misprints_row_ind <- c()
-    
+
     for (i in 1:length(c))
-    { 
+    {
       found <- FALSE
       if (is.na(c[i]) == TRUE)
       {
@@ -45,7 +52,7 @@ setMethod(f = "FindMisprints",
         if (found)
           break
         for(k in 1:length(column_class@value[[j]]))
-        { 
+        {
           if (toupper(c[i]) == toupper(column_class@value[[j]][k]))
           {
             found <- TRUE
@@ -58,11 +65,11 @@ setMethod(f = "FindMisprints",
       if (length(column_class@key) != 0)
       {
         for(a in 1:length(column_class@key))
-        { 
+        {
           if (found)
             break
           for(b in 1:length(column_class@key[[a]]))
-          { 
+          {
             if (toupper(c[i]) == toupper(column_class@key[[a]][b]))
             {
               found <- TRUE
@@ -101,12 +108,12 @@ setMethod(f = "FindMisprints",
     }
     output_list <- list("misprint" = theObject, "missingValues" = missing_values , "unsolvedMisprint" = unsolved_misprints, "file" = myfile_out)
     return(output_list)
-  }       
+  }
 )
 
 # setGeneric(name = "FindMisprints",
 #            def = function(theObject, myfile, column_class)
-#            { 
+#            {
 #              standardGeneric("FindMisprints")
 #            }
 # )
@@ -165,7 +172,7 @@ setMethod(f = "FindMisprints",
 
 # # setGeneric(name = "FindMisprints",
 # #   def = function(theObject, myfile, column_class)
-# #   { 
+# #   {
 # #     standardGeneric("FindMisprints")
 # #   }
 # # )
