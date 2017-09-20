@@ -1,13 +1,13 @@
-#' @include File.R
-#'An S4 class to read raw table from .csv-file and create new data.frame.
+#' Read raw table from .csv-file and create new object class FileIn.
 #'
-#' @slot table_in A a data.frame to represent csv-table/
-#' @param theObject A FileIn object.
-#' @return data.frame \code{x}.
+#' @slot table_in a data.frame to loaded data.
+#' @return an object class FileIn \code{theObject}.
 #' @examples
 #' myfile <- new("FileIn")
 #' myfile <- setFilePath(myfile, "D:/data.csv")
 #' myfile <- ReadFileIn(myfile)
+#' @include File.R
+
 FileIn <- setClass("FileIn",
   slots = c(table_in = "data.frame"),
   contains = "File"

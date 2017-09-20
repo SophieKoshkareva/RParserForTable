@@ -4,17 +4,17 @@
 \name{File-class}
 \alias{File-class}
 \alias{File}
-\title{An S4 class to represent a file.}
-\arguments{
-\item{theObject}{A File object.}
+\title{An S4 class to represent an any file.}
+\value{
+The object of class File
 }
 \description{
-An S4 class to represent a file.
+An S4 class to represent an any file.
 }
 \section{Slots}{
 
 \describe{
-\item{\code{path}}{A character vector to set full file path}
+\item{\code{path}}{A character vector}
 }}
 
 \examples{

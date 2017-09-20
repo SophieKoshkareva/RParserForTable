@@ -4,15 +4,16 @@ SummaryTableFile <- setClass("SummaryTableFile",
 )
 
 setGeneric(name = "ColumnsValuesSummaryTable", 
-  def = function(theObject, myfile)
+  def = function(theObject, myfile, only)
   {
     standardGeneric("ColumnsValuesSummaryTable")
   }
 )
 setMethod(f = "ColumnsValuesSummaryTable",
   signature = "SummaryTableFile",
-  definition = function(theObject, myfile)
+  definition = function(theObject, myfile, only)
   { 
+    #theObject@table_out[1, ] <- c("Only first ten values", rep(NA, ncol(10)-1))
     table_in_names <- colnames(myfile@table_in)
     for (i in 1:ncol(myfile@table_in))
     {
@@ -21,17 +22,17 @@ setMethod(f = "ColumnsValuesSummaryTable",
       tmp <- as.data.frame(tmp)
       tmp <- t.data.frame(tmp)
       tmp <- as.data.frame.matrix(tmp, stringsAsFactors = FALSE)
-      if (unique_sum > 10) tmp <- tmp[,1:10]
+      if (unique_sum > only) tmp <- tmp[,1:only]
       theObject@table_out <- rbind.fill(theObject@table_out,tmp)
     }
     
-    theObject@table_out[1, ] <- c("Only first ten values", rep(NA, ncol(theObject@table_out)-1))
+    
     for(j in 1:length(table_in_names))
     {
-      for (i in seq(2, nrow(theObject@table_out) + length(table_in_names), by=3))
+      for (i in seq(1, nrow(theObject@table_out) + length(table_in_names), by = 3))
       { 
         #print(theObject@table_out[seq(i+1,nrow(theObject@table_out)+1),])
-        theObject@table_out[seq(i + 1,nrow(theObject@table_out) + 1),] <- theObject@table_out[seq(i,nrow(theObject@table_out)),]
+        theObject@table_out[seq(i + 1,nrow(theObject@table_out) + 1), ] <- theObject@table_out[seq(i,nrow(theObject@table_out)), ]
         theObject@table_out[i,] <- c(table_in_names[j], rep(NA, ncol(theObject@table_out) - 1))
         j <- j + 1
       }
@@ -49,7 +50,7 @@ setMethod(f = "ColumnsValuesSummaryTable",
     
     allrows <- getRows(theObject@sheet, rowIndex = 1:nrow(theObject@table_out))
     allcells <- getCells(allrows, colIndex = 1:ncol(theObject@table_out))
-    title_rows <- allrows[seq(2, length(allrows), 3)]
+    title_rows <- allrows[seq(1, length(allrows), 3)]
     title_cells <- getCells(title_rows, colIndex = 1:ncol(theObject@table_out))
     
     
@@ -57,13 +58,13 @@ setMethod(f = "ColumnsValuesSummaryTable",
     {
       setCellStyle(allcells[[i]], ALL_CELLS_STYLE)
     }
-    
-    addMergedRegion(theObject@sheet, 1, 1, 1, 10)
-    for (i in seq(2, nrow(theObject@table_out), 3))
+
+    #addMergedRegion(theObject@sheet, 1, 1, 1, 10)
+    for (i in seq(1, nrow(theObject@table_out), 3))
     {
       addMergedRegion(theObject@sheet, i, i, 1, 10)
     }
-    
+
     for(i in 1:length(title_cells))
     {
       setCellStyle(title_cells[[i]], TITLE_STYLE)

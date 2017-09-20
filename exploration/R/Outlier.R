@@ -1,10 +1,12 @@
-#' @include Error.R
-#' #' An S4 class to represent a file.
+#' Read row table from .csv-file and create new data.frame as object FileIn slot file_in .
 #'
-#' @slot path A character vector to set full file path
-#' @param theObject A File object.
+#' @param theObject A FileIn object.
+#' @return data.frame \code{x}.
 #' @examples
-#' myfile <- new("File")
+#' myfile <- new("FileIn")
+#' myfile <- setFilePath(myfile, "D:/data.csv")
+#' myfile <- ReadFileIn(myfile)
+#' @include Error.R
 Outlier <- setClass("Outlier",
   contains = "Error"
 )
@@ -13,7 +15,7 @@ setMethod(f = "initialize",
   signature = "Outlier",
   definition = function(.Object)
   {
-    .Object@title <- c("Выбросы")
+    .Object@title <- c("???????")
     .Object@col_index_legend <- 4
     .Object@style <- c("outlier")
     return(.Object)

@@ -1,10 +1,9 @@
-#' An S4 class to represent a file.
+#' An S4 class to represent an any file.
 #'
-#' @slot path A character vector to set full file path
-#' @param theObject A File object.
+#' @slot path A character vector
+#' @return The object of class File
 #' @examples
 #' myfile <- new("File")
-
 File <- setClass("File",
   slots = c(path = "character")
 )

@@ -1,13 +1,12 @@
-#' @include Column.R
-#' An S4 class to work with Excel workbook.
+#' Read row table from .csv-file and create new data.frame as object FileIn slot file_in .
 #'
-#' @slot key,value A list, logical dictionary structure/
 #' @param theObject A FileIn object.
 #' @return data.frame \code{x}.
 #' @examples
-#' myfile <- new("FileOut")
-#' myfile <- setFilePath(myfile, "D:/data.xlsx")
+#' myfile <- new("FileIn")
+#' myfile <- setFilePath(myfile, "D:/data.csv")
 #' myfile <- ReadFileIn(myfile)
+#' @include Column.R
 Discrete <- setClass("Discrete",
   contains = "Column",
   slots = c(key = "list",
@@ -87,7 +86,7 @@ setMethod(f = "setKey",
   }
 )
 #setKey(sex, list(c("male", "m"), c("female", "f")), add = TRUE)
-#setKey(diabetes, list(c("2 тип", "2тип", "второй", "2")), add = TRUE)
+#setKey(diabetes, list(c("2 ???", "2???", "??????", "2")), add = TRUE)
 
 setGeneric(name = "FindErrors",
   def = function(theObject, myfile_in, myfile_out, myfile_report, misprints, missing_values, unsolved_misprints)

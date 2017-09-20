@@ -4,7 +4,7 @@
 \name{Error-class}
 \alias{Error-class}
 \alias{Error}
-\title{An S4 class to work with Excel workbook.}
+\title{Read row table from .csv-file and create new data.frame as object FileIn slot file_in .}
 \arguments{
 \item{theObject}{A FileIn object.}
 }
@@ -12,16 +12,10 @@
 data.frame \code{x}.
 }
 \description{
-An S4 class to work with Excel workbook.
+Read row table from .csv-file and create new data.frame as object FileIn slot file_in .
 }
-\section{Slots}{
-
-\describe{
-\item{\code{table_out}}{A a data.frame to represent csv-table/}
-}}
-
 \examples{
-myfile <- new("FileOut")
-myfile <- setFilePath(myfile, "D:/data.xlsx")
+myfile <- new("FileIn")
+myfile <- setFilePath(myfile, "D:/data.csv")
 myfile <- ReadFileIn(myfile)
 }

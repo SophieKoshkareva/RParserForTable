@@ -1,13 +1,13 @@
-#' @include File.R
-#' An S4 class to work with Excel workbook.
+setOldClass("file")
+#' Read row table from .csv-file and create new data.frame as object FileIn slot file_in .
 #'
-#' @slot table_out A a data.frame to represent csv-table/
 #' @param theObject A FileIn object.
 #' @return data.frame \code{x}.
 #' @examples
-#' myfile <- new("FileOut")
-#' myfile <- setFilePath(myfile, "D:/data.xlsx")
+#' myfile <- new("FileIn")
+#' myfile <- setFilePath(myfile, "D:/data.csv")
 #' myfile <- ReadFileIn(myfile)
+#' @include File.R
 FileReport <- setClass("FileReport",
   slots = c(file = "file"),
   contains = "File"

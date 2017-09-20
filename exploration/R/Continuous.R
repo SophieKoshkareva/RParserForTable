@@ -1,8 +1,17 @@
-Continuous  <- setClass("Continuous", 
+#' Read row table from .csv-file and create new data.frame as object FileIn slot file_in .
+#'
+#' @param theObject A FileIn object.
+#' @return data.frame \code{x}.
+#' @examples
+#' myfile <- new("FileIn")
+#' myfile <- setFilePath(myfile, "D:/data.csv")
+#' myfile <- ReadFileIn(myfile)
+#' @include Column.R
+Continuous  <- setClass("Continuous",
   contains = "Column"
 )
 
-setGeneric(name = "FindErrors", 
+setGeneric(name = "FindErrors",
   def = function(theObject, myfile_in, myfile_out, myfile_report, misprints, missing_values, unsolved_misprints, outliers)
   {
     standardGeneric("FindErrors")
@@ -11,7 +20,7 @@ setGeneric(name = "FindErrors",
 setMethod(f = "FindErrors",
   signature = "Continuous",
   definition = function(theObject, myfile_in, myfile_out, myfile_report, misprints, missing_values, unsolved_misprints, outliers)
-  { 
+  {
     output_list <- FindMisprints(misprints, missing_values, unsolved_misprints, myfile_in, myfile_out, myfile_report, theObject)
     outliers <- FindOutliers(outliers, output_list$file, myfile_report, theObject, output_list$unsolved_number)
     output_list <- c(output_list, "outliers" = outliers)

@@ -1,10 +1,12 @@
-#' @include Error.R
-#' #' An S4 class to represent a file.
+#' Read row table from .csv-file and create new data.frame as object FileIn slot file_in .
 #'
-#' @slot path A character vector to set full file path
-#' @param theObject A File object.
+#' @param theObject A DateMisprint object.
+#' @return data.frame \code{x}.
 #' @examples
-#' myfile <- new("File")
+#' myfile <- new("FileIn")
+#' myfile <- setFilePath(myfile, "D:/data.csv")
+#' myfile <- ReadFileIn(myfile)
+#' @include Error.R
 DateMisprint <- setClass("DateMisprint",
                     contains = "Error"
 )
@@ -13,7 +15,7 @@ setMethod(f = "initialize",
   signature = "DateMisprint",
   definition = function(.Object)
   {
-    .Object@title <- c("Непоследовательные даты")
+    .Object@title <- c("?????????????????? ????")
     .Object@col_index_legend <- 5
     .Object@style <- c("dateMisprint")
     return(.Object)
