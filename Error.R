@@ -73,16 +73,16 @@ setMethod(f = "AddTableLegend",
 )
 
 setGeneric(name = "PrintReport",
-  def = function(theObject, myfile_report, row_index, col_index)
+  def = function(theObject, myfile_report, row_index, col_index, col_name)
   {
     standardGeneric("PrintReport")
   }
 )
 setMethod(f = "PrintReport",
   signature = "Error",
-  definition = function(theObject, myfile_report, row_index, col_index)
+  definition = function(theObject, myfile_report, row_index, col_index, col_name)
   {
-    cat(c(class(theObject)[1], "in", "row", row_index, "column", col_index, "\n"), file = myfile_report@file, append = T)
+    cat(c(class(theObject)[1], "in", "row", row_index, "column", col_name, paste0("(", col_index, ")") , "\n"), file = myfile_report@file, append = T)
     #cat("It is impossible to determine outliers, there are  unsolved misprints in the column ", col_index, "\n")
   }
 )

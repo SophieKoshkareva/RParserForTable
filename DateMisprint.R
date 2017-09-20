@@ -31,7 +31,7 @@ setMethod(f = "FindDateMisprints",
     dateMisprints_row_ind <- append(dateMisprints_row_ind, which(d1 > d2))
     dateMisprints_row_ind <- dateMisprints_row_ind + myfile_out@row_header + myfile_out@row_table_legend
     theObject@indices <- append(theObject@indices, values = outer(dateMisprints_row_ind, columns, paste, sep = "."))
-    for(i in 1:length(columns)) lapply(dateMisprints_row_ind, function(j) PrintReport(theObject, myfile_report, j, columns[i]))
+    for(i in 1:length(columns)) lapply(dateMisprints_row_ind, function(j) PrintReport(theObject, myfile_report, j, columns[i], colnames(myfile_out@table_out[columns[i]])))
     cat("Date misprints coordinates are ", paste(dateMisprints_row_ind, columns, sep = "."), "\n")
     return(theObject)
   }

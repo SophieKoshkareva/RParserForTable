@@ -13,7 +13,7 @@ setMethod(f = "setFileReportDirectory",
   signature = "FileReport",
   definition = function(theObject, new_directory)
   {
-    theObject@path <- paste(new_directory, "Report_", format(Sys.time(), "%Y_%m_%d"), ".txt", sep = "")
+    theObject@path <- paste(new_directory, "Report_", format(Sys.time(), "%d_%m_%Y__%H_%M_%S"), ".txt", sep = "")
     return(theObject)
   }
 )

@@ -1,6 +1,6 @@
 #install.packages("xlsx")
 #require(xlsx)
-on.exit()
+#on.exit()
 Sys.setenv(TZ = "Asia/Novosibirsk")
 setOldClass("file")
 source("D:/Diploma/r_project/File1.R")

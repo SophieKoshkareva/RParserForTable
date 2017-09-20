@@ -49,3 +49,14 @@ Misprint in row 50 in column пол 2
 Misprint in row 51 in column пол 2 
 Misprint in row 52 in column пол 2 
 Misprint in row 53 in column пол 2 
+Outlier in row 6 in column возраст 3 
+Outlier in row 61 in column возраст 3 
+Outlier in row 72 in column возраст 3 
+Outlier in row 82 in column возраст 3 
+Outlier in row 101 in column возраст 3 
+Outlier in row 108 in column возраст 3 
+Outlier in row 109 in column возраст 3 
+Outlier in row 113 in column возраст 3 
+Outlier in row 118 in column возраст 3 
+Outlier in row 120 in column возраст 3 
+Outlier in row 125 in column возраст 3 

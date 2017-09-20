@@ -36,7 +36,7 @@ setMethod(f = "FindMisprints",
         #!!!!!!
         missing_values@indices <- append(missing_values@indices, values = paste(misprints_row_ind, column_class@column_index, sep = "."))
         #!!!!!!!
-        PrintReport(missing_values, myfile_report, misprints_row_ind, column_class@column_index)
+        PrintReport(missing_values, myfile_report, misprints_row_ind, column_class@column_index, colnames(myfile_in@table_in[column_class@column_index]) )
         cat("Missing value coordinates are ", paste(i, column_class@column_index, sep = "."), "\n")
         next
       }
@@ -69,7 +69,7 @@ setMethod(f = "FindMisprints",
               misprints_row_ind <- i + myfile_out@row_header + myfile_out@row_table_legend
               #!!!!!!!
               theObject@indices <- append(theObject@indices, values = paste(misprints_row_ind, column_class@column_index, sep = "."))
-              PrintReport(theObject, myfile_report, misprints_row_ind, column_class@column_index)
+              PrintReport(theObject, myfile_report, misprints_row_ind, column_class@column_index,  colnames(myfile_in@table_in[column_class@column_index]))
               cat("Misprints coordinates are ", paste(i, column_class@column_index, sep = "."), "\n")
               #!!!!!
               myfile_out@table_out[[column_class@column_index]][i] <- unlist(column_class@value[[a]], use.names = FALSE)
@@ -82,7 +82,7 @@ setMethod(f = "FindMisprints",
             #!!!!!!
             unsolved_misprints@indices <- append(unsolved_misprints@indices, values = paste(misprints_row_ind, column_class@column_index, sep = "."))
             #!!!!
-            PrintReport(unsolved_misprints, myfile_report, misprints_row_ind, column_class@column_index)
+            PrintReport(unsolved_misprints, myfile_report, misprints_row_ind, column_class@column_index, colnames(myfile_in@table_in[column_class@column_index]))
             cat("Unsolved misprint coordinates are", paste(i, column_class@column_index, sep = "."), "\n")
             found <- TRUE
           }
@@ -94,7 +94,7 @@ setMethod(f = "FindMisprints",
         #!!!!!!
         unsolved_misprints@indices <- append(unsolved_misprints@indices, values = paste(misprints_row_ind, column_class@column_index, sep = "."))
         #!!!!!!
-        PrintReport(unsolved_misprints, myfile_report, misprints_row_ind, column_class@column_index)
+        PrintReport(unsolved_misprints, myfile_report, misprints_row_ind, column_class@column_index,  colnames(myfile_in@table_in[column_class@column_index]))
         cat("Unsolved misprint coordinates are", paste(i, column_class@column_index, sep = "."), "\n")
         found <- TRUE
       }
@@ -127,7 +127,7 @@ setMethod(f = "FindMisprints",
         #!!!!
         missing_values@indices <- append(missing_values@indices, values = paste(misprints_row_ind, column_class@column_index, sep = "."))
         #!!!!!
-        PrintReport(missing_values, myfile_report, misprints_row_ind, column_class@column_index)
+        PrintReport(missing_values, myfile_report, misprints_row_ind, column_class@column_index,  colnames(myfile_in@table_in[column_class@column_index]))
         cat("Missing value coordinates are ", paste(i, column_class@column_index, sep = "."), "\n")
         next
       }
@@ -136,7 +136,7 @@ setMethod(f = "FindMisprints",
       {
         misprints_row_ind <- i + myfile_out@row_header + myfile_out@row_table_legend
         unsolved_misprints@indices <- append(unsolved_misprints@indices, values = paste(misprints_row_ind, column_class@column_index, sep = "."))
-        PrintReport(unsolved_misprints, myfile_report, misprints_row_ind, column_class@column_index)
+        PrintReport(unsolved_misprints, myfile_report, misprints_row_ind, column_class@column_index, colnames(myfile_in@table_in[column_class@column_index]))
         cat("Unsolved misprint coordinates are ", paste(i, column_class@column_index, sep = "."), "\n")
         unsolved_number <- unsolved_number + 1
         next
@@ -144,14 +144,14 @@ setMethod(f = "FindMisprints",
       {
           misprints_row_ind <- i + myfile_out@row_header + myfile_out@row_table_legend
           theObject@indices <- append(theObject@indices, values = paste(misprints_row_ind, column_class@column_index, sep = "."))
-          PrintReport(theObject, myfile_report, misprints_row_ind, column_class@column_index)
+          PrintReport(theObject, myfile_report, misprints_row_ind, column_class@column_index,  colnames(myfile_in@table_in[column_class@column_index]))
           cat("Misprints coordinates are ", paste(i, column_class@column_index, sep = "."), "\n")
           myfile_out@table_out[[column_class@column_index]][i] <- gsub("[[:space:]]", "", myfile_in@table_in[[column_class@column_index]][i])
       } else if (is.character(c[[i]]) && (grepl("[.]", c[[i]]) == TRUE))
       {
         misprints_row_ind <- i + myfile_out@row_header + myfile_out@row_table_legend
         theObject@indices <- append(theObject@indices, values = paste(misprints_row_ind, column_class@column_index, sep = "."))
-        PrintReport(theObject, myfile_report, misprints_row_ind, column_class@column_index)
+        PrintReport(theObject, myfile_report, misprints_row_ind, column_class@column_index,  colnames(myfile_in@table_in[column_class@column_index]))
         cat("Misprints coordinates are ", paste(i, column_class@column_index, sep = "."), "\n")
         myfile_out@table_out[[column_class@column_index]][i] <- gsub("[.]", ",", myfile_in@table_in[[column_class@column_index]][i])
       }
@@ -186,7 +186,7 @@ setMethod(f = "FindMisprints",
         #!!!!
         missing_values@indices <- append(missing_values@indices, values = paste(misprints_row_ind, column_class@column_index, sep = "."))
         #!!!!
-        PrintReport(missing_values, myfile_report, misprints_row_ind, column_class@column_index)
+        PrintReport(missing_values, myfile_report, misprints_row_ind, column_class@column_index, colnames(myfile_in@table_in[[column_class@column_index]]))
         cat("Missing value coordinates are ", paste(i, column_class@column_index, sep = "."), "\n")
         next
       }
@@ -197,7 +197,7 @@ setMethod(f = "FindMisprints",
         #!!!!!
         unsolved_misprints@indices <- append(unsolved_misprints@indices, values = paste(misprints_row_ind, column_class@column_index, sep = "."))
         #!!!!!
-        PrintReport(unsolved_misprints, myfile_report, misprints_row_ind, column_class@column_index)
+        PrintReport(unsolved_misprints, myfile_report, misprints_row_ind, column_class@column_index, colnames(myfile_in@table_in[[column_class@column_index]]))
         cat("Unsolved misprint coordinates are ", paste(i, column_class@column_index, sep = "."), "\n")
         next
       } else if (grepl("[,]|[-/]", c[[i]]) == TRUE)
@@ -206,7 +206,7 @@ setMethod(f = "FindMisprints",
         #!!!!!
         theObject@indices <- append(theObject@indices, values = paste(misprints_row_ind, column_class@column_index, sep = "."))
         #!!!!!
-        PrintReport(theObject, myfile_report, misprints_row_ind, column_class@column_index)
+        PrintReport(theObject, myfile_report, misprints_row_ind, column_class@column_index, colnames(myfile_in@table_in[[column_class@column_index]]))
         cat("Misprints coordinates are ", paste(i, column_class@column_index, sep = "."), "\n")
         #!!!!
         myfile_out@table_out[[column_class@column_index]][i] <- gsub("[,]|[-/]", ".", myfile_in@table_in[[column_class@column_index]][i])

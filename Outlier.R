@@ -60,7 +60,11 @@ setMethod(f = "FindOutliers",
         #outliers_row_ind <- which(c %in% outliers, arr.ind = T, useNames = F)
         outliers_row_ind <- outliers_row_ind + myfile_out@row_header + myfile_out@row_table_legend
         theObject@indices <- append(theObject@indices, values = outer(outliers_row_ind, column_class@column_index, paste, sep = "."))
-        lapply(outliers_row_ind, function(i) PrintReport(theObject, myfile_report, i, column_class@column_index))
+        for(i in 1:length(outliers_row_ind))
+        {
+          PrintReport(theObject, myfile_report, outliers_row_ind[i], column_class@column_index,  colnames(myfile_out@table_out[column_class@column_index]))
+        }
+        #lapply(outliers_row_ind, function(i) PrintReport(theObject, myfile_report, outliers_row_ind[i], column_class@column_index,  colnames(myfile_out@table_out[column_class@column_index])))
         cat("Outlier coordinates are ", paste(outliers_row_ind, column_class@column_index, sep = "."), "\n")
       }
     }
