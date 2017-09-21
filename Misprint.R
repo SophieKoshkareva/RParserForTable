@@ -209,8 +209,9 @@ setMethod(f = "FindMisprints",
         PrintReport(theObject, myfile_report, misprints_row_ind, column_class@column_index, colnames(myfile_in@table_in[[column_class@column_index]]))
         cat("Misprints coordinates are ", paste(i, column_class@column_index, sep = "."), "\n")
         #!!!!
-        myfile_out@table_out[[column_class@column_index]][i] <- gsub("[,]|[-/]", ".", myfile_in@table_in[[column_class@column_index]][i])
+        myfile_out@table_out[[column_class@column_index]][i] <- gsub("([,]|[-/])", ".", myfile_in@table_in[[column_class@column_index]][i])
       }
+         
     }
     output_list <- list("misprint" = theObject, "missingValues" = missing_values , "unsolvedMisprint" = unsolved_misprints, "file" = myfile_out)
     return(output_list)

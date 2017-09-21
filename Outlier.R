@@ -32,6 +32,7 @@ setMethod(f = "FindOutliers",
     if (unsolved_number != 0)
     {
       cat("It is impossible to determine outliers, there are  unsolved misprints in the column ", column_class@column_index, "\n")
+      PrintReport(theObject, myfile_report, row_index = NULL, column_class@column_index,  colnames(myfile_out@table_out[column_class@column_index]), not_outliers = T)
     } else
     {
       for (i in 1:length(c))

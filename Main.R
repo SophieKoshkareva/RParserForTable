@@ -325,7 +325,7 @@ result_list <- FindErrors(interventionDate, file_in, file_out, file_report, misp
 misprint <- result_list$misprint
 missingValue <- result_list$missingValues
 unsolvedMisprint <- result_list$unsolvedMisprint
-file <- result_list$file
+file_out <- result_list$file
 
 #25
 source("D:/Diploma/r_project/Discrete.R")
