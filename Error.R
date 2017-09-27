@@ -83,10 +83,10 @@ setMethod(f = "PrintReport",
   {
     if (not_outliers == TRUE)
     {
-      cat(c("It is impossible to determine outliers, there are  unsolved misprints in the column ", "column", col_name, paste0("(", col_index, ")"), "\n"), file = myfile_report@file, append = T)
+      cat(c("Невозможно определить выбросы, в столбце есть неисправленные опечатки ", "column", col_name, paste0("(", col_index, ")"), "\n"), file = myfile_report@file, append = T)
     } else
     {
-      cat(c(class(theObject)[1], "in", "row", row_index, "column", col_index, paste0("(", col_name, ")") , "value = ", value, "\n"), file = myfile_report@file, append = T)
+      cat(c(theObject@title, "в", "строке", row_index, "столбце", col_index, paste0("(", col_name, ")") , "значение ячейки = ", value, "\n"), file = myfile_report@file, append = T)
     }
   }
 )
