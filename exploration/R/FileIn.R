@@ -1,4 +1,4 @@
-#' Read raw table from .csv-file and create new object class FileIn.
+#' Read raw value from .csv-file and create new object class FileIn.
 #'
 #' @slot table_in a data.frame to loaded data.
 #' @return an object class FileIn \code{theObject}.

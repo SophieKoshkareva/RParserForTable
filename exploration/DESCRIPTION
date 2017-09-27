@@ -12,11 +12,11 @@ Depends: R (>= 3.3.3)
 License: What license is it under?
 Encoding: CP1251
 LazyData: true
-Imports: xlsx (>= 0.5.7),
-    plyr (>= 1.8.4),
-    methods (>= 3.3.3),
-    utils (>= 3.3.3),
-    grDevices (>= 3.3.3)
+Imports: xlsx,
+    plyr,
+    methods,
+    utils,
+    grDevices
 RoxygenNote: 6.0.1
 Collate: 
     'Column.R'
@@ -30,6 +30,7 @@ Collate:
     'FileIn.R'
     'FileOut.R'
     'FileReport.R'
+    'FullNormality.R'
     'UnsolvedMisprint.R'
     'MissingValue.R'
     'Misprint.R'

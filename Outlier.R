@@ -25,6 +25,7 @@ setMethod(f = "FindOutliers",
   definition = function(theObject, myfile_out, myfile_report, column_class, unsolved_number)
   { 
     outliers_row_ind <- c()
+    outliers_new_row_ind <- c()
     only_digits <- c()
     outliers <- c()
     c <- myfile_out@table_out[[column_class@column_index]]
@@ -32,17 +33,13 @@ setMethod(f = "FindOutliers",
     if (unsolved_number != 0)
     {
       cat("It is impossible to determine outliers, there are  unsolved misprints in the column ", column_class@column_index, "\n")
-      PrintReport(theObject, myfile_report, row_index = NULL, column_class@column_index,  colnames(myfile_out@table_out[column_class@column_index]), not_outliers = T)
+      PrintReport(theObject, myfile_report, row_index = NULL, column_class@column_index,  colnames(myfile_out@table_out[column_class@column_index]), value = NULL, not_outliers = T)
     } else
     {
       for (i in 1:length(c))
       { 
         if (is.na(c[i]) == TRUE)
         {
-          # outliers_row_ind <- i + row_header + row_table_legend
-          # missingValue@indices <<- append(missingValue@indices, values = paste(outliers_row_ind, column_index, sep = "."))
-          # PrintReport(missingValue, file@path_report, outliers_row_ind, column_index)
-          # cat("Missing value coordinates are ", paste(i, column_index, sep = "."), "\n")
           next
         }
         
@@ -58,15 +55,15 @@ setMethod(f = "FindOutliers",
       if (!is.null(outliers))
       {
         outliers_row_ind <- which(gsub("[,]", ".", c) %in% outliers, arr.ind = T, useNames = F)
-        #outliers_row_ind <- which(c %in% outliers, arr.ind = T, useNames = F)
-        outliers_row_ind <- outliers_row_ind + myfile_out@row_header + myfile_out@row_table_legend
-        theObject@indices <- append(theObject@indices, values = outer(outliers_row_ind, column_class@column_index, paste, sep = "."))
-        for(i in 1:length(outliers_row_ind))
+        
+        outliers_new_row_ind <- outliers_row_ind + myfile_out@row_header + myfile_out@row_table_legend
+        theObject@indices <- append(theObject@indices, values = outer(outliers_new_row_ind, column_class@column_index, paste, sep = "."))
+        for(i in 1:length(outliers_new_row_ind))
         {
-          PrintReport(theObject, myfile_report, outliers_row_ind[i], column_class@column_index,  colnames(myfile_out@table_out[column_class@column_index]))
+          PrintReport(theObject, myfile_report, outliers_new_row_ind[i], column_class@column_index,  colnames(myfile_out@table_out[column_class@column_index]), c[outliers_row_ind[i]])
         }
-        #lapply(outliers_row_ind, function(i) PrintReport(theObject, myfile_report, outliers_row_ind[i], column_class@column_index,  colnames(myfile_out@table_out[column_class@column_index])))
-        cat("Outlier coordinates are ", paste(outliers_row_ind, column_class@column_index, sep = "."), "\n")
+        cat("Outlier coordinates are ", paste(outliers_new_row_ind, column_class@column_index, sep = "."), "\n")
+        print(c[outliers_row_ind])
       }
     }
     return(theObject)

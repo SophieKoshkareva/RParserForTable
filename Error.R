@@ -15,7 +15,6 @@ setMethod(f = "SetColor",
   signature = "Error",
   definition = function(theObject, myfile_out)
   { 
-    #!!!!!!!!!!!!!!
     cat(sprintf("Attention! The painting of the %s is in progress, please wait.", tolower(class(theObject)[1])))
     
     MISSING_VALUE_STYLE <- CellStyle(myfile_out@wb) +
@@ -73,17 +72,22 @@ setMethod(f = "AddTableLegend",
 )
 
 setGeneric(name = "PrintReport",
-  def = function(theObject, myfile_report, row_index, col_index=NULL, col_name, not_outliers = FALSE)
+  def = function(theObject, myfile_report, row_index, col_index=NULL, col_name, value, not_outliers = FALSE)
   {
     standardGeneric("PrintReport")
   }
 )
 setMethod(f = "PrintReport",
   signature = "Error",
-  definition = function(theObject, myfile_report, row_index=NULL, col_index, col_name, not_outliers = FALSE)
+  definition = function(theObject, myfile_report, row_index=NULL, col_index, col_name, value, not_outliers = FALSE)
   {
-    cat(c(class(theObject)[1], "in", "row", row_index, "column", col_name, paste0("(", col_index, ")") , "\n"), file = myfile_report@file, append = T)
-    if (not_outliers == TRUE) cat(c("It is impossible to determine outliers, there are  unsolved misprints in the column ", "column", col_name, paste0("(", col_index, ")"), "\n"), file = myfile_report@file, append = T)
+    if (not_outliers == TRUE)
+    {
+      cat(c("It is impossible to determine outliers, there are  unsolved misprints in the column ", "column", col_name, paste0("(", col_index, ")"), "\n"), file = myfile_report@file, append = T)
+    } else
+    {
+      cat(c(class(theObject)[1], "in", "row", row_index, "column", col_index, paste0("(", col_name, ")") , "value = ", value, "\n"), file = myfile_report@file, append = T)
+    }
   }
 )
 
